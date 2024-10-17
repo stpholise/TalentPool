@@ -1,58 +1,47 @@
 import { useState } from 'react'
+import Header from './Components/Header'
+import Navigation from './Components/Navigation'
+import Dashboard from './Components/Dashboard'
+import Profile from './Components/Profile'
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
 import './App.css'
 
 function App() {
+ 
 
-  const [checked, setChecked] = useState({})
+  const [hireAvailability, setHireAvailability] = useState(false)
+  
+  const user = {
+    name: 'Genesis Anosike',
+    occupation: 'UI/UX Designer',
+    email: 'anosikegenesis@gmail.com',
+    phone: '0801 - 234 - 5678',
+    location: 'Lagos, Nigeria',
+    twitter: '@Anosike_UI',
+    dribble: 'https://dribbble.com',
+    behance: 'https://www.behance.net'
 
-  const handleChecked  =(e) => {
-
-    setChecked({
-      ...checked,
-      [e.target.value]: e.target.checked}
-    )
-    
   }
   
-  const checkedItems = [
-    {id:1, value:'apple'},
-    {id:2, value:'bar'},
-    {id:3, value:'car'},
-    {id:4, value:'plane'},
-    {id:5, value:'house'}
-  ]
 
-  const products = {
-    apple: 0,
-    car: 0,
-    house:1
-  }
-
-  const {apple, house} = products
 
   return (
     <>
-      
+    <Router>
+      <Header />
+      <Navigation setHireAvailability={setHireAvailability} hireAvailability={hireAvailability} />
+     
+     
+        <Routes>
+          <Route exact path='/' element={<Dashboard  user={user}/>} />  
+          <Route exact path='/profile' element={<Profile user={user} />} />
+        </Routes>
+     </Router>
+    
+      {/* <Dashboard />         */}
 
-      <form action="">
-        {checkedItems.map((item)=>(
-          <div key={item.id} className="checkBox">
-            <input  
-              type="checkbox"
-              onChange={handleChecked}
-              checked = {checked[item.name]}
-              value={item.value}
-              id={item.id}
-            
-            />
-            <label htmlFor={item.id}>{item.value}</label>
-          </div>
-        ))}
-      </form>
 
-        <p>{apple} </p>
-        <p>{house} </p>
     </>
   )
 }
