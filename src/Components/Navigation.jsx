@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
 import Logo from '../assets/logo.svg'
+import { PropTypes } from 'prop-types'
 
-const Nav = () => {
+
+const Nav = ({state}) => {
 
   const navLinks = [
     { name: 'Dashboard ', path: '/' },
@@ -10,9 +12,21 @@ const Nav = () => {
     { name: 'Support ', path: '/'},
     { name: 'Settings ', path: '/'}
   ]
+  
+
+
+
+  
+
+  
+
+
 
   return (
-    <nav className="pageNavigation">
+    <>
+
+      
+    <nav className={`pageNavigation ${state && 'show'}`}>
       <header className="navHeader">
         <div className="logo">
           <img src={Logo} alt="logo" />
@@ -29,7 +43,14 @@ const Nav = () => {
         </div>
   
     </nav>
+    </>
   )
 }
+
+
+Nav.propTypes = {
+  state: PropTypes.bool
+}
+
 
 export default Nav
