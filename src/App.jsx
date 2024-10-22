@@ -5,12 +5,12 @@ import Dashboard from './Components/Dashboard'
 import Profile from './Components/Profile'
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
+
 import './App.css'
 
 function App() {
  
 
-  const [hireAvailability, setHireAvailability] = useState(false)
   
   const user = {
     name: 'Genesis Anosike',
@@ -21,17 +21,24 @@ function App() {
     twitter: '@Anosike_UI',
     dribble: 'https://dribbble.com',
     behance: 'https://www.behance.net'
-
   }
+
+  const [menuToggle, setMenuToggle] = useState(false)
   
 
 
   return (
     <>
     <Router>
-      <Header />
-      <Navigation setHireAvailability={setHireAvailability} hireAvailability={hireAvailability} />
-     
+      <Header  state={menuToggle} setState={setMenuToggle}
+        />
+      <Navigation />
+      <>
+      {/* SMALL SCREEN NAVIGATION */}
+      
+        {menuToggle && <div className="menuOverlay" onClick={() => {setMenuToggle(false)}}></div>}
+        <Navigation  state={menuToggle}/>
+      </>
      
         <Routes>
           <Route exact path='/' element={<Dashboard  user={user}/>} />  

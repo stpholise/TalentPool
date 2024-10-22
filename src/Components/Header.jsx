@@ -1,12 +1,14 @@
 import Vector from '../assets/Vector.svg'
 import ExpandMore from '../assets/Expand_more.svg'
 import RectangleImg from '../assets/Rectangle 85.png'
-
+import Hamboger from '../assets/Group 50.svg'
 import { Link } from 'react-router-dom'
 import { useState} from 'react'
 
+import { PropTypes } from 'prop-types'
 
-const Header = () => {
+
+const Header = ({state , setState}) => {
 
     const [menuToggle, setMenuToggle] = useState(false)
 
@@ -16,9 +18,33 @@ const Header = () => {
     { name: 'Sign out ', path: '/signout'}
     ]
 
+    const closeToggle = () => {
+        setMenuToggle(false)
+    }
+    const handleToggle = () => {
+        setMenuToggle(!menuToggle)
+    }
+
+    const handlemenuToggle = () => {
+        setState(!state)
+    }
+
+    const [show, setShow] = useState(false)
+
+    const handleShow = () => {
+        setShow(!show)
+    }
+
   return (
     <header className="pageHeader">
-        <div className="headerContent">
+        <div className="smallScreenMenu menuBtn">
+            <button className=" transBtn" onClick={handlemenuToggle}> <img src={Hamboger} alt="" style={{width:'35px', height:'35px'}}/></button>
+            <button className='profDis ballCont' onClick={handleShow}>
+                 <span className={`ball ${show ? 'active' : ''} `}></span>
+            </button>
+        </div>
+        { show && <div className="profileOverlay" onClick={() => {setShow(false)}}></div>}
+        <div className={`headerContent ${show ? 'show' : ''}`}>
             <div className="availabilityCont">
                 <button className="availability transBtn">
                     <span className="dotCont"><span className='dot active'></span></span>
@@ -31,7 +57,7 @@ const Header = () => {
                 </button>
             </div>
             <div className="profile">
-                <button className="profileBtn transBtn" onClick={() => {setMenuToggle(!menuToggle)}}> 
+                <button className="profileBtn transBtn" onClick={handleToggle}> 
                     <div className="profileLft">
                     <img src={RectangleImg} alt="profile image" />
                     <div className="profileDetail">
@@ -40,7 +66,9 @@ const Header = () => {
                     </div>
                     {
 
-                   menuToggle &&
+                   menuToggle &&(
+                    <>
+                    <div className="overlay headOver" onClick={closeToggle}> </div>
                     <div className="toggleMenu">
                         
                             {
@@ -50,6 +78,8 @@ const Header = () => {
                             }
                        
                     </div>
+                   
+                    </>)
                      }
                     </div>
                     <img src={ExpandMore} alt="icon" />
@@ -59,6 +89,11 @@ const Header = () => {
 
     </header>
   )
+}
+
+Header.propTypes = {
+    state: PropTypes.bool.isRequired,
+    setState: PropTypes.func.isRequired
 }
 
 export default Header
