@@ -98,7 +98,7 @@ button{
   align-items:center;
   gap:1rem;
 }
-.availability .dotCont, .ballCont{
+.availability .dotCont, .ballCont {
   display:flex;
   border:1px solid #084482;
   background:#084482;
@@ -106,6 +106,8 @@ button{
   width:52px;
   border-radius:1rem;
 }
+
+
 
 .availability .dotCont .dot, .ballCont .ball{
   background:#fff;
@@ -116,8 +118,9 @@ button{
 }
 
 
+
 .availability .dotCont .dot.active{
-  transform:translateX(24px);
+  transform:translateX(20px);
 }
 
 .headerContent .profileBtn{
@@ -573,6 +576,24 @@ li{
 }
 
 
+.availability .dotCont {
+  display:flex;
+  border:1px solid #084482;
+  background:#084482;
+  height:20px;
+  width:40px;
+  border-radius:1rem;
+  align-items:center;
+}
+
+.availability .dotCont .dot {
+  background: #fff;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  margin: 0.1rem;
+}
+
 /* PAGE NAVIGATION */
 /* ============= */
 /* ============= */
@@ -667,16 +688,39 @@ li{
 @media(max-width: 760px ) {
 
   .ballCont{
+    background:#E7EAEC;
     display:flex;
-    align-items:center;
+    align-items:center;  
+    justify-content: space-evenly;
+    border:1px soliid #E7EAEC;
+    
+  }
+  .notificationIcon{
+    width:50%;
+  }
+  .pimage{
+    width:40px;
+  }
+  .notification{
+
+    width:100%;
+    display:flex;
+    justify-content:flex-start;
+  }
+ 
+  .toggleMenu{
+    bottom:-300%;
+  }
+
+  .ballCont .ball, .ballCont .expan{   
+    display:inline-block;
    
   }
-  .ballCont .ball{   
-    display:inline-block;
-    transform:translateX(-40%)
-  }
    .ball.active{
-    transform:translateX(50%);
+    transform:translateX(80%); 
+  }
+.expan.active{
+    transform:translateX(-250%); 
   }
 
   p, h5{
@@ -684,38 +728,33 @@ li{
   }
 
 .headerContent{
-  transform:translateX(150%);
-  transition:transform 0.3s ease-in-out;
-  position:fixed;
-  display:flex;
-  position:fixed;
-  top:5rem;
-  right:0;
-  background:rgb(0, 174, 255);
-  color:#fff;
-  height:calc(100vh - 5rem);
+ 
+  display:none;
   flex-direction:column;
+  position:fixed;
+  top:4rem;
+  right:1rem;
+  background:#ffffff;
+  height:auto;
   justify-content: start;
-  gap:3rem;
-  padding:3rem ;
+  gap:1rem;
+  padding:2rem ;
   align-items: center;
-  width:50%;
+  width:40%;
   min-width: 200px;
   margin-right:0;
   z-index: 140;
+  border-radius:10px;
 }
 
   .headerContent.show{
-       transform:translateX(0);
+       display:flex
   }
 
   .smallScreenMenu{
     display:flex;
     justify-content:space-between;
     width:100%;
-  }
-  .profDis{
-    display:block;
   }
 
   .profileOverlay{
