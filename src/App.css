@@ -491,7 +491,7 @@ li{
   left:0;
   right:0;
   bottom:0;
-  background:rgba(0,0,0,0.01);
+  background:rgba(0, 0, 0, 0.4);
   height:100vh;
   width:100%;
 }
@@ -778,7 +778,7 @@ li{
     left:0;
     bottom:0;
     z-index:90;
-    background: rgba(0,0,0,0.01)
+ 
   }
 
   /* DASHBOARD */
@@ -976,5 +976,9 @@ li{
 .modal {
   width: 100%;
 }
+
+
+
+
 
 }

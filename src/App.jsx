@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Header from './Components/Header'
 import Navigation from './Components/Navigation'
 import Dashboard from './Components/Dashboard'
 import Profile from './Components/Profile'
 import Signup from './Components/Signup'
 import Signin from './Components/Signin'
+import { useSelector, useDispatch }  from 'react-redux'
+import { closeAll } from './Components/store'
 
 import { Route, Routes, useLocation} from 'react-router-dom'
 
@@ -15,6 +17,7 @@ import './App.css'
 function App() {
  
 
+  const dispatch = useDispatch()
   
   const user = {
     name: 'Genesis Anosike',
@@ -27,7 +30,7 @@ function App() {
     behance: 'https://www.behance.net'
   }
 
-  const [menuToggle, setMenuToggle] = useState(false)
+  const menuToggle  = useSelector((state) => state.count.genMenu)
   
 //Determine the current path
    // Use useLocation to get the current path
@@ -41,21 +44,24 @@ function App() {
     }, [location]);
     };
  
+   
   return (
     <>
-    
+   
+
+
       {/* Conditionally render Header and Navigation component */}
       {(path !== '/signup' && path !== '/signin')&& (
         <>
-      <Header  state={menuToggle} setState={setMenuToggle} />
+      <Header  />
       <Navigation />
       </>
        )}
       <>
       {/* SMALL SCREEN NAVIGATION */}
       
-        {menuToggle && <div className="menuOverlay" onClick={() => {setMenuToggle(false)}}></div>}
-       {(path !== '/signup' && path !== '/signin') && <Navigation  state={menuToggle}/> }
+        {menuToggle && <div className="menuOverlay" onClick={() => dispatch(closeAll())}></div>}
+       {(path !== '/signup' && path !== '/signin') && <Navigation /> }
       </>
      
         <Routes>
@@ -65,7 +71,7 @@ function App() {
           <Route exact path='/signin' element={<Signin scrollToTop={useScrollToTop} />} />
         </Routes>
      
-    
+  
       {/* <Dashboard />         */}
 
 

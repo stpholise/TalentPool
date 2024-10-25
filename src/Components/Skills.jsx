@@ -1,10 +1,16 @@
 import {useState } from 'react'
 import Add from '../assets/carbon_add.svg'
 import Trash from '../assets/carbon_trash-can.svg'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleSkillModal,  closeSkillModal } from './store'
 
 
 
 const Skills = () => {
+
+    const dispatch = useDispatch()
+
+    const skillModal = useSelector((state) => state.count.skillModal)
     const [skills, setSkills] = useState([
         {skillTitle: 'UI/UX Design', skillProficiency: '90%', skillChecked: true},
         {skillTitle: 'JavaScript', skillProficiency: '80%', skillChecked: false},
@@ -12,14 +18,12 @@ const Skills = () => {
         {skillTitle: 'CSS 3', skillProficiency: '80%', skillChecked: true},
         {skillTitle: 'Bootstrap', skillProficiency: '70%', skillChecked: false},
     ])
-    const [skillModal, setSkillModal] = useState(false);
+   
+
     
     const [newSkill, setNewSkill] = useState({ skillTitle: '', skillProficiency: '', skillChecked: false });
 
-    const handleSkillModal = () => {
-        setSkillModal(!skillModal);
-        console.log(skillModal)
-    }
+  
 
     const handleInputChange = (e) => {
         const {name , value} = e.target;
@@ -34,7 +38,7 @@ const Skills = () => {
         if (newSkill.skillTitle && newSkill.skillProficiency) {
             setSkills([...skills, newSkill]);
             setNewSkill({ skillTitle: '', skillProficiency: '', skillChecked: false });
-            setSkillModal(false);
+          
         }
     }
     
@@ -42,9 +46,7 @@ const Skills = () => {
         const updatedSkills = skills.filter((_, i) => i !== index);
         setSkills(updatedSkills);
     }
-    const closeAll = () => {
-        setSkillModal(false);
-    }
+  
 
     
    
@@ -52,7 +54,7 @@ const Skills = () => {
     <div className='radius5px padd1 bgF mb1'>
         <div className="topFles spaceBet ">
             <h4 className='subHead'>Skillsets</h4>
-            <button className="skillModalBtn btn" onClick={handleSkillModal}><img src={Add} alt="" /></button>
+            <button className="skillModalBtn btn" onClick={() => dispatch(toggleSkillModal())}><img src={Add} alt="" /></button>
 
         </div>
         <ul className="skills">
@@ -73,7 +75,7 @@ const Skills = () => {
 
         {skillModal && (
             <>
-            <div className="overlay" onClick={closeAll}>  </div>
+            <div className="overlay" onClick={() => dispatch(closeSkillModal())}>  </div>
             <div className='skillModal modal bgF radius5px padd1 lightShad'>
                 
                 <form onSubmit={handleForm}>
