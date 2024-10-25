@@ -45,7 +45,7 @@ function App() {
     <>
     
       {/* Conditionally render Header and Navigation component */}
-      {(path !== '/signup' )|| ( path !== 'signin') && (
+      {(path !== '/signup' && path !== '/signin')&& (
         <>
       <Header  state={menuToggle} setState={setMenuToggle} />
       <Navigation />
@@ -55,7 +55,7 @@ function App() {
       {/* SMALL SCREEN NAVIGATION */}
       
         {menuToggle && <div className="menuOverlay" onClick={() => {setMenuToggle(false)}}></div>}
-       {(path !== '/signup' )|| ( path !== 'signin') && <Navigation  state={menuToggle}/> }
+       {(path !== '/signup' && path !== '/signin') && <Navigation  state={menuToggle}/> }
       </>
      
         <Routes>
