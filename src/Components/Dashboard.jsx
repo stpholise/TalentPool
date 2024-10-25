@@ -1,4 +1,5 @@
 import ProgressBar from './ProgressBar'
+import { PropTypes } from 'prop-types'
 
 import DisplayPhoto from '../assets/OhKElOkQ3RE.png'
 import EmailIcon from '../assets/carbon_email.svg'
@@ -9,7 +10,7 @@ import Behance from '../assets/jam_behance-square.svg'
 import Dribble from '../assets/topcoat_dribble.svg'
 
 
-const Dashboard = () => {
+const Dashboard = ({scrollToTop}) => {
 
     const cards = [
         { title: 'JOBS', count: 3052, status:'AVAILABLE' },
@@ -17,6 +18,7 @@ const Dashboard = () => {
         { title: 'PENDING', count: 16, status:'APPLICATIONS'}
     ]
 
+    scrollToTop()
    
 
   return (
@@ -61,29 +63,33 @@ const Dashboard = () => {
             <div className="softwareAssessmentContainer">
                 <div className="assessment">
                     <h5 className="assessmentTitle">figma</h5>
-                    <ProgressBar completed={80}/>
+                    <ProgressBar />
                 </div>
                 <div className="assessment">
                     <h5 className="assessmentTitle">Adobe XD</h5>
-                    <ProgressBar completed={80}/>
+                    <ProgressBar />
                 </div>
                 <div className="assessment">
                     <h5 className="assessmentTitle">Photoshop </h5>
-                    <ProgressBar completed={80}/>
+                    <ProgressBar />
                 </div>
                 <div className="assessment">
                     <h5 className="assessmentTitle">UX Research</h5>
-                    <ProgressBar  completed={80}/>
+                    <ProgressBar  />
                 </div>
                 <div className="assessment">
                     <h5 className="assessmentTitle">Mockflow</h5>
-                    <ProgressBar completed={80}/>
+                    <ProgressBar />
                 </div>
             </div>
         </section>
         </div>
     </main>
   )
+}
+
+Dashboard.propTypes = {
+    scrollToTop: PropTypes.func.isRequired
 }
 
 export default Dashboard

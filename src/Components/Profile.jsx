@@ -11,7 +11,7 @@ import PhoneIcon from '../assets/bx_bx-phone.svg'
 import Minus from '../assets/Minus.svg'
 
 
-const Profile = ({user}) => {
+const Profile = ({user, scrollToTop}) => {
 const {name } = user
 // const skillsets = [
 //     { skill: 'UI/UX Design', level: 'Expert' },
@@ -49,6 +49,8 @@ const {name } = user
 //     { skill: 'Backend Development', level: 'Intermediate' },
 //     { skill: 'Database Management', level: 'Expert' }
 // ]
+
+scrollToTop()
 
 
   return (
@@ -114,7 +116,8 @@ const {name } = user
 
 
 Profile.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  scrollToTop: PropTypes.func.isRequired
 }
 
 

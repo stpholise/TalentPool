@@ -1,57 +1,48 @@
-import {PropTypes} from 'prop-types'
+// import {PropTypes} from 'prop-types'
+import Slider from 'rc-slider'
+import {useState } from 'react'
+import 'rc-slider/assets/index.css';
 
-const ProgressBar = ({ completed }) => {
+const ProgressBar = () => {
+  const [sliderValue, setSliderValue ] = useState(80)
+  const handleSliderChange = (value)  => {
+    setSliderValue(value);
+  }
   const containerStyles = {
-    height: 5,
     width: '100%',
-    backgroundColor: "#e0e0de",
-    borderRadius: 50,
-    margin: 'auto'
   };
 
-  const fillerStyles = {
-    height: '100%',
-    width: `${completed}%`,
-    backgroundColor:  '#084482',
-    borderRadius: 'inherit',
-    textAlign: 'right',
-    position: 'relative',
-  };
-
- 
-
-  const progressBall ={
-    width:10,
-    height:10,
-    borderRadius:'50%',
-    backgroundColor: '#084482',
-    position: 'absolute',
-    right: 0,
-    top: -2,
-  
-  }
-
-  const handleScroll = () => {
-    console.log('scrolling')
-  }
 
   return (
-    <div style={containerStyles} onScroll={() => {handleScroll()}}>
-      <div style={fillerStyles}>
-        <span style={progressBall}></span>
-      </div>
+    <div style={containerStyles} >
+      <Slider 
+        min={0}
+        max={100}
+        value={sliderValue} // Controlled value
+        onChange={handleSliderChange}
+        styles={{
+          rail: {height: '5px', backgroundColor: '#C4C4C4'},
+          track: {height: '5px', backgroundColor: '#084482'},
+          handle: {
+            borderColor: '#084482',
+            backgroundColor: '#084482',
+            width:'12px',
+            height:'12px',
+            marginTop: '-4px'
+          }
+          
+        }}
+
+      />
+      
     </div>
   );
 };
 
-ProgressBar.defaultProps = {
-    completed: 10        // Default completion percentage
-  };
-  
 
-  ProgressBar.propTypes = {
-    completed: PropTypes.number.isRequired,
-  };
+  // ProgressBar.propTypes = {
+  //   completed: PropTypes.number.isRequired,
+  // };
   
 
 

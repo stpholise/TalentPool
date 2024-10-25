@@ -9,8 +9,8 @@ const Nav = ({state}) => {
     { name: 'Dashboard ', path: '/' },
     { name: 'Messages ', path: '/profile'},
     { name: 'Employers ', path: '/profile'},
-    { name: 'Support ', path: '/'},
-    { name: 'Settings ', path: '/'}
+    { name: 'Support ', path: '/signup'},
+    { name: 'Settings ', path: '/signin'}
   ]
   
 
