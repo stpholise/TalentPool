@@ -59,7 +59,7 @@ const Skills = () => {
             {skills.map((skill, index) => (
                 <li key={index} className='skillBox spaceBet'>
                     <div className="skillTitle">
-                        {skill.skillChecked ? <input type="checkbox" checked /> : <input type="checkbox" />}
+                        {skill.skillChecked ? <input type="checkbox"  checked /> : <input type="checkbox" />}
                         <p>{skill.skillTitle}</p>
                         
                     </div>

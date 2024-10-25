@@ -37,7 +37,7 @@ h2{
   font-size:32px;
   font-weight:600;
 }
-h3{
+h3, .signHeading{
   color: #084482;
 
 }
@@ -121,7 +121,7 @@ button{
 
 
 .availability .dotCont .dot.active{
-  transform:translateX(20%);
+  transform:translateX(120%);
 }
 
 .headerContent .profileBtn{

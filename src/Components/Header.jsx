@@ -35,6 +35,11 @@ const Header = ({state , setState}) => {
         setShow(!show)
     }
 
+    const [ available, setAvailable] = useState(false)
+    const handleAvailability = () => {
+        setAvailable(!available)
+    }
+
   return (
     <header className="pageHeader">
         <div className="smallScreenMenu menuBtn">
@@ -47,8 +52,8 @@ const Header = ({state , setState}) => {
         { show && <div className="profileOverlay" onClick={() => {setShow(false)}}></div>}
         <div className={`headerContent ${show ? 'show' : ''}`}>
             <div className="availabilityCont">
-                <button className="availability transBtn">
-                    <span className="dotCont"><span className='dot active'></span></span>
+                <button onClick={handleAvailability} className="availability transBtn">
+                    <span className="dotCont"><span className={`dot  ${available ? 'active': ''} `}></span></span>
                     <p className="availabilityText">Available for hire</p>
                 </button>
             </div>
