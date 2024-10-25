@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
 import Logo from '../assets/logo.svg'
 import { PropTypes } from 'prop-types'
+import {  useSelector } from 'react-redux'
 
 
-const Nav = ({state}) => {
+const Nav = () => {
+
+  // Dispatch the action
+  const  state = useSelector((state) => state.count.genMenu) // Get the state from the store
 
   const navLinks = [
     { name: 'Dashboard ', path: '/' },
@@ -13,15 +17,6 @@ const Nav = ({state}) => {
     { name: 'Settings ', path: '/signin'}
   ]
   
-
-
-
-  
-
-  
-
-
-
   return (
     <>
 

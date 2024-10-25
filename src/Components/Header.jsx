@@ -4,13 +4,28 @@ import RectangleImg from '../assets/Rectangle 85.png'
 import Hamboger from '../assets/Group 50.svg'
 import UserCircle from '../assets/User_cicrle_duotone.svg'
 import { Link } from 'react-router-dom'
-import { useState} from 'react'
-import { PropTypes } from 'prop-types'
+
+import {toggleGenMenu,toggleProfileMenu, handleShow, handleAvailability, closeAll } from './store'
+import { useDispatch, useSelector } from 'react-redux'
 
 
-const Header = ({state , setState}) => {
+const Header = () => {
+    
 
-    const [menuToggle, setMenuToggle] = useState(false)
+
+    const handleProfileShow = () => {
+        console.log('handleProfileShow')
+        dispatch(handleShow())
+    }
+
+   
+    const dispatch = useDispatch() 
+   
+    const show = useSelector((state) => state.count.show)
+    const available = useSelector((state) => state.count.available)
+    const profileMenu = useSelector((state) => state.count.profileMenu)
+
+  
 
     const profileLinks = [
     { name: 'Profile ', path: '/profile' },
@@ -18,43 +33,24 @@ const Header = ({state , setState}) => {
     { name: 'Sign out ', path: '/signout'}
     ]
 
-    const closeToggle = () => {
-        setMenuToggle(false)
-    }
-    const handleToggle = () => {
-        setMenuToggle(!menuToggle)
-    }
 
-    const handlemenuToggle = () => {
-        setState(!state)
-    }
-
-    const [show, setShow] = useState(false)
-
-    const handleShow = () => {
-        setShow(!show)
-    }
-
-    const [ available, setAvailable] = useState(false)
-    const handleAvailability = () => {
-        setAvailable(!available)
-    }
+  
 
   return (
     <header className="pageHeader">
         <div className="smallScreenMenu menuBtn">
-            <button className=" transBtn" onClick={handlemenuToggle}> <img src={Hamboger} alt="" style={{width:'24px', height:'24px'}}/></button>
-            <button className='profDis ballCont' onClick={handleShow}>
-                 <img src={UserCircle} className={`ball ${show ? 'active' : ''} `} />
-                 <img src={ExpandMore} className={`expan ${show ? 'active' : ''} `} />
+            <button className=" transBtn" onClick={() => dispatch(toggleGenMenu())}> <img src={Hamboger} alt="" style={{width:'24px', height:'24px'}}/></button>
+            <button className='profDis ballCont' onClick={() => dispatch(toggleProfileMenu())}>
+                 <img src={UserCircle} className={`ball ${profileMenu ? 'active' : ''} `} />
+                 <img src={ExpandMore} className={`expan ${profileMenu ? 'active' : ''} `} />
             </button>
         </div>
-        { show && <div className="profileOverlay" onClick={() => {setShow(false)}}></div>}
-        <div className={`headerContent ${show ? 'show' : ''}`}>
+        { profileMenu && <div className="profileOverlay" onClick={() => dispatch(closeAll())}></div>}
+        <div className={`headerContent ${profileMenu ? 'show' : ''}`}>
             <div className="availabilityCont">
-                <button onClick={handleAvailability} className="availability transBtn">
+                <button onClick={() => dispatch(handleAvailability())} className="availability transBtn">
                     <span className="dotCont"><span className={`dot  ${available ? 'active': ''} `}></span></span>
-                    <p className="availabilityText">Available for hire</p>
+                    <p className="availabilityText">available for hire</p>
                 </button>
             </div>
             <div className="notificationIcon">
@@ -63,7 +59,7 @@ const Header = ({state , setState}) => {
                 </button>
             </div>
             <div className="profile">
-                <button className="profileBtn transBtn" onClick={handleToggle}> 
+                <button className="profileBtn transBtn" onClick={handleProfileShow}> 
                     <div className="profileLft">
                     <img src={RectangleImg} alt="profile image" className='pimage' />
                     <div className="profileDetail">
@@ -72,9 +68,9 @@ const Header = ({state , setState}) => {
                     </div>
                     {
 
-                   menuToggle &&(
+                   show &&(
                     <>
-                    <div className="overlay headOver" onClick={closeToggle}> </div>
+                    <div className="overlay headOver" > </div> 
                     <div className="toggleMenu">
                         
                             {
@@ -97,9 +93,5 @@ const Header = ({state , setState}) => {
   )
 }
 
-Header.propTypes = {
-    state: PropTypes.bool.isRequired,
-    setState: PropTypes.func.isRequired
-}
 
 export default Header

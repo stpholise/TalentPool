@@ -2,8 +2,13 @@ import { useState } from 'react'
 import Add from '../assets/carbon_add.svg'
 // import Trash from '../assets/carbon_trash-can.svg'
 import Edit from '../assets/bytesize_edit.svg'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleSocialModal, closeSocialModal } from './store'
 
 const Social = () => {
+
+    const dispatch = useDispatch(); 
+    const  socialModal  = useSelector((state) => state.count.socialModal)
 
     const [ social, setSocial] = useState([
         { socialLink: 'https://www.facebook.com', socialTitle: 'Facebook' },
@@ -15,7 +20,7 @@ const Social = () => {
     ])
 
     const [ newSocial, setNewSocial ] = useState({ socialLink: '', socialTitle: ''})
-    const [ socialModal, setSocialModal ] = useState(false)
+    
     const [ editIndex, setEditIndex] = useState(null)
 
     const handleInputChange = (e) => {
@@ -42,13 +47,13 @@ const Social = () => {
 
 
         setNewSocial({ socialLink: '', socialTitle: ''})
-        setSocialModal(false);
+        dispatch(closeSocialModal())
         
     } 
 
     const handleSocialModal = () => {
         
-        setSocialModal(!socialModal);
+      dispatch(toggleSocialModal())
     }
 
     // const socialRemove = (index) => {
@@ -58,13 +63,14 @@ const Social = () => {
 
     const closeAll = () => {
         setNewSocial({ socialLink: '', socialTitle: ''})
-        setSocialModal(false);
+        dispatch(closeSocialModal())
     }
 
     const editSocial = (index) => {
         setNewSocial(social[index]);
         setEditIndex(index);
-        setSocialModal(true);
+        dispatch(toggleSocialModal())
+
     }
 
     

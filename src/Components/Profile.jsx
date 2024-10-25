@@ -63,11 +63,12 @@ scrollToTop()
             <h3>{name}</h3>
             <p>{user.occupation}</p>
             <div className="stars">
-              <img src={Star} alt="" />
-              <img src={Star} alt="" />
-              <img src={Star} alt="" />
-              <img src={Star} alt="" />
-              <img src={Star} alt="" />
+              <img src={Star} alt="star" />
+              <img src={Star} alt="star" />
+              <img src={Star} alt="star" />
+              <img src={Star} alt="star" />
+              <img src={Star} alt="star" />
+             
             </div>
           </div>
         <div className="addressSec padd1 ">
