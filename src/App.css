@@ -17,6 +17,9 @@ body{
   font-size:16px;
 
 }
+button:hover{
+  cursor: pointer;
+}
 
 li{
   list-style:none;
@@ -132,6 +135,7 @@ button{
   padding:0 1rem;
   border-radius:1rem;
   position:relative;
+  z-index:900;
 }
 
 .profileLft{
@@ -153,7 +157,7 @@ button{
   gap:1rem;
   box-shadow: 2px 8px 20px 0px #B5B5B566;
   width:100%;
-  z-index:150;
+  z-index:999;
 }
 
 .toggleMenu.show{
@@ -476,6 +480,7 @@ li{
   margin:2rem auto;
   display:flex;
   align-items: center;
+  white-space:nowrap;
 }
 
 .portfolioBtn, .cvBtn{
@@ -491,7 +496,7 @@ li{
   left:0;
   right:0;
   bottom:0;
-  background:rgba(0, 0, 0, 0.4);
+  background:rgba(0, 0, 0, 0.04);
   height:100vh;
   width:100%;
 }
@@ -522,7 +527,7 @@ li{
 .modal{
   width:35%;
 }
-.modal input[type='text'], #socialLink{
+.modal input[type='text'],  .modal input[type='email'], .modal input[type='tel'], #socialLink{
   width:100%;
   padding:0.7rem 1rem;
   outline:none;
@@ -548,6 +553,21 @@ li{
 }
 .menuBtn{
   display:none;
+
+}
+
+/* EMPLOYER DASHBOARD */
+/* ================= */ 
+/* ================= */
+/* ================= */
+/* ================= */
+
+.employer.flexColumn{
+  flex-direction:column-reverse
+}
+
+.employer .w50{
+  width:100%;
 }
 
 /* MOBILE VIEW */
@@ -968,6 +988,7 @@ li{
 .editProfileBtn {
   padding: 0.8rem 1.5rem;
   margin: 1rem auto;
+
 }
 
 .skillTitle {

@@ -5,6 +5,7 @@ import Dashboard from './Components/Dashboard'
 import Profile from './Components/Profile'
 import Signup from './Components/Signup'
 import Signin from './Components/Signin'
+import EmployerDashboard from './Components/EmployerDashboard'
 import { useSelector, useDispatch }  from 'react-redux'
 import { closeAll } from './Components/store'
 
@@ -67,6 +68,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<Dashboard  user={user} scrollToTop={useScrollToTop} />} />  
           <Route exact path='/profile' element={<Profile user={user} scrollToTop={useScrollToTop}  />} />
+          <Route exact path='/EmployerDashboard' element={<EmployerDashboard user={user} scrollToTop={useScrollToTop}  />} />
           <Route exact path='/signup' element={<Signup scrollToTop={useScrollToTop} />} />
           <Route exact path='/signin' element={<Signin scrollToTop={useScrollToTop} />} />
         </Routes>
