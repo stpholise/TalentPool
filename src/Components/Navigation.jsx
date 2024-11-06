@@ -12,7 +12,7 @@ const Nav = () => {
   const navLinks = [
     { name: 'Dashboard ', path: '/' },
     { name: 'Messages ', path: '/profile'},
-    { name: 'Employers ', path: '/profile'},
+    { name: 'Employers ', path: '/EmployerDashboard'},
     { name: 'Support ', path: '/signup'},
     { name: 'Settings ', path: '/signin'}
   ]

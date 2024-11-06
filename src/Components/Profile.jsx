@@ -1,18 +1,23 @@
-import DisplayPhoto from '../assets/OhKElOkQ3RE.png'
 import { PropTypes } from 'prop-types'
-import Star from '../assets/Star 4.svg'
 import Skills from './Skills'
 import Socials from './Social'
-
-import EmailIcon from '../assets/carbon_email.svg'
-import LocationIcon from '../assets/carbon_location.svg'
-import PhoneIcon from '../assets/bx_bx-phone.svg'
+import Person from './Person'
+import { useDropzone } from 'react-dropzone'
+import { useState, useRef  } from 'react'
 
 import Minus from '../assets/Minus.svg'
+import Add from '../assets/carbon_add.svg'
+
+const Profile = ({ scrollToTop}) => {
+
+  const [cvFile, setCvFile ] = useState([])
+  const [isCvFile, setIsCvFile ] = useState(false)
+  const [isPortfolioFile, setIsPortfolioFile] = useState(false)
+  const [portfolioFiles, setPortfolioFiles ] = useState([])
+  const [portfolioUrl, setPortfolioUrl] = useState()
+  const [cvUrl, setCvUrl] = useState()
 
 
-const Profile = ({user, scrollToTop}) => {
-const {name } = user
 // const skillsets = [
 //     { skill: 'UI/UX Design', level: 'Expert' },
 //     { skill: 'Frontend Development', level: 'Intermediate' },
@@ -49,75 +54,151 @@ const {name } = user
 //     { skill: 'Backend Development', level: 'Intermediate' },
 //     { skill: 'Database Management', level: 'Expert' }
 // ]
+  
+const fileInputRef = useRef(null);
+
+  const onDrop = (acceptedFiles) => {
+    if (acceptedFiles && acceptedFiles.length > 0) {
+      setIsCvFile(true)
+      setCvFile(acceptedFiles)
+      setCvUrl(URL.createObjectURL(acceptedFiles[0]));
+    }
+  }
+
+  const portfolioInputRef = useRef(null);
+
+  const onDropPortfolio = (acceptedFiles) => {
+    if (acceptedFiles && acceptedFiles.length > 0 ) {
+      setIsPortfolioFile(true)
+      setPortfolioFiles(acceptedFiles)
+      setPortfolioUrl(URL.createObjectURL(acceptedFiles[0]));
+    }
+  }
+
+  const resetCvFile = () => {
+    setIsCvFile(false)
+    setCvFile([])
+    setCvUrl('')
+  }
+
+  const resetPortfolioFile = () => {
+    setIsPortfolioFile(false)
+    setPortfolioFiles([])
+    setPortfolioUrl('')
+  }
+
+
+  const {  getRootProps: getCvRootProps, getInputProps: getCvInputProps } = useDropzone({
+    onDrop,
+    accept: {
+      'application/pdf': ['.pdf'],
+      'application/msword': ['.doc'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+      'text/plain': ['.txt'],
+    },
+    maxSize: 3145728,
+    maxFiles:1,
+  })
+
+  const { getRootProps: getPortfolioRootProps, getInputProps: getPortfolioInputProps } = useDropzone({
+    onDrop: onDropPortfolio,
+    accept: {
+      'application/pdf': ['.pdf'],
+      'application/msword': ['.doc'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+      'text/plain': ['.txt'],
+    },
+    maxSize: 3145728,
+    maxFiles: 1,
+  });
 
 scrollToTop()
 
 
   return (
-    <section className='marginTL profilePage'>
-      <aside className="employeeProfile padd1 radius5px bgF lightShad">
-        <div className="top">
-            <div >
-             <img src={DisplayPhoto} className='rad50' alt=" display photo" />
-            </div>
-            <h3>{name}</h3>
-            <p>{user.occupation}</p>
-            <div className="stars">
-              <img src={Star} alt="star" />
-              <img src={Star} alt="star" />
-              <img src={Star} alt="star" />
-              <img src={Star} alt="star" />
-              <img src={Star} alt="star" />
-             
-            </div>
-          </div>
-        <div className="addressSec padd1 ">
-                <p className="profileEmail address "> <img src={EmailIcon} alt="profile Email" /> <span>anosikegenesis@gmail.com</span> </p>
-                <p className="profilePhone address "> <img src={PhoneIcon} alt="profile Phone" /> <span>0801 - 234 - 5678</span></p>
-                <p className="profileLocation address "> <img src={LocationIcon} alt="profile Location" /> <span>Lagos, Nigeria</span></p>
-        </div>
-
-        <div className="btnCont">
-          <button className="editProfileBtn btn blueBg padd12 radius5px">Edit Profile</button>
-         
-        </div>
-      </aside>
+    <section className='marginTL profilePage' {...getCvRootProps()}>
+          <Person />  
       <section className='flexColumn w80'>
         <div className="fileSection spaceBet mb1">
         <aside className="cvSec radius5px padd1 bgF lightShad w50">
           <div className="cvTop topFles spaceBet ">
             <h4>CV</h4>
-            <button className="rmvCv"> <img src={Minus} alt="" /> </button>
+            {
+              isCvFile ? 
+              <button className="rmvCv" onClick={resetCvFile}> <img src={Minus} alt="" /> </button>
+              :
+              <button className="skillModalBtn btn" 
+              onClick={() => fileInputRef.current.click()} style={{position:'relative'}} aria-label="Upload a file" >
+                <img src={Add} alt=""  />
+                <input {...getCvInputProps()}  
+                  ref={fileInputRef}
+                  style={{ 
+                   display:'none'
+                    }}
+                />
+              </button>
+            }
           </div>
-          <p>File uploaded</p>
+          {/* <p style={{marginBottom:'0.5rem'}}>{isCvFile ? 'File uploaded' : 'No file uploaded'}</p> */}
           <div className="cvBtnContnn">
-            <button className="cvBtn blueBg radius5px">View file </button>
+            {
+              isCvFile ? 
+              <a 
+              href={cvUrl}
+              download={cvFile[0].name} className="cvBtn radius5px blueBg" 
+              
+                >View file </a>
+              :
+              <button className={`cvBtn radius5px blueBg `} onClick={resetCvFile}  style={{background: isCvFile? '': 'gray'} }>View file </button>
+            }
           </div>
         </aside>
         <aside className='portfolioSec radius5px padd1 bgF lightShad w50'>
-            <div className="portfolioTop topFles spaceBet">
+            <div className="portfolioTop topFles spaceBet" {...getPortfolioRootProps}>
               <h4>Portfolio</h4>
-              <button className="rmvPortfolio"> <img src={Minus} alt="" /> </button>
+              {
+                isPortfolioFile ?
+                <button className="rmvPortfolio" onClick={resetPortfolioFile}> <img src={Minus} alt="remove portfolio" /> </button>
+                :
+                <button className="skillModalBtn btn"
+                onClick={() => portfolioInputRef.current.click()} 
+                style={{position:'relative'}} aria-label = 'upload Portfolio file'>
+                  <img src={Add} alt='add a portfolio file' /> 
+                  <input {...getPortfolioInputProps()}
+                    ref={portfolioInputRef}
+                    style={{ display: 'none'}}
+                  />
+                </button>
+              }
             </div>  
-            <p>Portfolio</p>
+            {/* <p>Portfolio</p> */}
             <div className="portfolioBtnCont ">
-              <button className="portfolioBtn blueBg radius5px">View file</button>
+              {
+                isPortfolioFile ? 
+                <a href={portfolioUrl} 
+                download={portfolioFiles[0].name} 
+                className="portfolioBtn blueBg radius5px">View file</a>
+                :
+                <button className="portfolioBtn blueBg radius5px" style={{background:'gray', }}>View file</button>
+              }
+
+            
             </div>
           </aside>
         </div>
         <section className="skillsets">
           <Skills />
           <Socials  />
-          
         </section>
       </section>
+    
+    
     </section>
   )
 }
 
 
 Profile.propTypes = {
-  user: PropTypes.object.isRequired,
   scrollToTop: PropTypes.func.isRequired
 }
 

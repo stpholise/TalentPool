@@ -3,21 +3,14 @@ import Add from '../assets/carbon_add.svg'
 // import Trash from '../assets/carbon_trash-can.svg'
 import Edit from '../assets/bytesize_edit.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleSocialModal, closeSocialModal } from './store'
+import { toggleSocialModal, closeSocialModal, addNewSocial } from './store'
 
 const Social = () => {
 
     const dispatch = useDispatch(); 
     const  socialModal  = useSelector((state) => state.count.socialModal)
+    const social  = useSelector((state) => state.count.social)
 
-    const [ social, setSocial] = useState([
-        { socialLink: 'https://www.facebook.com', socialTitle: 'Facebook' },
-        { socialLink: 'https://www.twitter.com', socialTitle: 'Twitter' },
-        { socialLink: 'https://www.linkedin.com', socialTitle: 'LinkedIn' },
-        { socialLink: 'https://www.github.com', socialTitle: 'Github' },
-        { socialLink: 'https://www.instagram.com', socialTitle: 'Instagram' },
-        { socialLink: 'https://www.dribble.com', socialTitle: 'Dribble' },
-    ])
 
     const [ newSocial, setNewSocial ] = useState({ socialLink: '', socialTitle: ''})
     
@@ -31,21 +24,18 @@ const Social = () => {
 
     const addSocial = ( e) => {
         e.preventDefault();
+        console.log(social)
         if (newSocial.socialLink === '' || newSocial.socialTitle === '') return;
-
         if ( editIndex !== null){
             //update the social accoutn
             const updatedSocial = [...social]
             updatedSocial[editIndex] = newSocial;
-            setSocial(updatedSocial);
+            dispatch(addNewSocial(updatedSocial));
             setEditIndex(null); // Reset editIndex
         }
         else{
-            setSocial([...social, newSocial]);
+            dispatch(addNewSocial([...social, newSocial]));
         }
-
-
-
         setNewSocial({ socialLink: '', socialTitle: ''})
         dispatch(closeSocialModal())
         
@@ -56,11 +46,7 @@ const Social = () => {
       dispatch(toggleSocialModal())
     }
 
-    // const socialRemove = (index) => {
-    //     const updatedSocial = social.filter((_, i) => i !== index);
-    //     setSocial(updatedSocial);
-    // }
-
+ 
     const closeAll = () => {
         setNewSocial({ socialLink: '', socialTitle: ''})
         dispatch(closeSocialModal())
@@ -75,8 +61,6 @@ const Social = () => {
 
     
 
-
-
   return (
     <div className='radius5px padd1 bgF mb1'>
         <div className="topFles spaceBet ">
@@ -90,15 +74,11 @@ const Social = () => {
                     <div className="skillTitle">
                         {social.skillChecked ? <input type="checkbox" checked /> : <input type="checkbox" />}
                         <p>{social.socialTitle}</p>
-                        
                     </div>
                     <div className="edit">
                         <button className="skillDelete" onClick={() => editSocial(index)}>
                         <img src={Edit} alt="Edit buttton" style={{width:'18px'}} />
                         </button>
-                        {/* <button className="skillDelete" onClick={() => socialRemove(index)}>
-                        <img src={Trash} alt="delete buttton" />
-                        </button> */}
                     </div>
                     
                 </li>

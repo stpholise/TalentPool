@@ -1,5 +1,7 @@
-import ProgressBar from './ProgressBar'
+// import ProgressBar from './ProgressBar'
 import { PropTypes } from 'prop-types'
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css';
 
 import DisplayPhoto from '../assets/OhKElOkQ3RE.png'
 import EmailIcon from '../assets/carbon_email.svg'
@@ -9,6 +11,8 @@ import TwitterIcon from '../assets/il_twitter.svg'
 import Behance from '../assets/jam_behance-square.svg'
 import Dribble from '../assets/topcoat_dribble.svg'
 
+import { useSelector } from 'react-redux'
+
 
 const Dashboard = ({scrollToTop}) => {
 
@@ -17,6 +21,8 @@ const Dashboard = ({scrollToTop}) => {
         { title: 'JOBS', count: 12, status:'APPLIED FOR'},
         { title: 'PENDING', count: 16, status:'APPLICATIONS'}
     ]
+
+    const skills = useSelector((state) => state.count.skills)
 
     scrollToTop()
    
@@ -61,7 +67,34 @@ const Dashboard = ({scrollToTop}) => {
         <section className="softwareAssessmentSection">
             <h4 className="sectionTitle"> Softwar Assessment</h4>
             <div className="softwareAssessmentContainer">
-                <div className="assessment">
+                {
+                    skills.map((skill, index) => (
+                        <div key={index} className="assessment">
+                            <h5 className="assessmentTitle">{skill.skillTitle}</h5>
+                            <Slider 
+                                min={0}
+                                max={100}
+                                value={skill.skillProficiency} // Controlled value
+                                styles={{
+                                rail: {height: '5px', backgroundColor: '#C4C4C4', zIndex: 20},
+                                track: {height: '5px', backgroundColor: '#084482', zIndex: 20},
+                                handle: {
+                                    borderColor: '#084482',
+                                    backgroundColor: '#084482',
+                                    width:'12px',
+                                    height:'12px',
+                                    marginTop: '-4px',
+                                    zIndex:50,
+                                }                                 
+                                }}
+                                disabled={true}
+                                
+
+                            />
+                        </div>
+                    ) )
+                }
+                {/* <div className="assessment">
                     <h5 className="assessmentTitle">figma</h5>
                     <ProgressBar />
                 </div>
@@ -80,7 +113,7 @@ const Dashboard = ({scrollToTop}) => {
                 <div className="assessment">
                     <h5 className="assessmentTitle">Mockflow</h5>
                     <ProgressBar />
-                </div>
+                </div> */}
             </div>
         </section>
         </div>

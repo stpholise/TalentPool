@@ -1,12 +1,20 @@
 // import {PropTypes} from 'prop-types'
 import Slider from 'rc-slider'
-import {useState } from 'react'
 import 'rc-slider/assets/index.css';
+import { useSelector, useDispatch } from 'react-redux'
+import { setProficiency } from './store'
+
 
 const ProgressBar = () => {
-  const [sliderValue, setSliderValue ] = useState(80)
+
+    const dispatch = useDispatch()
+    const currentSkillProficiency = useSelector((state) => state.count.currentSkillProficiency)
+
+
+ 
   const handleSliderChange = (value)  => {
-    setSliderValue(value);
+    dispatch(setProficiency(value))
+    
   }
   const containerStyles = {
     width: '100%',
@@ -18,7 +26,7 @@ const ProgressBar = () => {
       <Slider 
         min={0}
         max={100}
-        value={sliderValue} // Controlled value
+        value={currentSkillProficiency} // Controlled value
         onChange={handleSliderChange}
         styles={{
           rail: {height: '5px', backgroundColor: '#C4C4C4'},
@@ -29,6 +37,7 @@ const ProgressBar = () => {
             width:'12px',
             height:'12px',
             marginTop: '-4px'
+
           }
           
         }}

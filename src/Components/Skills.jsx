@@ -1,55 +1,36 @@
-import {useState } from 'react'
+
 import Add from '../assets/carbon_add.svg'
 import Trash from '../assets/carbon_trash-can.svg'
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleSkillModal,  closeSkillModal } from './store'
+import { toggleSkillModal,  closeSkillModal, setSkill, addSkill, resetSkill, removeSkill } from './store'
 
+import ProgressBar from './ProgressBar'
 
+                            
 
 const Skills = () => {
 
     const dispatch = useDispatch()
 
     const skillModal = useSelector((state) => state.count.skillModal)
-    const [skills, setSkills] = useState([
-        {skillTitle: 'UI/UX Design', skillProficiency: '90%', skillChecked: true},
-        {skillTitle: 'JavaScript', skillProficiency: '80%', skillChecked: false},
-        {skillTitle: 'HTML 5', skillProficiency: '80%', skillChecked: true},
-        {skillTitle: 'CSS 3', skillProficiency: '80%', skillChecked: true},
-        {skillTitle: 'Bootstrap', skillProficiency: '70%', skillChecked: false},
-    ])
-   
-
-    
-    const [newSkill, setNewSkill] = useState({ skillTitle: '', skillProficiency: '', skillChecked: false });
-
+    const currentSkillProficiency = useSelector((state) => state.count.newSkill.skillProficiency)
+    const currentSkillTitle = useSelector((state) => state.count.newSkill.skillTitle)
+    const skills = useSelector((state) => state.count.skills)
   
-
-    const handleInputChange = (e) => {
-        const {name , value} = e.target;
-        setNewSkill({...newSkill, [name]:value});
-    
-    }
-
-   
     
     const handleForm = (e) => {
         e.preventDefault();
-        if (newSkill.skillTitle && newSkill.skillProficiency) {
-            setSkills([...skills, newSkill]);
-            setNewSkill({ skillTitle: '', skillProficiency: '', skillChecked: false });
-          
+        if (currentSkillTitle && currentSkillProficiency) {
+            dispatch(addSkill({title:currentSkillTitle, proficiency: currentSkillProficiency}));
+            dispatch(closeSkillModal())
+            dispatch(resetSkill())
         }
     }
     
     const skillRemove = (index) => {
-        const updatedSkills = skills.filter((_, i) => i !== index);
-        setSkills(updatedSkills);
+        dispatch(removeSkill(index))
     }
   
-
-    
-   
   return (
     <div className='radius5px padd1 bgF mb1'>
         <div className="topFles spaceBet ">
@@ -84,18 +65,11 @@ const Skills = () => {
                         name="skillTitle"
                         type="text" 
                         placeholder="Skill Title"
-                        value={newSkill.skillTitle}
-                        onChange={handleInputChange}
+                        value={currentSkillTitle}
+                        onChange={(e) => dispatch(setSkill(e.target.value))}
                          className='radius5px'
                     />
-                    <input type="text" 
-                        name="skillProficiency"
-                        placeholder="Skill Proficiency"
-                        value={newSkill.skillProficiency}
-                        onChange={handleInputChange}
-                         className='radius5px'
-                    />
-                    
+                    <ProgressBar />    
                     <button type='submit' className="addSkillBtn btn blueBg radius5px">Add skill</button>
                 </form>
           
