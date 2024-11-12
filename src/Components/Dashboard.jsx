@@ -1,8 +1,7 @@
-// import ProgressBar from './ProgressBar'
+
 import { PropTypes } from 'prop-types'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css';
-
 import DisplayPhoto from '../assets/OhKElOkQ3RE.png'
 import EmailIcon from '../assets/carbon_email.svg'
 import LocationIcon from '../assets/carbon_location.svg'
@@ -22,7 +21,9 @@ const Dashboard = ({scrollToTop}) => {
         { title: 'PENDING', count: 16, status:'APPLICATIONS'}
     ]
 
-    const skills = useSelector((state) => state.count.skills)
+    const skills = useSelector((state) => state.users.skills) || [];
+
+  
 
     scrollToTop()
    
@@ -30,8 +31,7 @@ const Dashboard = ({scrollToTop}) => {
   return (
     <main className='dashboard'>
         <h2 className="pageTitle">
-            Dashboard
-        </h2>
+            Dashboard       </h2>
         <section className="cards">
             {cards.map((card, index) => (
                 <div key={index} className={`card card${index}`}> 
@@ -93,27 +93,7 @@ const Dashboard = ({scrollToTop}) => {
                             />
                         </div>
                     ) )
-                }
-                {/* <div className="assessment">
-                    <h5 className="assessmentTitle">figma</h5>
-                    <ProgressBar />
-                </div>
-                <div className="assessment">
-                    <h5 className="assessmentTitle">Adobe XD</h5>
-                    <ProgressBar />
-                </div>
-                <div className="assessment">
-                    <h5 className="assessmentTitle">Photoshop </h5>
-                    <ProgressBar />
-                </div>
-                <div className="assessment">
-                    <h5 className="assessmentTitle">UX Research</h5>
-                    <ProgressBar  />
-                </div>
-                <div className="assessment">
-                    <h5 className="assessmentTitle">Mockflow</h5>
-                    <ProgressBar />
-                </div> */}
+                }        
             </div>
         </section>
         </div>

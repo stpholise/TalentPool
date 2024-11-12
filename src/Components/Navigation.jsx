@@ -7,7 +7,7 @@ import {  useSelector } from 'react-redux'
 const Nav = () => {
 
   // Dispatch the action
-  const  state = useSelector((state) => state.count.genMenu) // Get the state from the store
+  const  state = useSelector((state) => state.app.genMenu) // Get the state from the store
 
   const navLinks = [
     { name: 'Dashboard ', path: '/' },

@@ -15,7 +15,11 @@ body{
   width:100%;
   color: #4C5059;
   font-size:16px;
+}
 
+body.modalIsOpen {
+  height: 100vh;
+  overflow: hidden;
 }
 button:hover{
   cursor: pointer;

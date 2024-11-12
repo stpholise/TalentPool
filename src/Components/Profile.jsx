@@ -4,9 +4,10 @@ import Socials from './Social'
 import Person from './Person'
 import { useDropzone } from 'react-dropzone'
 import { useState, useRef  } from 'react'
-
+// import { isModalOpen } from '../store/AppSlice'
 import Minus from '../assets/Minus.svg'
 import Add from '../assets/carbon_add.svg'
+import { useSelector} from 'react-redux'
 
 const Profile = ({ scrollToTop}) => {
 
@@ -16,6 +17,7 @@ const Profile = ({ scrollToTop}) => {
   const [portfolioFiles, setPortfolioFiles ] = useState([])
   const [portfolioUrl, setPortfolioUrl] = useState()
   const [cvUrl, setCvUrl] = useState()
+  const isModalOpen = useSelector((state) => state.app.modalIsOpen)
 
 
 // const skillsets = [
@@ -116,7 +118,7 @@ scrollToTop()
 
 
   return (
-    <section className='marginTL profilePage' {...getCvRootProps()}>
+    <section className={`marginTL profilePage ${isModalOpen ? 'modalIsOpen': ''}`} {...getCvRootProps()}>
           <Person />  
       <section className='flexColumn w80'>
         <div className="fileSection spaceBet mb1">
@@ -125,10 +127,10 @@ scrollToTop()
             <h4>CV</h4>
             {
               isCvFile ? 
-              <button className="rmvCv" onClick={resetCvFile}> <img src={Minus} alt="" /> </button>
+              <button className="rmvCv " onClick={resetCvFile}> <img src={Minus} alt="" /> </button>
               :
               <button className="skillModalBtn btn" 
-              onClick={() => fileInputRef.current.click()} style={{position:'relative'}} aria-label="Upload a file" >
+              onClick={() => fileInputRef.current.click()}   aria-label="Upload a file" >
                 <img src={Add} alt=""  />
                 <input {...getCvInputProps()}  
                   ref={fileInputRef}
@@ -162,7 +164,7 @@ scrollToTop()
                 :
                 <button className="skillModalBtn btn"
                 onClick={() => portfolioInputRef.current.click()} 
-                style={{position:'relative'}} aria-label = 'upload Portfolio file'>
+                  aria-label = 'upload Portfolio file'>
                   <img src={Add} alt='add a portfolio file' /> 
                   <input {...getPortfolioInputProps()}
                     ref={portfolioInputRef}

@@ -1,19 +1,17 @@
-// import {PropTypes} from 'prop-types'
+
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css';
-import { useSelector, useDispatch } from 'react-redux'
-import { setProficiency } from './store'
+import { PropTypes } from 'prop-types';
 
 
-const ProgressBar = () => {
-
-    const dispatch = useDispatch()
-    const currentSkillProficiency = useSelector((state) => state.count.currentSkillProficiency)
+const ProgressBar = ({ setSkill, skillProficiency }) => {
 
 
- 
+    
   const handleSliderChange = (value)  => {
-    dispatch(setProficiency(value))
+    setSkill(previousSkill => ( { ...previousSkill, skillProficiency: value }))
+    console.log(value)
+  
     
   }
   const containerStyles = {
@@ -26,7 +24,7 @@ const ProgressBar = () => {
       <Slider 
         min={0}
         max={100}
-        value={currentSkillProficiency} // Controlled value
+        value={skillProficiency} // Controlled value
         onChange={handleSliderChange}
         styles={{
           rail: {height: '5px', backgroundColor: '#C4C4C4'},
@@ -49,9 +47,10 @@ const ProgressBar = () => {
 };
 
 
-  // ProgressBar.propTypes = {
-  //   completed: PropTypes.number.isRequired,
-  // };
+  ProgressBar.propTypes = {
+    skillProficiency: PropTypes.number.isRequired,
+    setSkill: PropTypes.func.isRequired
+  };
   
 
 
