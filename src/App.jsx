@@ -7,17 +7,20 @@ import Signup from './Components/Signup'
 import Signin from './Components/Signin'
 import EmployerDashboard from './Components/EmployerDashboard'
 import { useSelector, useDispatch }  from 'react-redux'
-import { closeAll } from './Components/store'
-
-import { Route, Routes, useLocation} from 'react-router-dom'
+import { closeAll } from './store/AppSlice'
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
 
 
 
 import './App.css'
+import GuardRoute from './Components/GuardRoute'
 
 function App() {
- 
 
+ const isModalOpen = useSelector((state) => state.app.isModalOpen)
+ { isModalOpen ? document.body.classList.add('modalIsOpen') : document.body.classList.remove('modalIsOpen');}
+ const isLogedin = useSelector((state) => state.app.isLogedin)
+  
   const dispatch = useDispatch()
   
   const user = {
@@ -31,7 +34,9 @@ function App() {
     behance: 'https://www.behance.net'
   }
 
-  const menuToggle  = useSelector((state) => state.count.genMenu)
+  const menuToggle  = useSelector((state) => state.app.genMenu)
+  console.log({'loged in ':isLogedin})
+  console.log({'modal open ':menuToggle})
   
 //Determine the current path
    // Use useLocation to get the current path
@@ -66,9 +71,9 @@ function App() {
       </>
      
         <Routes>
-          <Route exact path='/' element={<Dashboard  user={user} scrollToTop={useScrollToTop} />} />  
-          <Route exact path='/profile' element={<Profile user={user} scrollToTop={useScrollToTop}  />} />
-          <Route exact path='/EmployerDashboard' element={<EmployerDashboard user={user} scrollToTop={useScrollToTop}  />} />
+          <Route exact path='/' element={<GuardRoute element={Dashboard} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />  
+          <Route path='/profile' element={isLogedin ? <Profile user={user} scrollToTop={useScrollToTop} /> : <Navigate to='/signin' replace />} />
+          <Route path='/EmployerDashboard' element={<GuardRoute element={EmployerDashboard} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />
           <Route exact path='/signup' element={<Signup scrollToTop={useScrollToTop} />} />
           <Route exact path='/signin' element={<Signin scrollToTop={useScrollToTop} />} />
         </Routes>

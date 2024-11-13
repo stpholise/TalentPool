@@ -1,65 +1,57 @@
 import { useState } from 'react'
 import Add from '../assets/carbon_add.svg'
-// import Trash from '../assets/carbon_trash-can.svg'
 import Edit from '../assets/bytesize_edit.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleSocialModal, closeSocialModal, addNewSocial } from './store'
+import { addNewSocial } from '../store/UserSlice'
+import { v4 as uuidv4 } from 'uuid'
+import { modalIsOpen, modalIsClose } from '../store/AppSlice'
+import Close from '../assets/close.svg' 
 
 const Social = () => {
-
+    const uniqueId = uuidv4();
     const dispatch = useDispatch(); 
-    const  socialModal  = useSelector((state) => state.count.socialModal)
-    const social  = useSelector((state) => state.count.social)
-
-
+    const [ editId, setEditId] = useState(null)
+    const [socialModal, setSocialModal] = useState(false)
     const [ newSocial, setNewSocial ] = useState({ socialLink: '', socialTitle: ''})
-    
-    const [ editIndex, setEditIndex] = useState(null)
-
-    const handleInputChange = (e) => {
-        const { name, value} = e.target;
-        setNewSocial({...newSocial, [name] : value });
-        
-    }
-
-    const addSocial = ( e) => {
-        e.preventDefault();
-        console.log(social)
-        if (newSocial.socialLink === '' || newSocial.socialTitle === '') return;
-        if ( editIndex !== null){
-            //update the social accoutn
-            const updatedSocial = [...social]
-            updatedSocial[editIndex] = newSocial;
-            dispatch(addNewSocial(updatedSocial));
-            setEditIndex(null); // Reset editIndex
-        }
-        else{
-            dispatch(addNewSocial([...social, newSocial]));
-        }
-        setNewSocial({ socialLink: '', socialTitle: ''})
-        dispatch(closeSocialModal())
-        
-    } 
+    const social  = useSelector((state) => state.users.social)
 
     const handleSocialModal = () => {
-        
-      dispatch(toggleSocialModal())
+        setSocialModal(!socialModal)
+        socialModal ? dispatch(modalIsClose(false)) : dispatch(modalIsOpen(true));
     }
-
- 
-    const closeAll = () => {
+    const closeSocialModal = () => {
+        setSocialModal(false)
         setNewSocial({ socialLink: '', socialTitle: ''})
-        dispatch(closeSocialModal())
+        dispatch(modalIsClose(false))   
     }
-
-    const editSocial = (index) => {
-        setNewSocial(social[index]);
-        setEditIndex(index);
-        dispatch(toggleSocialModal())
-
+    const handleInputChange = (e) => {
+        const { name, value} = e.target;
+        setNewSocial({...newSocial, [name] : value }); 
     }
+    const addSocial = ( e) => {
+        e.preventDefault();
+        if (newSocial.socialLink === '' || newSocial.socialTitle === '') return;
+        if ( editId !== null){
+            //update the social accoutn
+           const updatedSocial = social.map((social) => social.id === editId ? newSocial : social)
+           
+            dispatch(addNewSocial(updatedSocial));
+            setEditId(null); // Reset editIndex
+        }
+        else{
+            const newSocialId = { ...newSocial, id: uniqueId }
+            dispatch(addNewSocial([...social, newSocialId]));
+            console.log(newSocialId)
+        }
+        closeSocialModal()
+    } 
 
-    
+    const editSocial = (id) => {
+        const selectedSocial = social.find((social) => social.id === id);
+        setNewSocial(selectedSocial);
+        setEditId(id);
+        handleSocialModal()
+    }
 
   return (
     <div className='radius5px padd1 bgF mb1'>
@@ -69,14 +61,14 @@ const Social = () => {
 
         </div>
         <ul className="skills">
-            {social.map((social, index) => (
-                <li key={index} className='skillBox spaceBet'>
+            {social.map((social) => (
+                <li key={social.id} className='skillBox spaceBet'>
                     <div className="skillTitle">
                         {social.skillChecked ? <input type="checkbox" checked /> : <input type="checkbox" />}
                         <p>{social.socialTitle}</p>
                     </div>
                     <div className="edit">
-                        <button className="skillDelete" onClick={() => editSocial(index)}>
+                        <button className="skillDelete" onClick={() => editSocial(social.id)}>
                         <img src={Edit} alt="Edit buttton" style={{width:'18px'}} />
                         </button>
                     </div>
@@ -87,11 +79,13 @@ const Social = () => {
 
         {socialModal && (
             <>
-                <div className="overlay" onClick={closeAll}></div>
-            <div className='skillModal modal bgF radius5px padd1 lightShad'>
-                
+                <div className="overlay"></div>
+                <div className='skillModal modal bgF radius5px padd1 lightShad'>
                 <form onSubmit={addSocial}>
-                    <h4>Add Skill</h4>
+                <div className="topFles spaceBet ">
+                    <h4 className='subHead'>Social accounts</h4>
+                    <button className="skillModalBtn btn" onClick={closeSocialModal}><img src={Close} alt="" /></button>
+                </div>
                     <h5>Select plaform</h5>
                     <select name='socialTitle'
                         id='socialLink'
@@ -104,7 +98,6 @@ const Social = () => {
                             <option key={index} className='option'  value={social.socialTitle}>{social.socialTitle}</option>
                         ))}
                     </select>
-
                     <input 
                         name="socialTitle"
                         type="text" 
@@ -113,7 +106,6 @@ const Social = () => {
                         onChange={handleInputChange}
                          className='radius5px'
                     />
-
                     <h5>Account link</h5>
                      <input type="text" 
                         name="socialLink"
@@ -124,8 +116,7 @@ const Social = () => {
                     /> 
                     <button type='submit' className="skillModalBtn blueBg radius5px btn addSkillBtn">Add</button>
                 </form>
-            </div>
-            
+            </div>            
             </>
         )}
     </div>

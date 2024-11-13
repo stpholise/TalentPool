@@ -1,36 +1,47 @@
+
 import Vector from '../assets/Vector.svg'
 import ExpandMore from '../assets/Expand_more.svg'
 import RectangleImg from '../assets/Rectangle 85.png'
 import Hamboger from '../assets/Group 50.svg'
 import UserCircle from '../assets/User_cicrle_duotone.svg'
 import { Link } from 'react-router-dom'
+import { useState } from  'react'
+import { clearUserState} from '../store/UserSlice'
 
-import {toggleGenMenu,toggleProfileMenu, handleShow, handleAvailability, closeAll } from './store'
-import { useDispatch, useSelector } from 'react-redux'
+import {toggleGenMenu, clearAppState, logUserOut} from '../store/AppSlice'
+import { useDispatch } from 'react-redux'
 
 
 const Header = () => {
-    
 
+    const [available, setAvailable] = useState(false)
+    const [show, setShow] = useState(false)
+    const [profileMenu, setProfileMenu] = useState(false)
+
+    const dispatch = useDispatch() 
 
     const handleProfileShow = () => {
-        console.log('handleProfileShow')
-        dispatch(handleShow())
+        setShow(!show)
     }
 
-   
-    const dispatch = useDispatch() 
-   
-    const show = useSelector((state) => state.count.show)
-    const available = useSelector((state) => state.count.available)
-    const profileMenu = useSelector((state) => state.count.profileMenu)
+    const toggleProfileMenu = () => {
+        setProfileMenu(!profileMenu)
+    }
 
-  
+    const closeHeaderPops = () => {
+        setShow(false);
+        setAvailable(false)
+        setProfileMenu(false)
+    }
+   
+   
+
+    // const profileMenu = useSelector((state) => state.count.profileMenu)
 
     const profileLinks = [
-    { name: 'Profile ', path: '/profile' },
-    { name: 'Share Profile ', path: '/profile'},
-    { name: 'Sign out ', path: '/signout'}
+    { name: 'Profile ', path: '/profile', id: 0},
+    { name: 'Share Profile ', path: '/profile', id: 1},
+    { name: 'Sign out ', path: '/signin', id:2, onClick: ()=> {dispatch(clearUserState()); dispatch(clearAppState()); dispatch(logUserOut())} }
     ]
 
 
@@ -40,15 +51,15 @@ const Header = () => {
     <header className="pageHeader">
         <div className="smallScreenMenu menuBtn">
             <button className=" transBtn" onClick={() => dispatch(toggleGenMenu())}> <img src={Hamboger} alt="" style={{width:'24px', height:'24px'}}/></button>
-            <button className='profDis ballCont' onClick={() => dispatch(toggleProfileMenu())}>
+            <button className='profDis ballCont' onClick={() => toggleProfileMenu()}>
                  <img src={UserCircle} className={`ball ${profileMenu ? 'active' : ''} `} />
                  <img src={ExpandMore} className={`expan ${profileMenu ? 'active' : ''} `} />
             </button>
         </div>
-        { profileMenu && <div className="profileOverlay" onClick={() => dispatch(closeAll())}></div>}
+        { profileMenu && <div className="profileOverlay" onClick={() => closeHeaderPops()}></div>}
         <div className={`headerContent ${profileMenu ? 'show' : ''}`}>
             <div className="availabilityCont">
-                <button onClick={() => dispatch(handleAvailability())} className="availability transBtn">
+                <button onClick={() => setAvailable(!available)} className="availability transBtn">
                     <span className="dotCont"><span className={`dot  ${available ? 'active': ''} `}></span></span>
                     <p className="availabilityText">available for hire</p>
                 </button>
@@ -67,15 +78,18 @@ const Header = () => {
                         <p className="profileRole">Employee</p>
                     </div>
                     {
-
                    show &&(
                     <>
                     <div className="overlay headOver" > </div> 
                     <div className="toggleMenu">
-                        
                             {
-                                profileLinks.map((link, index)=> (
-                                    <Link to={link.path} className={`profileLink profileLink${index}`} key={index}>{link.name}</Link>
+                                profileLinks.map((link)=> (
+                                    <Link to={link.path} 
+                                        className={`profileLink profileLink${link.id}`} 
+                                        key={link.id}
+                                        onClick={link.onClick}
+                                        >{link.name}</Link>
+
                                 ))
                             }
                        

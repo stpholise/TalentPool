@@ -5,13 +5,16 @@ import Facebook from '../assets/fb-icon.svg'
 import './Signup.css'
 
 
+
 const Signup = ({scrollToTop}) => {
     
+ 
     scrollToTop()
 
     const handleSignUp = () => {
 
     }
+
 
   return (
     <div  className="signinFlex">
@@ -82,7 +85,7 @@ const Signup = ({scrollToTop}) => {
                 </div>
 
                 <div className="inputCont">
-                    <button className='signupInput radius5px blueBg'>Sign Up</button>
+                    <button className='signupInput radius5px blueBg' >Sign Up</button>
                 </div>
 
                 <div className="inputCont orSect">

@@ -1,26 +1,62 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { profileModalToggle, closeProfileModal, handleNameChange,handleEmailChange, handleOccupationChange, handlePhoneChange, handleLocationChange, handleUserUpdate } from './store'
+import {  
+  handleUserchange, 
+} from '../store/UserSlice'
 import DisplayPhoto from '../assets/OhKElOkQ3RE.png'
 import Star from '../assets/Star 4.svg'
 import EmailIcon from '../assets/carbon_email.svg'
 import LocationIcon from '../assets/carbon_location.svg'
 import PhoneIcon from '../assets/bx_bx-phone.svg'
+import {useState } from 'react'
 
 const Person = () => {
-
   const dispatch = useDispatch() 
-const profileModal = useSelector((state) => state.count.profileModal)
-  const user = useSelector((state) => state.count.user)
-  const userReset = useSelector((state) => state.count.userReset )
+  const user = useSelector((state) => state.users.user)
   const {name, email, occupation, phone, location } = user
+  const [editProfileModal, setEditProfileModal] = useState(false)
 
- 
- 
+  const [newUser, setNewUser] = useState({
+    name: '',
+    occupation: '',
+    email: '',
+    location: '',
+    phone: '',
+  })
+
+  const handleUserUpdate = (e) => {
+    console.log({[e.target.name]: e.target.value})
+    setNewUser(
+     { ...newUser,
+      [e.target.name]: e.target.value}
+    )
+  }
+
+
+  const profileModalToggle = () => {
+    setEditProfileModal(!editProfileModal)
+  }
   const handleProfileForm = (e) => {
     e.preventDefault()
-    dispatch(handleUserUpdate(userReset))
-    dispatch(closeProfileModal())
-    console.log('submitted')
+    console.log('handle form')
+    if ( newUser.name === '' 
+      || newUser.email === '' 
+      || newUser.occupation === '' 
+      || newUser.phone === '' 
+      || newUser.location === '') {
+        console.log('Fields cannot be empty');
+      return;
+    } else {
+      dispatch(handleUserchange(newUser));
+      setEditProfileModal(false)
+      setNewUser({name: '',
+        occupation: '',
+        email: '',
+        location: '',
+        phone: '',})
+
+      console.log('submitted sucessfully')
+    }
+    
   }
 
   return (
@@ -42,22 +78,28 @@ const profileModal = useSelector((state) => state.count.profileModal)
             </div>
           </div>
         <div className="addressSec padd1 ">
-                <p className="profileEmail address "> <img src={EmailIcon} alt="profile Email" /> <span>{email}</span> </p>
-                <p className="profilePhone address "> <img src={PhoneIcon} alt="profile Phone" /> <span>{phone}</span></p>
-                <p className="profileLocation address "> <img src={LocationIcon} alt="profile Location" /> <span>{location}</span></p>
+                <p className="profileEmail address "> 
+                  <img src={EmailIcon} alt="profile Email" /> <span>{email}</span> 
+                </p>
+                <p className="profilePhone address "> 
+                  <img src={PhoneIcon} alt="profile Phone" /> <span>{phone}</span>
+                </p>
+                <p className="profileLocation address "> 
+                  <img src={LocationIcon} alt="profile Location" /> <span>{location}</span>
+                </p>
         </div>
 
         <div className="btnCont">
           <button className="editProfileBtn btn blueBg padd12 radius5px" 
-            onClick={() => dispatch(profileModalToggle())} >Edit Profile
+            onClick={() => profileModalToggle()} >Edit Profile
           </button>
          
         </div>
 
      </aside>
-        {profileModal && (
+        {editProfileModal && (
             <>
-            <div className="overlay" onClick={() => dispatch(closeProfileModal())}>  </div>
+            <div className="overlay" onClick={() => {setEditProfileModal(false)}}>  </div>
             <div className='skillModal modal bgF radius5px padd1 lightShad'>
                 
                 <form onSubmit={handleProfileForm}>
@@ -66,36 +108,36 @@ const profileModal = useSelector((state) => state.count.profileModal)
                         name="name"
                         type="text" 
                         placeholder="Name"
-                        value={userReset.name}
-                        onChange={(e) =>  dispatch(handleNameChange(e.target.value)) }
+                        value={newUser.name}
+                        onChange={(e) =>  handleUserUpdate(e) }
                          className='radius5px'
                     />
                     <input type="text" 
                         name="occupation"
                         placeholder="occupation"
-                        value={userReset.occupation}
-                        onChange={(e) => dispatch(handleOccupationChange(e.target.value))}
+                        value={newUser.occupation}
+                        onChange={(e) => handleUserUpdate(e)}
                          className='radius5px'
                     />
                     <input type="email" 
                         name="email"
                         placeholder="email"
-                        value={userReset.email}
-                        onChange={(e) => dispatch(handleEmailChange(e.target.value))}
+                        value={newUser.email}
+                        onChange={(e) => handleUserUpdate(e)}
                          className='radius5px'
                     />
                     <input type="tel" 
                         name="phone"
                         placeholder="phone"
-                        value={userReset.phone}
-                        onChange={(e) => dispatch(handlePhoneChange(e.target.value))}
+                        value={newUser.phone}
+                        onChange={(e) => handleUserUpdate(e)}
                          className='radius5px'
                     />
                      <input type="text" 
                         name="location"
                         placeholder="location"
-                        value={userReset.location}
-                        onChange={(e) => dispatch(handleLocationChange(e.target.value))}
+                        value={newUser.location}
+                        onChange={(e) => handleUserUpdate(e)}
                          className='radius5px'
                     />
 

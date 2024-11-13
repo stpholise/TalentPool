@@ -15,7 +15,11 @@ body{
   width:100%;
   color: #4C5059;
   font-size:16px;
+}
 
+body.modalIsOpen {
+  height: 100vh;
+  overflow: hidden;
 }
 button:hover{
   cursor: pointer;
@@ -120,7 +124,11 @@ button{
   margin:0.1rem;
   transform:translateX(0);
 }
-
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear
+{
+    display: none;
+}
 
 
 .availability .dotCont .dot.active{
