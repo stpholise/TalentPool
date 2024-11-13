@@ -124,7 +124,11 @@ button{
   margin:0.1rem;
   transform:translateX(0);
 }
-
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear
+{
+    display: none;
+}
 
 
 .availability .dotCont .dot.active{
