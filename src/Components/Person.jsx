@@ -8,6 +8,9 @@ import EmailIcon from '../assets/carbon_email.svg'
 import LocationIcon from '../assets/carbon_location.svg'
 import PhoneIcon from '../assets/bx_bx-phone.svg'
 import {useState } from 'react'
+import Close from '../assets/close.svg'
+import { modalIsOpen, modalIsClose } from '../store/AppSlice'
+
 
 const Person = () => {
   const dispatch = useDispatch() 
@@ -34,6 +37,7 @@ const Person = () => {
 
   const profileModalToggle = () => {
     setEditProfileModal(!editProfileModal)
+    editProfileModal ? dispatch(modalIsClose(false)) : dispatch(modalIsOpen(true));
   }
   const handleProfileForm = (e) => {
     e.preventDefault()
@@ -99,11 +103,14 @@ const Person = () => {
      </aside>
         {editProfileModal && (
             <>
-            <div className="overlay" onClick={() => {setEditProfileModal(false)}}>  </div>
-            <div className='skillModal modal bgF radius5px padd1 lightShad'>
+            <div className="overlay">  </div>
+            <div className='skillModal modal bgF radius5px padd1 lightShad possitionBtm'>
                 
                 <form onSubmit={handleProfileForm}>
-                    <h4>Add Skill</h4>
+                  <p className="topFles spaceBet ">
+                       <h4 className='subHead'>Add profile</h4>
+                       <button className="skillModalBtn btn"  onClick={() => {setEditProfileModal(false); dispatch(modalIsClose(false))} }><img src={Close} alt="" /></button>
+                    </p>
                     <input 
                         name="name"
                         type="text" 
