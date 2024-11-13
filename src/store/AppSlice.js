@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     genMenu: false,   
-    isLogedin: true, 
+    isLogedin: false, 
     isModalOpen: false,    
 }
 const appSlice = createSlice({

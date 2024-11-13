@@ -146,12 +146,11 @@ scrollToTop()
             {
               isCvFile ? 
               <a 
-              href={cvUrl}
-              download={cvFile[0].name} className="cvBtn radius5px blueBg" 
-              
-                >View file </a>
+                href={cvUrl}
+                download={cvFile[0].name} className="cvBtn radius5px blueBg" 
+              >View file </a>
               :
-              <button className={`cvBtn radius5px blueBg `} onClick={resetCvFile}  style={{background: isCvFile? '': 'gray'} }>View file </button>
+              <p>Upload a file</p>
             }
           </div>
         </aside>
@@ -181,7 +180,7 @@ scrollToTop()
                 download={portfolioFiles[0].name} 
                 className="portfolioBtn blueBg radius5px">View file</a>
                 :
-                <button className="portfolioBtn blueBg radius5px" style={{background:'gray', }}>View file</button>
+                <p>Upload a file</p>
               }
 
             
