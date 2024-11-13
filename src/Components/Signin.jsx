@@ -1,17 +1,18 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { PropTypes } from 'prop-types'
 import SignUpImg from '../assets/woman-in-blue-suit-jacket-2422293 1.png'
 import Facebook from '../assets/fb-icon.svg'
 import { toggleIsLogedin } from '../store/AppSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import './Signup.css'
-import { useState } from 'react'
+import {  useEffect } from 'react'
 
 
 const Signup = ({scrollToTop}) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     scrollToTop()
-    const [userValue, setUserValue ] = useState({email:'', password:''})
+    // const [userValue, setUserValue ] = useState({email:'', password:''})
     
     
     const handleChange = (e) => {
@@ -24,7 +25,16 @@ const Signup = ({scrollToTop}) => {
 
     }
     const isLogedin = useSelector((state) => state.app.isLogedin)
-    console.log({'user loged in ' : isLogedin})
+    
+    const handleLogIn = () => {
+        dispatch(toggleIsLogedin())
+    }
+    useEffect(
+        ()=> {
+            isLogedin && navigate('/')
+        }
+        ,[isLogedin, navigate]
+    )
   return (
     <div  className="signinFlex">
         <aside className="signImg">
@@ -72,7 +82,7 @@ const Signup = ({scrollToTop}) => {
                 </div>
 
                 <div className="inputCont">
-                    <button className='signupInput radius5px blueBg' onClick={() => dispatch(toggleIsLogedin())}>Log In</button>
+                    <button type='button' className='signupInput radius5px blueBg' onClick={handleLogIn}>Log In</button>
                 </div>
 
                 <div className="inputCont orSect">
