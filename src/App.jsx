@@ -10,8 +10,6 @@ import { useSelector, useDispatch }  from 'react-redux'
 import { closeAll } from './store/AppSlice'
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
 
-
-
 import './App.css'
 import GuardRoute from './Components/GuardRoute'
 
