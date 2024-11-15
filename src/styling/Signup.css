@@ -70,7 +70,7 @@
     gap: 0.5rem 1rem;
 }
 
-.signUpSection input[type='text'] {
+.signUpSection input[type='text'], .signUpSection input[type='password'] {
     border: 2px solid #B5B5B5;
     margin:0.5rem 0;
 }

@@ -9,6 +9,8 @@ import { useState } from  'react'
 import { clearUserState} from '../store/UserSlice'
 import {toggleGenMenu, clearAppState, logUserOut} from '../store/AppSlice'
 import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+// import Nav from './Navigation'
 
 
 const Header = () => {
@@ -35,6 +37,10 @@ const Header = () => {
         setProfileMenu(false)
     }
    
+    useEffect(() => {
+        setAvailable(false)
+        setProfileMenu(false)
+    },[Navigate])
 
     const profileLinks = [
         { name: 'Profile ', path: '/profile', id: 0},

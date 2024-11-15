@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom'
 import { PropTypes } from 'prop-types'
 import SignUpImg from '../assets/Rectangle 562.png'
 import Facebook from '../assets/fb-icon.svg'
-import './Signup.css'
-
+import '../styling/Signup.css'
 
 
 const Signup = ({scrollToTop}) => {

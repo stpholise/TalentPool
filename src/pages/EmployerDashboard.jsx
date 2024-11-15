@@ -1,8 +1,8 @@
 
 import { PropTypes } from 'prop-types'
 
-import Skills from './Skills'
-import Person from './Person'
+import Skills from '../Components/Skills'
+import Person from '../Components/Person'
 
 import Minus from '../assets/Minus.svg'
 

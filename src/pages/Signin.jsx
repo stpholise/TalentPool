@@ -4,34 +4,58 @@ import SignUpImg from '../assets/woman-in-blue-suit-jacket-2422293 1.png'
 import Facebook from '../assets/fb-icon.svg'
 import { toggleIsLogedin } from '../store/AppSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import './Signup.css'
+import '../styling/Signup.css'
 import {  useEffect } from 'react'
-
+import { Formik, Form, Field, ErrorMessage} from 'formik'
+import * as Yup from 'yup'
 
 const Signup = ({scrollToTop}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     scrollToTop()
+
+    const initialValues = {
+        email: '',
+        password: '',
+    }
+    const validationSchema = Yup.object({
+        email: Yup.string()
+        .email("Invalid email address") 
+        .required('Required'),
+        password: Yup.string()
+        .matches(/.{8,}/, "At least 8 characters")
+        .matches(/[A-Z]/, "At least one uppercase letter")
+        .matches(/[0-9]/, "At least one number")
+        .matches(/[!@#$%^&*]/, "At least one special character")
+        .required("Password is required"),
+    })
+ 
+
+
     // const [userValue, setUserValue ] = useState({email:'', password:''})
     
     
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        console.log({[name]: value})
-    }
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     console.log({[name]: value})
+    // }
     
 
-    const handleSignin = () => {
-
-    }
+    const handleSignin = (values, onSubmitProps) => {
+        console.log('submit',onSubmitProps)
+        console.log('login values', values)
+        onSubmitProps.resetForm()
+        dispatch(toggleIsLogedin())
+    } 
     const isLogedin = useSelector((state) => state.app.isLogedin)
     
-    const handleLogIn = () => {
-        dispatch(toggleIsLogedin())
-    }
+    // const handleLogIn = () => {
+    //     dispatch(toggleIsLogedin())
+    // }
     useEffect(
         ()=> {
             isLogedin && navigate('/')
+            console.log('isLogedin', isLogedin)
         }
         ,[isLogedin, navigate]
     )
@@ -48,31 +72,38 @@ const Signup = ({scrollToTop}) => {
                 <p>Enter your email and password to access account
                 </p>
             </div>
-            <form action="#" className='signUpForm' onSubmit={handleSignin}>
-              
-               
+            <Formik
+                initialValues={initialValues} 
+                validationSchema={validationSchema}
+                onSubmit={handleSignin} 
+            >
+                {
+                    ( formik) =>(
+                  
+            <Form className='signUpForm' >
+                       {/* {console.log(formik)} */}
                     <div className="inputCont">
                         <label htmlFor="email">Email</label>
-                        <input  
+                        <Field  
                             type="text"
                             name='email'
-                            onChange={(e) => handleChange(e)}
-                            className="signupInput radius5px"
                             placeholder="example@gmail.com"
                             id="email" 
+                            className="signupInput radius5px"      
                         />
+                        <ErrorMessage name='email' component={'div'} className='error' />
                     </div>
              
                     <div className="inputCont">
                         <label htmlFor="password">Password</label>
-                        <input  
-                            type="text"
+                        <Field  
+                            type="password"
                             name='password'
-                            onChange={(e) => handleChange(e)}
                             className="signupInput radius5px"
-                            placeholder="at least 8 characters"
+                            placeholder="enter password"
                             id="password" 
                         />
+                        <ErrorMessage name='password' component={'div'} className='error' />
                     </div>
             
 
@@ -82,7 +113,14 @@ const Signup = ({scrollToTop}) => {
                 </div>
 
                 <div className="inputCont">
-                    <button type='button' className='signupInput radius5px blueBg' onClick={handleLogIn}>Log In</button>
+                <button 
+                    type="submit"  
+                    className={`signupInput radius5px blueBg ${(!formik.isValid || formik.isSubmitting)? 'grayBg':'blueBg'}`} 
+                    disabled={!(formik.isValid && !formik.isSubmitting )}
+                    aria-disabled={!(formik.isValid && !formik.isSubmitting)}
+                >                       
+                 Log In
+                 </button>
                 </div>
 
                 <div className="inputCont orSect">
@@ -103,7 +141,11 @@ const Signup = ({scrollToTop}) => {
 
                 </div>
 
-            </form>
+            </Form>
+  )
+                
+            }
+            </Formik>
             <p className='centerText smallTxt'>
                 Don&apos;t have an account with us? 
               <Link to={'/signup'} className='blueTxt'>Sign Up</Link> 
