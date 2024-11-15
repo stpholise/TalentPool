@@ -10,18 +10,18 @@ const initialState = {
         twitter: '@Anosike_UI',
     },
     social: [
-        { socialLink: 'https://www.facebook.com', socialTitle: 'Facebook', id: 1 },
-        { socialLink: 'https://www.twitter.com', socialTitle: 'Twitter', id: 2 },
-        { socialLink: 'https://www.linkedin.com', socialTitle: 'LinkedIn', id: 3 },
-        { socialLink: 'https://www.github.com', socialTitle: 'Github', id: 4 },
-        { socialLink: 'https://www.instagram.com', socialTitle: 'Instagram', id: 5 },
-        { socialLink: 'https://www.dribble.com', socialTitle: 'Dribble', id: 6 },
+        { socialLink: 'https://www.facebook.com', socialTitle: 'Facebook', id: 1, },
+        { socialLink: 'https://www.twitter.com', socialTitle: 'Twitter', id: 2, },
+        { socialLink: 'https://www.linkedin.com', socialTitle: 'LinkedIn', id: 3, },
+        { socialLink: 'https://www.github.com', socialTitle: 'Github', id: 4, },
+        { socialLink: 'https://www.instagram.com', socialTitle: 'Instagram', id: 5, },
+        { socialLink: 'https://www.dribble.com', socialTitle: 'Dribble', id: 6, },
     ],
     skills: [
-        {skillTitle: 'UI/UX Design', skillProficiency: 90, skillChecked: true, id: 1},
+        {skillTitle: 'UI/UX Design', skillProficiency: 90, skillChecked: false, id: 1},
         {skillTitle: 'JavaScript', skillProficiency: 80, skillChecked: false, id: 2},
-        {skillTitle: 'HTML 5', skillProficiency: 80, skillChecked: true, id: 3},
-        {skillTitle: 'CSS 3', skillProficiency: 80, skillChecked: true, id: 4},
+        {skillTitle: 'HTML 5', skillProficiency: 80, skillChecked: false, id: 3},
+        {skillTitle: 'CSS 3', skillProficiency: 80, skillChecked: false, id: 4},
         {skillTitle: 'Bootstrap', skillProficiency: 80, skillChecked: false, id: 5},
     ]
 

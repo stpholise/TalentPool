@@ -29,6 +29,10 @@ li{
   list-style:none;
   font-weight:400;
 }
+.error{
+  color:red;
+  font-size:small;
+}
 
 a{
   text-decoration:none;
@@ -139,11 +143,11 @@ button{
   margin:0.1rem;
   transform:translateX(0);
 }
-input[type=password]::-ms-reveal,
+/* input[type=password]::-ms-reveal,
 input[type=password]::-ms-clear
 {
     display: none;
-}
+} */
 
 
 .availability .dotCont .dot.active{
@@ -458,6 +462,10 @@ input[type=password]::-ms-clear
   color:#fff;
 }
 
+.blueBg.grayBg{
+  background:gray;
+}
+
 
 
 .flexColumn{
@@ -561,7 +569,7 @@ li{
 .modal{
   width:35%;
 }
-.modal input[type='text'],  .modal input[type='email'], .modal input[type='tel'], #socialLink{
+.modal input[type='text'],  .modal input[type='email'], .modal input[type='password'], .modal input[type='tel'], #socialLink{
   width:100%;
   padding:0.7rem 1rem;
   outline:none;
@@ -628,6 +636,10 @@ li{
   padding:0.5rem 1rem;
   margin-right:1rem;
 }
+.grayBg{
+  background:gray;
+}
+
 
 
 .availability .dotCont {
