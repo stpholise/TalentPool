@@ -9,10 +9,8 @@ const ProgressBar = ({ setSkill, skillProficiency }) => {
 
     
   const handleSliderChange = (value)  => {
-    setSkill(previousSkill => ( { ...previousSkill, skillProficiency: value }))
-    console.log(value)
-  
-    
+    setSkill(value)
+    console.log(value)  
   }
   const containerStyles = {
     width: '100%',
@@ -35,12 +33,12 @@ const ProgressBar = ({ setSkill, skillProficiency }) => {
             width:'12px',
             height:'12px',
             marginTop: '-4px'
-
           }
           
         }}
 
       />
+      <p>{skillProficiency}%</p>
       
     </div>
   );

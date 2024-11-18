@@ -1,21 +1,62 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { PropTypes } from 'prop-types'
 import SignUpImg from '../assets/Rectangle 562.png'
 import Facebook from '../assets/fb-icon.svg'
 import '../styling/Signup.css'
+import { logUserIn } from '../store/AppSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import { useEffect } from 'react'
 
 
 const Signup = ({scrollToTop}) => {
-    
- 
     scrollToTop()
-
-    const handleSignUp = () => {
-
+    const dispatch = useDispatch()
+    const isLogedin = useSelector((state) => state.app.isLogedin)
+    const navigate = useNavigate()
+    const initialValues = {
+        fullName: '',
+        email: '',
+        adminId: '',
+        password: '',
+        confirmPassword: '',
+        acceptTerms:false,
     }
+    const signupSchema = Yup.object({
+        fullName: Yup.string().required('Required'),
+        email: Yup.string().email('Invalid email address').required('Email is Required'),
+        adminId: Yup.string().required('Admin Id is Required'),
+        password: Yup.string()
+            .matches(/.{8,}/, "At least 8 characters")
+            .matches(/[A-Z]/, "At least one uppercase letter")
+            .matches(/[0-9]/, "At least one number")
+            .matches(/[!@#$%^&*]/, "At least one special character")
+            .required("Password is required"),
+        confirmPassword: Yup.string()
+            .oneOf([Yup.ref('password'), null], 'Passwords must match')
+            .required('Required'),
+        acceptTerms: Yup.bool().oneOf([true], 'Accept Terms & Conditions is required'),
+        createdOn: Yup.date().default(() => new Date())
+    })
+
+    const handleSignUp = async (values, action) => {
+       await dispatch(logUserIn())
+       console.log(values.createdOn)
+       console.log(values)
+        action.resetForm()
+      
+    }
+
+    useEffect(() => {
+        if (isLogedin) {
+          navigate('/');
+        }
+      }, [isLogedin, navigate]);
 
 
   return (
+
     <div  className="signinFlex">
         <aside className="signImg">
             <img src={SignUpImg} className="coverImage" alt="" />
@@ -29,62 +70,81 @@ const Signup = ({scrollToTop}) => {
                     graduates and potentail employers
                 </p>
             </div>
-            <form action="#" className='signUpForm' onSubmit={handleSignUp}>
+            <Formik 
+                initialValues={initialValues}
+                validationSchema={signupSchema}
+                onSubmit={handleSignUp}
+            >
+                {
+                    () => (
+
+                  
+            <Form className='signUpForm' >
                 <div className="inputCont">
                     <label htmlFor="fullName">Full Name</label>
-                    <input 
+                    <Field 
                         type="text"
                         placeholder="e.g john doe"
                         className="signupInput radius5px"
                         id="fullName"
+                        name='fullName'
                     />
+                    <ErrorMessage name='fullName' component={'div'} className='error' />
                 </div>
                 <div className="inputGrid">
                     <div className="inputCont">
                         <label htmlFor="email">Email</label>
-                        <input  
+                        <Field  
                             type="text"
                             className="signupInput radius5px"
                             placeholder="example@gmail.com"
                             id="email" 
+                            name='email'
                         />
+                        <ErrorMessage name='email' component={'div'} className='error' />     
                     </div>
                     <div className="inputCont">
                         <label htmlFor="adminId">Admin ID</label>
-                        <input  
+                        <Field  
                             type="text"
                             className="signupInput radius5px"
                             placeholder="e.g ADM 000"
                             id="adminId" 
+                            name='adminId'
                         />
+                        <ErrorMessage name='adminId' component={'div'} className='error' />
                     </div>
                     <div className="inputCont">
                         <label htmlFor="password">Password</label>
-                        <input  
-                            type="text"
+                        <Field  
+                            type="password"
                             className="signupInput radius5px"
                             placeholder="at least 8 characters"
                             id="password" 
+                            name='password'
                         />
+                        <ErrorMessage name='password' component={'div'} className='error' />
                     </div>
                     <div className="inputCont">
                         <label htmlFor="confirmPassword">Confirm Password</label>
-                        <input  
-                            type="text"
+                        <Field  
+                            type="password"
                             className="signupInput radius5px"
                             placeholder="at least 8 characters"
                             id="confirmPassword" 
+                            name='confirmPassword'
                         />
+                        <ErrorMessage name='confirmPassword' component={'div'} className='error' />
                     </div>
                 </div>
 
                 <div className="inputCont checkFlex">
-                    <input id='agree' type="checkbox" />
+                    <Field name="acceptTerms" id='acceptTerms' type="checkbox" />
                     <label htmlFor='agree'>i agree to the <Link deepblueTxt to={'/'}>Terms Policy Conditions </Link> </label>
                 </div>
 
                 <div className="inputCont">
-                    <button className='signupInput radius5px blueBg' >Sign Up</button>
+                    <button type='submit' className='signupInput radius5px blueBg' >Sign Up</button>
                 </div>
 
                 <div className="inputCont orSect">
@@ -105,7 +165,10 @@ const Signup = ({scrollToTop}) => {
 
                 </div>
 
-            </form>
+            </Form>
+              )
+            }
+            </Formik>
             <p className='centerText smallTxt'>
                 Don&apos;t have an account with us? 
               <Link to={'/signup'} className='blueTxt'>Sign Up</Link> 

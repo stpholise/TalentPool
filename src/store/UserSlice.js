@@ -32,7 +32,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         addNewSocial: (state, action) => { 
-            state.social = [...action.payload];
+            state.social = action.payload
         },
         removeASocial: (state, action) => {
             const { index } = action.payload;
