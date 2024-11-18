@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
-import {  
-  handleUserchange, 
-} from '../store/UserSlice'
+// import {  
+//   handleUserchange, 
+// } from '../store/UserSlice'
 import DisplayPhoto from '../assets/OhKElOkQ3RE.png'
 import Star from '../assets/Star 4.svg'
 import EmailIcon from '../assets/carbon_email.svg'
@@ -10,6 +10,9 @@ import PhoneIcon from '../assets/bx_bx-phone.svg'
 import {useState } from 'react'
 import Close from '../assets/close.svg'
 import { modalIsOpen, modalIsClose } from '../store/AppSlice'
+import {  handleUserchange } from '../store/UserSlice'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
 
 
 const Person = () => {
@@ -18,49 +21,32 @@ const Person = () => {
   const {name, email, occupation, phone, location } = user
   const [editProfileModal, setEditProfileModal] = useState(false)
 
-  const [newUser, setNewUser] = useState({
-    name: '',
-    occupation: '',
-    email: '',
-    location: '',
-    phone: '',
-  })
-
-  const handleUserUpdate = (e) => {
-    console.log({[e.target.name]: e.target.value})
-    setNewUser(
-     { ...newUser,
-      [e.target.name]: e.target.value}
-    )
+  const initialValues = {
+    name: name || '',
+    occupation: occupation || '',
+    email: email || '',
+    location: location || '',
+    phone: phone || '',
   }
+  const editUserSchema = Yup.object({
+    name: Yup.string().required('Required'),
+    occupation: Yup.string().required('occupation is Required'),
+    email: Yup.string().email('Enter a Valid Email Address').required('Email is Required'),
+    location: Yup.string().required('Location is required'),
+    phone: Yup.string()
+    .matches(/^(\+?\d{1,4}[\s-]?)?(\(?\d{1,3}\)?[\s-]?)?[\d\s-]{3,}$/, 'Phone number must contain only digits')
+    .required('Phone is required'),
+  })
+  const handleUserUpdate =  (values, actions) => {
+    dispatch(handleUserchange(values)); // Update Redux state
+    console.log(values)
+    setEditProfileModal(false); // Close modal
+    actions.resetForm(); // Reset Formik form
 
-
+  }
   const profileModalToggle = () => {
     setEditProfileModal(!editProfileModal)
     editProfileModal ? dispatch(modalIsClose(false)) : dispatch(modalIsOpen(true));
-  }
-  const handleProfileForm = (e) => {
-    e.preventDefault()
-    console.log('handle form')
-    if ( newUser.name === '' 
-      || newUser.email === '' 
-      || newUser.occupation === '' 
-      || newUser.phone === '' 
-      || newUser.location === '') {
-        console.log('Fields cannot be empty');
-      return;
-    } else {
-      dispatch(handleUserchange(newUser));
-      setEditProfileModal(false)
-      setNewUser({name: '',
-        occupation: '',
-        email: '',
-        location: '',
-        phone: '',})
-
-      console.log('submitted sucessfully')
-    }
-    
   }
 
   return (
@@ -92,7 +78,6 @@ const Person = () => {
                   <img src={LocationIcon} alt="profile Location" /> <span>{location}</span>
                 </p>
         </div>
-
         <div className="btnCont">
           <button className="editProfileBtn btn blueBg padd12 radius5px" 
             onClick={() => profileModalToggle()} >Edit Profile
@@ -105,52 +90,58 @@ const Person = () => {
             <>
             <div className="overlay">  </div>
             <div className='skillModal modal bgF radius5px padd1 lightShad possitionBtm'>
-                
-                <form onSubmit={handleProfileForm}>
-                  <p className="topFles spaceBet ">
-                       <h4 className='subHead'>Add profile</h4>
-                       <button className="skillModalBtn btn"  onClick={() => {setEditProfileModal(false); dispatch(modalIsClose(false))} }><img src={Close} alt="" /></button>
-                    </p>
-                    <input 
-                        name="name"
-                        type="text" 
-                        placeholder="Name"
-                        value={newUser.name}
-                        onChange={(e) =>  handleUserUpdate(e) }
-                         className='radius5px'
-                    />
-                    <input type="text" 
-                        name="occupation"
-                        placeholder="occupation"
-                        value={newUser.occupation}
-                        onChange={(e) => handleUserUpdate(e)}
-                         className='radius5px'
-                    />
-                    <input type="email" 
-                        name="email"
-                        placeholder="email"
-                        value={newUser.email}
-                        onChange={(e) => handleUserUpdate(e)}
-                         className='radius5px'
-                    />
-                    <input type="tel" 
-                        name="phone"
-                        placeholder="phone"
-                        value={newUser.phone}
-                        onChange={(e) => handleUserUpdate(e)}
-                         className='radius5px'
-                    />
-                     <input type="text" 
-                        name="location"
-                        placeholder="location"
-                        value={newUser.location}
-                        onChange={(e) => handleUserUpdate(e)}
-                         className='radius5px'
-                    />
+            <Formik
+              initialValues={initialValues}
+              validationSchema={editUserSchema}
+              onSubmit={handleUserUpdate}
+            >
 
-                    <button type='submit' className="addSkillBtn btn blueBg radius5px">Update Profile</button>
-                </form>
-          
+              {
+                ( ) => {
+                  return(
+                      <Form >
+                        <p className="topFles spaceBet ">
+                            <h4 className='subHead'>Add profile</h4>
+                            <button className="skillModalBtn btn"  onClick={() => {setEditProfileModal(false); dispatch(modalIsClose(false))} }><img src={Close} alt="" /></button>
+                          </p>
+                          <Field 
+                              name="name"
+                              type="text" 
+                              placeholder="Name"
+                              className='radius5px'
+                          />
+                          <ErrorMessage  name='name' component={'div'} className='error'/>
+                          <Field type="text" 
+                              name="occupation"
+                              placeholder="occupation"
+                              className='radius5px'
+                          />
+                           <ErrorMessage  name='occupation' component={'div'} className='error'/>
+                          <Field type="email" 
+                              name="email"
+                              placeholder="email"
+                              className='radius5px'
+                          />
+                           <ErrorMessage  name='email' component={'div'} className='error'/>
+                           <Field type="tel" 
+                              name="phone"
+                              placeholder="phone"
+                              className='radius5px'
+                          />
+                           <ErrorMessage  name='phone' component={'div'} className='error'/>
+                           <Field type="text" 
+                              name="location"
+                              placeholder="location"
+                              className='radius5px'
+                          />
+                           <ErrorMessage  name='location' component={'div'} className='error'/>
+
+                          <button type='submit' className="addSkillBtn btn blueBg radius5px">Update Profile</button>
+                      </Form>
+                      )
+                   }
+                  }
+                </Formik>
         </div>
         </>
         )}

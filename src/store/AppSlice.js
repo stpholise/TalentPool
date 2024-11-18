@@ -18,6 +18,9 @@ const appSlice = createSlice({
         logUserOut: (state) => {
             state.isLogedin = false;
         },
+        logUserIn: (state) => {
+            state.isLogedin = true;
+        },
         closeAll: (state) => {
             state.genMenu = false;
         },
@@ -35,6 +38,7 @@ export const {
     toggleGenMenu,
     toggleIsLogedin,
     logUserOut,
+    logUserIn,
     closeAll,
     modalIsOpen,
     modalIsClose,

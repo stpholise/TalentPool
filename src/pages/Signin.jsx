@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { PropTypes } from 'prop-types'
 import SignUpImg from '../assets/woman-in-blue-suit-jacket-2422293 1.png'
 import Facebook from '../assets/fb-icon.svg'
-import { toggleIsLogedin } from '../store/AppSlice'
+import { logUserIn } from '../store/AppSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import '../styling/Signup.css'
 import {  useEffect } from 'react'
@@ -30,28 +30,15 @@ const Signup = ({scrollToTop}) => {
         .required("Password is required"),
     })
  
-
-
-    // const [userValue, setUserValue ] = useState({email:'', password:''})
-    
-    
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     console.log({[name]: value})
-    // }
-    
-
     const handleSignin = (values, onSubmitProps) => {
         console.log('submit',onSubmitProps)
         console.log('login values', values)
+        dispatch(logUserIn())
         onSubmitProps.resetForm()
-        dispatch(toggleIsLogedin())
+        isLogedin && navigate('/')
     } 
     const isLogedin = useSelector((state) => state.app.isLogedin)
     
-    // const handleLogIn = () => {
-    //     dispatch(toggleIsLogedin())
-    // }
     useEffect(
         ()=> {
             isLogedin && navigate('/')

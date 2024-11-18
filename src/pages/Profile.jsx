@@ -4,13 +4,16 @@ import Socials from '../Components/Social'
 import Person from '../Components/Person'
 import { useDropzone } from 'react-dropzone'
 import { useState, useRef  } from 'react'
-// import { isModalOpen } from '../store/AppSlice'
 import Minus from '../assets/Minus.svg'
 import Add from '../assets/carbon_add.svg'
-import { useSelector} from 'react-redux'
+import { modalIsClose } from '../store/AppSlice'
+import { useSelector, useDispatch} from 'react-redux'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom';
 
 const Profile = ({ scrollToTop}) => {
-
+  const location = useLocation()  
+  const dispatch = useDispatch()
   const [cvFile, setCvFile ] = useState([])
   const [isCvFile, setIsCvFile ] = useState(false)
   const [isPortfolioFile, setIsPortfolioFile] = useState(false)
@@ -19,6 +22,10 @@ const Profile = ({ scrollToTop}) => {
   const [cvUrl, setCvUrl] = useState()
   const isModalOpen = useSelector((state) => state.app.modalIsOpen)
 
+  useEffect(( ) => {
+      console.log('location', location)
+      dispatch(modalIsClose(false))
+  }, [location, dispatch])
 
 // const skillsets = [
 //     { skill: 'UI/UX Design', level: 'Expert' },

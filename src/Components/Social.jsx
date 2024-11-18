@@ -6,51 +6,62 @@ import { addNewSocial } from '../store/UserSlice'
 import { v4 as uuidv4 } from 'uuid'
 import { modalIsOpen, modalIsClose } from '../store/AppSlice'
 import Close from '../assets/close.svg' 
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
 
 const Social = () => {
-    const uniqueId = uuidv4();
+   
     const dispatch = useDispatch(); 
     const [ editId, setEditId] = useState(null)
     const [socialModal, setSocialModal] = useState(false)
-    const [ newSocial, setNewSocial ] = useState({ socialLink: '', socialTitle: ''})
     const social  = useSelector((state) => state.users.social)
+    const [editValues, setEditValues ] = useState(null)
+
+    const initialSocialValues = { 
+        socialLink: editValues ? editValues.socialLink : '',
+        socialTitle:   editValues ? editValues.socialTitle : '',
+    }
+
+    const socialSchema = Yup.object({
+        socialTitle: Yup.string().required('Required'),
+        socialLink: Yup.string().url('Invalid URL format').required('Required'),
+    })
 
     const handleSocialModal = () => {
         setSocialModal(!socialModal)
         socialModal ? dispatch(modalIsClose(false)) : dispatch(modalIsOpen(true));
     }
-    const closeSocialModal = () => {
+    const closeSocialModal = (resetForm) => {
         setSocialModal(false)
-        setNewSocial({ socialLink: '', socialTitle: ''})
+        resetForm()
         dispatch(modalIsClose(false))   
+        setEditValues(null)
     }
-    const handleInputChange = (e) => {
-        const { name, value} = e.target;
-        setNewSocial({...newSocial, [name] : value }); 
-    }
-    const addSocial = ( e) => {
-        e.preventDefault();
-        if (newSocial.socialLink === '' || newSocial.socialTitle === '') return;
-        if ( editId !== null){
-            //update the social accoutn
-           const updatedSocial = social.map((social) => social.id === editId ? newSocial : social)
-           
-            dispatch(addNewSocial(updatedSocial));
-            setEditId(null); // Reset editIndex
+    const addSocial = (values, actions) => {
+         if (editId !== null) {
+            // Update existing social account
+            const updatedSocial = social.map((item) =>
+                item.id === editId ? { ...item, ...values } : item
+            );
+            dispatch(addNewSocial(updatedSocial));    
+            setEditId(null); 
+            setEditValues(null)
+        } else {
+            dispatch(addNewSocial([...social, {...values, id: uuidv4()}]))
         }
-        else{
-            const newSocialId = { ...newSocial, id: uniqueId }
-            dispatch(addNewSocial([...social, newSocialId]));
-            console.log(newSocialId)
-        }
-        closeSocialModal()
+        actions.resetForm()
+        closeSocialModal(actions.resetForm)
     } 
+
 
     const editSocial = (id) => {
         const selectedSocial = social.find((social) => social.id === id);
-        setNewSocial(selectedSocial);
-        setEditId(id);
-        handleSocialModal()
+        if (selectedSocial) {
+            setEditId(id);
+            console.log(selectedSocial)
+            setEditValues(selectedSocial);
+            handleSocialModal();
+        }
     }
 
   return (
@@ -68,9 +79,12 @@ const Social = () => {
                         <p>{social.socialTitle}</p>
                     </div>
                     <div className="edit">
-                        <button className="skillDelete" onClick={() => editSocial(social.id)}>
-                        <img src={Edit} alt="Edit buttton" style={{width:'18px'}} />
-                        </button>
+                       
+                                <button className="skillDelete" onClick={() => editSocial(social.id )}>
+                                <img src={Edit} alt="Edit buttton" style={{width:'18px'}} />
+                                </button>
+                           
+                      
                     </div>
                     
                 </li>
@@ -81,41 +95,57 @@ const Social = () => {
             <>
                 <div className="overlay"></div>
                 <div className='skillModal modal bgF radius5px padd1 lightShad'>
-                <form onSubmit={addSocial}>
+
+            <Formik
+                initialValues={initialSocialValues}
+                validationSchema={socialSchema}
+                onSubmit={addSocial}
+            >
+                {
+                (formik) => {
+
+
+               return(
+                <Form >
                 <div className="topFles spaceBet ">
                     <h4 className='subHead'>Social accounts</h4>
-                    <button className="skillModalBtn btn" onClick={closeSocialModal}><img src={Close} alt="" /></button>
+                    <button className="skillModalBtn btn" onClick={() => closeSocialModal(formik.resetForm)}><img src={Close} alt="" /></button>
                 </div>
                     <h5>Select plaform</h5>
-                    <select name='socialTitle'
+                    <Field name='socialTitle'
                         id='socialLink'
-                        value={newSocial.socialTitle} 
-                        onChange={handleInputChange}
+                        as='select'
                         className='radius5px'
                      >
                         <option className='option'  value="">Select</option>
                         {social.map((social, index) => (
-                            <option key={index} className='option'  value={social.socialTitle}>{social.socialTitle}</option>
+                            <option 
+                                key={index} 
+                                className='option'  
+                                value={social.socialTitle}
+                            >
+                                {social.socialTitle}
+                            </option>
                         ))}
-                    </select>
-                    <input 
+                    </Field>
+                    <Field 
                         name="socialTitle"
                         type="text" 
-                        placeholder={newSocial.socialTitle}
-                        value={newSocial.socialTitle}
-                        onChange={handleInputChange}
+                        placeholder={formik.values.socialTitle}
                          className='radius5px'
                     />
+                    <ErrorMessage name='socialTitle' component={'div'} className='error' />
                     <h5>Account link</h5>
-                     <input type="text" 
+                     <Field type="text" 
                         name="socialLink"
                         placeholder="Add link"
-                        value={newSocial.socialLink}
-                        onChange={handleInputChange}
                         className='radius5px'
                     /> 
+                    <ErrorMessage name='socialLink' component={'div'} className='error' />
                     <button type='submit' className="skillModalBtn blueBg radius5px btn addSkillBtn">Add</button>
-                </form>
+                </Form>)
+                }}
+            </Formik>
             </div>            
             </>
         )}
