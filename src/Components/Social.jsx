@@ -19,6 +19,7 @@ const Social = () => {
     const social  = useSelector((state) => state.users.social)
     const [editValues, setEditValues ] = useState(null)
     const [ currentOption, setCurrentOption ] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
 
     const socialPlatforms = [
         { value: 'facebook', label: 'Facebook' },
@@ -36,18 +37,25 @@ const Social = () => {
 
     // handleOption selection with the imported CreatableSelect from react select
     const handleOptions = (option, formik) => {
-        setCurrentOption(option)
-        formik.setFieldValue('socialTitle', option.value) // sets the value of the socialTitle field to the selected option value
-        console.log(option)
-    }
-    // handleCreateOptions to create a new option
-    const handleCreateOptions = (inputValue, formik) => {
-        const option = { value: inputValue.toLowerCase().replace(/\W/g, ''), label: inputValue } // distructure the inputValue to create a new option
+
         if (!option) return // return if there is no option
-        setCurrentOption({ value: option.value, label: option.label }) // set the current option to the new option
-        formik.setFieldValue('socialTitle', option.label) // sets the value of the socialTitle field to the new option label
+        if(typeof option === 'string') {
+            setIsLoading(true)
+            setTimeout(() => {
+            option = { value: option.toLowerCase().replace(/\W/g, ''), label: option } // distructure the inputValue to create a new option
+            setCurrentOption({ value: option.value, label: option.label }) // set the current option to the new option
+            formik.setFieldValue('socialTitle', option.label) // sets the value of the socialTitle field to the new option label
+            setIsLoading(false)
+            }, 1000)
+        }
+        else{
+            setCurrentOption(option)
+            formik.setFieldValue('socialTitle', option.label) // sets the value of the socialTitle field to the selected option value
+            console.log(option)
+        }
+
     }
-    // initial values object for the formik form
+    
     const initialSocialValues = { 
         socialLink: editValues ? editValues.socialLink : '',
         socialTitle:   editValues ? editValues.socialTitle : '',
@@ -149,9 +157,13 @@ const Social = () => {
                         options={socialPlatforms}
                         value={currentOption}
                         onChange={(option) => handleOptions(option, formik)}
-                        onCreateOption={(inputValue) => handleCreateOptions(inputValue, formik)}
-                        className='radius5px'
+                        onCreateOption={(inputValue) => handleOptions(inputValue, formik)}
                         isClearable
+                        onClearValue={() => setCurrentOption(null)}
+                        className='radius5px'
+                        isDisabled={isLoading}
+                        isLoading={isLoading}
+                        placeholder={'Select or add a platform'}
                      />
                     
                     <ErrorMessage name='socialTitle' component={'div'} className='error' />
