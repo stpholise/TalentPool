@@ -29,8 +29,16 @@ const Person = () => {
     phone: phone || '',
   }
   const editUserSchema = Yup.object({
-    name: Yup.string().required('Required'),
-    occupation: Yup.string().required('occupation is Required'),
+    name: Yup
+      .string()
+      .min(3, 'Name must be at least 3 characters')
+      .max(50, 'Name cannot exceed 50 characters')
+      .required('Required'),
+    occupation:
+      Yup.string()
+      .min(3, 'Name must be at least 3 characters')
+      .max(50, 'Name cannot exceed 50 characters')
+      .required('occupation is Required'),
     email: Yup.string().email('Enter a Valid Email Address').required('Email is Required'),
     location: Yup.string().required('Location is required'),
     phone: Yup.string()
@@ -107,31 +115,31 @@ const Person = () => {
                           <Field 
                               name="name"
                               type="text" 
-                              placeholder="Name"
+                              placeholder="e.g john doe"
                               className='radius5px'
                           />
                           <ErrorMessage  name='name' component={'div'} className='error'/>
                           <Field type="text" 
                               name="occupation"
-                              placeholder="occupation"
+                              placeholder="e.g Teacher"
                               className='radius5px'
                           />
                            <ErrorMessage  name='occupation' component={'div'} className='error'/>
                           <Field type="email" 
                               name="email"
-                              placeholder="email"
+                              placeholder="example@gmail.com"
                               className='radius5px'
                           />
                            <ErrorMessage  name='email' component={'div'} className='error'/>
                            <Field type="tel" 
                               name="phone"
-                              placeholder="phone"
+                              placeholder="07069000000"
                               className='radius5px'
                           />
                            <ErrorMessage  name='phone' component={'div'} className='error'/>
                            <Field type="text" 
                               name="location"
-                              placeholder="location"
+                              placeholder="e.g Lagos Nigeria"
                               className='radius5px'
                           />
                            <ErrorMessage  name='location' component={'div'} className='error'/>
