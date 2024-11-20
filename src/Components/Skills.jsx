@@ -105,7 +105,7 @@ const Skills = () => {
                             <Field 
                                 name="skillTitle"
                                 type="text" 
-                                placeholder="Skill Title"
+                                placeholder="e.g Javascript"
                                 className='radius5px'
                             />
                             <ErrorMessage  name='skillTitle' component={'div'} className='error'/>

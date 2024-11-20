@@ -9,6 +9,8 @@ import Close from '../assets/close.svg'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
+import CreatableSelect  from 'react-select/creatable'
+
 const Social = () => {
    
     const dispatch = useDispatch(); 
@@ -16,44 +18,74 @@ const Social = () => {
     const [socialModal, setSocialModal] = useState(false)
     const social  = useSelector((state) => state.users.social)
     const [editValues, setEditValues ] = useState(null)
+    const [ currentOption, setCurrentOption ] = useState(null)
 
+    const socialPlatforms = [
+        { value: 'facebook', label: 'Facebook' },
+        { value: 'twitter', label: 'Twitter' },
+        { value: 'instagram', label: 'Instagram' },
+        { value: 'linkedin', label: 'LinkedIn' },
+        { value: 'dribble', label: 'Dribble' },
+        { value: 'github', label: 'Github' },
+        { value: 'behance', label: 'Behance' },
+        { value: 'youtube', label: 'Youtube' },
+        { value: 'pinterest', label: 'Pinterest' },
+        { value: 'tiktok', label: 'Tiktok' },
+        { value: 'snapchat', label: 'Snapchat' },
+      ]
+
+    // handleOption selection with the imported CreatableSelect from react select
+    const handleOptions = (option, formik) => {
+        setCurrentOption(option)
+        formik.setFieldValue('socialTitle', option.value) // sets the value of the socialTitle field to the selected option value
+        console.log(option)
+    }
+    // handleCreateOptions to create a new option
+    const handleCreateOptions = (inputValue, formik) => {
+        const option = { value: inputValue.toLowerCase().replace(/\W/g, ''), label: inputValue } // distructure the inputValue to create a new option
+        if (!option) return // return if there is no option
+        setCurrentOption({ value: option.value, label: option.label }) // set the current option to the new option
+        formik.setFieldValue('socialTitle', option.label) // sets the value of the socialTitle field to the new option label
+    }
+    // initial values object for the formik form
     const initialSocialValues = { 
         socialLink: editValues ? editValues.socialLink : '',
         socialTitle:   editValues ? editValues.socialTitle : '',
     }
-
+    // Yup validation schema for the formik form
     const socialSchema = Yup.object({
         socialTitle: Yup.string().required('Required'),
         socialLink: Yup.string().url('Invalid URL format').required('Required'),
     })
-
+    // handleSocialModal to open and close the modal
     const handleSocialModal = () => {
         setSocialModal(!socialModal)
-        socialModal ? dispatch(modalIsClose(false)) : dispatch(modalIsOpen(true));
+        socialModal ? dispatch(modalIsClose(false)) : dispatch(modalIsOpen(true)); //changes the modal state to true on the AppSlice
     }
+    // closeSocialModal to close the modal and reset the form when close button is clicked
     const closeSocialModal = (resetForm) => {
         setSocialModal(false)
-        resetForm()
-        dispatch(modalIsClose(false))   
-        setEditValues(null)
+        resetForm() // resets the form values
+        dispatch(modalIsClose(false))   //changes the modal state to false on the AppSlice
+        setEditValues(null) // reset the edit values
     }
+    // addSocial function to add a new social account to the social array in user slice
     const addSocial = (values, actions) => {
          if (editId !== null) {
             // Update existing social account
             const updatedSocial = social.map((item) =>
-                item.id === editId ? { ...item, ...values } : item
+                item.id === editId ? { ...item, ...values } : item  // update the social account with the new values if the id matches
             );
-            dispatch(addNewSocial(updatedSocial));    
+            dispatch(addNewSocial(updatedSocial));   // dispatch the updated social array to the user slice for redux state management
             setEditId(null); 
             setEditValues(null)
         } else {
-            dispatch(addNewSocial([...social, {...values, id: uuidv4()}]))
+            dispatch(addNewSocial([...social, {...values, id: uuidv4()}])) // dispatch the new social account to the user slice for redux state management
         }
         actions.resetForm()
         closeSocialModal(actions.resetForm)
     } 
-
-
+    // editSocial function to edit a social account
     const editSocial = (id) => {
         const selectedSocial = social.find((social) => social.id === id);
         if (selectedSocial) {
@@ -112,28 +144,16 @@ const Social = () => {
                     <button className="skillModalBtn btn" onClick={() => closeSocialModal(formik.resetForm)}><img src={Close} alt="" /></button>
                 </div>
                     <h5>Select plaform</h5>
-                    <Field name='socialTitle'
-                        id='socialLink'
-                        as='select'
+                
+                    <CreatableSelect 
+                        options={socialPlatforms}
+                        value={currentOption}
+                        onChange={(option) => handleOptions(option, formik)}
+                        onCreateOption={(inputValue) => handleCreateOptions(inputValue, formik)}
                         className='radius5px'
-                     >
-                        <option className='option'  value="">Select</option>
-                        {social.map((social, index) => (
-                            <option 
-                                key={index} 
-                                className='option'  
-                                value={social.socialTitle}
-                            >
-                                {social.socialTitle}
-                            </option>
-                        ))}
-                    </Field>
-                    <Field 
-                        name="socialTitle"
-                        type="text" 
-                        placeholder={formik.values.socialTitle}
-                         className='radius5px'
-                    />
+                        isClearable
+                     />
+                    
                     <ErrorMessage name='socialTitle' component={'div'} className='error' />
                     <h5>Account link</h5>
                      <Field type="text" 
