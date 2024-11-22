@@ -8,7 +8,7 @@ import { modalIsOpen, modalIsClose } from '../store/AppSlice'
 import Close from '../assets/close.svg' 
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-
+import 'animate.css'
 import CreatableSelect  from 'react-select/creatable'
 
 const Social = () => {
@@ -104,6 +104,11 @@ const Social = () => {
         }
     }
 
+    const deleteMultiple = () => { 
+        console.log('multiple select ')
+
+    }
+
   return (
     <div className='radius5px padd1 bgF mb1'>
         <div className="topFles spaceBet ">
@@ -134,7 +139,9 @@ const Social = () => {
         {socialModal && (
             <>
                 <div className="overlay"></div>
-                <div className='skillModal modal bgF radius5px padd1 lightShad'>
+                <div className={     
+                    socialModal ? 'animate__animated animate__fadeIn skillModal modal bgF radius5px padd1 lightShad'     
+                        : `skillModal modal bgF radius5px padd1 lightShad`}>
 
             <Formik
                 initialValues={initialSocialValues}
@@ -159,11 +166,12 @@ const Social = () => {
                         onChange={(option) => handleOptions(option, formik)}
                         onCreateOption={(inputValue) => handleOptions(inputValue, formik)}
                         isClearable
-                        onClearValue={() => setCurrentOption(null)}
+                        onClear={() => setCurrentOption(null)}
                         className='radius5px'
                         isDisabled={isLoading}
                         isLoading={isLoading}
                         placeholder={'Select or add a platform'}
+                        
                      />
                     
                     <ErrorMessage name='socialTitle' component={'div'} className='error' />
