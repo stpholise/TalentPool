@@ -18,7 +18,7 @@ const Skills = () => {
     const dispatch = useDispatch()
     const [skillModal, setSkillModal ] = useState(false)
     const skills = useSelector((state) => state.users.skills) || [];
-    const [isChecked, setIsChecked ] = useState(null)
+    const [isChecked, setIsChecked ] = useState(false)
 
     
     const toggleSkillModal = () => {
@@ -68,6 +68,8 @@ const Skills = () => {
 
     const checkedSkill = (skill) => {
         const selectedSkills = skills.filter((skill) => skill.skillChecked === true)
+        // const itemChecked = skill.skillChecked = true
+        // const checkedSkils = skills.map((item) => item.id === skill.id ? {...item, itemChecked } : '')
         console.log(skills.skillChecked)
         console.log(skill.skillChecked)
         console.log(selectedSkills)
@@ -88,7 +90,7 @@ const Skills = () => {
             {skills.map((skill) => (
                 <li key={skill.id} className='skillBox spaceBet'>
                     <div className="skillTitle">
-                        { <input type="checkbox" onChange={() => {checkedSkill(skill) }}/>}
+                         <input type="checkbox"  onChange={() => {checkedSkill(skill) }}/>
                         <p>{skill.skillTitle}</p>         
                     </div>
                     <button className="skillDelete" onClick={() => skillRemove(skill.id)}>
