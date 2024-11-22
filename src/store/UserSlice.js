@@ -38,20 +38,32 @@ const userSlice = createSlice({
             const { index } = action.payload;
             state.social = state.social.filter((_, i) => i !== index)
         },
+        delMultipleSocial:(state, action) => {
+            state.social= state.social.filter(
+                (item) => !action.payload.includes(item.id)
+            )
+        },
         setNewSocial: (state, action) => {
             state.social = action.payload;
         },    
         handleUserchange: (state, action) => {
             state.user = action.payload
         },
-        addSkill: (state, action) => {
-            const { title, proficiency, id } = action.payload;
-            const updatedSkills = {  skillProficiency:proficiency, skillTitle:title, id:id  }   
-            state.skills = [...state.skills, updatedSkills]
+        addSkill: (state, action) => {   
+            state.skills = [...state.skills, action.payload]
+        },
+        updateSkills: (state, action) => {
+            state.skills = action.payload
         },
         removeSkill: (state, action) => {
             const updatedSkills = state.skills.filter(({id})=> id !== action.payload)
             state.skills = [...updatedSkills]
+        },
+        removeMultipleSkills: (state, action)=>{
+            state.skills =  state.skills.filter(
+                (item) => !action.payload.includes(item.id)
+            );
+           
         },
         clearUserState: ()=>initialState
     }
@@ -59,7 +71,10 @@ const userSlice = createSlice({
 
 export const {
     addNewSocial,
+    delMultipleSocial,
     handleUserchange,
+    updateSkills,
+    removeMultipleSkills,
     setSkill,
     addSkill,
     removeSkill,

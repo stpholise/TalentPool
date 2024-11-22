@@ -2,7 +2,7 @@
 import Add from '../assets/carbon_add.svg'
 import Trash from '../assets/carbon_trash-can.svg'
 import { useSelector, useDispatch } from 'react-redux'
-import { addSkill, removeSkill } from '../store/UserSlice'
+import { addSkill, removeSkill, removeMultipleSkills } from '../store/UserSlice'
 import { modalIsOpen, modalIsClose } from '../store/AppSlice'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
@@ -12,15 +12,18 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import 'animate.css'
 import '../styling/animated.css'
+import Edit from '../assets/bytesize_edit.svg'
+
 
 const Skills = () => {
     const uniqueId = uuidv4()
     const dispatch = useDispatch()
     const [skillModal, setSkillModal ] = useState(false)
-    const skills = useSelector((state) => state.users.skills) || [];
-    const [isChecked, setIsChecked ] = useState(false)
+    const skillSlice = useSelector((state) => state.users.skills) || [];
+    const skills = [...skillSlice]
+    const [selected, setSelected] = useState([]);
+    const[ editId, setEditId ] = useState(null)
 
-    
     const toggleSkillModal = () => {
         setSkillModal(!skillModal)
         skillModal ? dispatch(modalIsClose(false)) : dispatch(modalIsOpen(true));
@@ -51,13 +54,15 @@ const Skills = () => {
           .required('Proficiency is required'),
       });
 
+    //   console.log('momom')
 
     const handleForm = (values, actions) => {
         console.log(values)
         dispatch(
             addSkill({
-                title:values.skillTitle, 
-                proficiency:values.skillProficiency, 
+                skillTitle:values.skillTitle, 
+                skillProficiency:values.skillProficiency, 
+                skillChecked:false,
                 id: uniqueId}));
         actions.resetForm()
         closeSkillModal(actions.resetForm)     
@@ -66,38 +71,68 @@ const Skills = () => {
         dispatch(removeSkill(id))
     }
 
-    const checkedSkill = (skill) => {
-        const selectedSkills = skills.filter((skill) => skill.skillChecked === true)
-        // const itemChecked = skill.skillChecked = true
-        // const checkedSkils = skills.map((item) => item.id === skill.id ? {...item, itemChecked } : '')
-        console.log(skills.skillChecked)
-        console.log(skill.skillChecked)
-        console.log(selectedSkills)
-        console.log(skill.id)
-        console.log(skill)
+    const handleChecking = (skill) => {
+        const isSelected =  Boolean(selected.find(item => item.id === skill.id ))
+        if(isSelected) return;
+        setSelected(prev => {
+            if(prev.includes(skill.id)){
+               return prev.filter((selectedId) => selectedId !== skill.id)
+            }else{
+               return [ ...prev,     skill.id]}
+        })
+       
+     
+        console.log(selected)
+    }
+   
+    const handleMultiDelete = () => {
+        dispatch(removeMultipleSkills(selected))
+        setSelected([])
     }
 
-    
-
+    const editSkill = (skill) => {
+        toggleSkillModal()
+        const selectedSkill = skills.find((item) => item.id === skill.id)
+       console.log(selectedSkill)
+    }
 
   return (
     <div className='radius5px padd1 bgF mb1'>
         <div className="topFles spaceBet ">
             <h4 className='subHead'>Skillsets</h4>
-            <button className="skillModalBtn btn" onClick={() => toggleSkillModal()} aria-label="Add Skill"><img src={Add} alt="" /></button>
+            {(selected.length > 1) && <button 
+                onClick={handleMultiDelete}
+                aria-label="Delete Selected Skills"
+                className=' pad1 btn blueBg radius5px'
+            > Delete {selected.length} skills</button> }
+            {selected.length <= 1 &&
+            <button className="skillModalBtn btn"  onClick={() => toggleSkillModal()} aria-label="Add Skill"><img src={Add} alt="" /></button>}
         </div>
         <ul className="skills">
-            {skills.map((skill) => (
+            {skills.map((skill) => {
+               
+                return(
                 <li key={skill.id} className='skillBox spaceBet'>
                     <div className="skillTitle">
-                         <input type="checkbox"  onChange={() => {checkedSkill(skill) }}/>
+                 
+                         <input type="checkbox"  
+                            checked={selected.includes(skill.id)}
+                            onChange={() => {handleChecking(skill) }}
+                         />
                         <p>{skill.skillTitle}</p>         
                     </div>
-                    <button className="skillDelete" onClick={() => skillRemove(skill.id)}>
-                       <img src={Trash} alt="delete buttton" style={{width:'18px'}} />
-                    </button>                   
+
+                    {(selected.length <= 1) &&
+                                <button className="skillDelete" onClick={() => editSkill(skill)}>
+                                <img src={Edit} alt="Edit buttton" style={{width:'18px'}} />
+                                </button>
+                           }
+                    {(selected.length === 100) &&
+                        <button className="skillDelete" onClick={() => skillRemove(skill.id)}>
+                        <img src={Trash} alt="delete buttton" style={{width:'18px'}} />
+                        </button>       }            
                 </li>
-            ))}
+            )})}
         </ul>
         {skillModal && (
             <>
@@ -115,10 +150,10 @@ const Skills = () => {
                         (formik) => {
                             return(                            
                         <Form >
-                            <p className="topFles spaceBet ">
+                            <div className="topFles spaceBet ">
                             <h4 className='subHead'>Skillsets</h4>
                             <button className="skillModalBtn btn"  onClick={() => closeSkillModal(formik.resetForm)}><img src={Close} alt="" /></button>
-                            </p>
+                            </div>
                             <Field 
                                 name="skillTitle"
                                 type="text" 
