@@ -220,7 +220,6 @@ input[type=password]::-ms-clear
   flex-direction:column;
   padding:1rem 0;
   z-index:100;
-  
 }
 
 .menuOverlay, .profileOverlay{
@@ -507,9 +506,15 @@ li{
 .skillModal {
   position: fixed;
   z-index: 100;
-  top: 60%;
-  left: 50%; /* This is needed to position the modal correctly */
-  transform: translate(-50%, -50%);
+  top: calc(100vh - 70%);
+  left: 40%;
+ 
+  /* left: 50%; This is needed to position the modal correctly */
+  /* transform: translate(-50%, -50%); */
+  /* transform-origin: 10%; */
+  /* animation: bounce; /* referring directly to the animation's @keyframe declaration */
+  /* animation-duration: 2s; don't forget to set a duration! */ 
+
 }
 
 
@@ -962,9 +967,12 @@ li{
   gap: 1rem;
   justify-content: space-between;
 }
-
+.skillModal{
+  left: 5%;
+}
 .skillModal.positionBtm{
   bottom: 5%;
+  
 }
 .cards p{
   color:#fff;
@@ -1012,7 +1020,9 @@ li{
 
 
 @media(max-width:480px) {
-
+  .skillModal{
+    left: 0;
+  }
   
   .headerContent{
     width:50%;

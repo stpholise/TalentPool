@@ -10,12 +10,15 @@ import ProgressBar from './ProgressBar'
 import Close from '../assets/close.svg'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
+import 'animate.css'
+import '../styling/animated.css'
 
 const Skills = () => {
     const uniqueId = uuidv4()
     const dispatch = useDispatch()
     const [skillModal, setSkillModal ] = useState(false)
     const skills = useSelector((state) => state.users.skills) || [];
+    const [isChecked, setIsChecked ] = useState(null)
 
     
     const toggleSkillModal = () => {
@@ -63,6 +66,15 @@ const Skills = () => {
         dispatch(removeSkill(id))
     }
 
+    const checkedSkill = (skill) => {
+        const selectedSkills = skills.filter((skill) => skill.skillChecked === true)
+        console.log(skills.skillChecked)
+        console.log(skill.skillChecked)
+        console.log(selectedSkills)
+        console.log(skill.id)
+        console.log(skill)
+    }
+
     
 
 
@@ -76,7 +88,7 @@ const Skills = () => {
             {skills.map((skill) => (
                 <li key={skill.id} className='skillBox spaceBet'>
                     <div className="skillTitle">
-                        {skill.skillChecked ? <input type="checkbox"  checked /> : <input type="checkbox" />}
+                        { <input type="checkbox" onChange={() => {checkedSkill(skill) }}/>}
                         <p>{skill.skillTitle}</p>         
                     </div>
                     <button className="skillDelete" onClick={() => skillRemove(skill.id)}>
@@ -87,8 +99,11 @@ const Skills = () => {
         </ul>
         {skillModal && (
             <>
-            <div className="overlay">  </div>
-            <div className='skillModal modal bgF radius5px padd1 lightShad'>
+            <div className=" overlay">  </div>
+            <div 
+                className={     
+                    skillModal ? 'animate__animated animate__fadeIn skillModal modal bgF radius5px padd1 lightShad'     
+                        : `animate__animated animate__fadeOut skillModal modal bgF radius5px padd1 lightShad`}>
                 <Formik
                 initialValues={skillValue}
                 onSubmit={handleForm}
