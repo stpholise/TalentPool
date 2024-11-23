@@ -54,7 +54,6 @@ h2{
 }
 h3, .signHeading{
   color: #084482;
-
 }
 
 h4{
@@ -65,10 +64,11 @@ h4{
 h5{
   font-size:16px;
   font-weight:400;
-
-
 }
 
+.skillFlex{
+  display:flex;
+}
 p{
   font-size:16px;
   font-weight:400;
