@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Add from '../assets/carbon_add.svg'
 import Edit from '../assets/bytesize_edit.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { addNewSocial, delMultipleSocial } from '../store/UserSlice'
+import { addNewSocial, delMultipleSocial, removeASocial } from '../store/UserSlice'
 import { v4 as uuidv4 } from 'uuid'
 import { modalIsOpen, modalIsClose } from '../store/AppSlice'
 import Close from '../assets/close.svg' 
@@ -116,6 +116,13 @@ const socialDelMultiple = () => {
     dispatch(delMultipleSocial(selected))
     setSelected([])
 }
+
+    const removeSocial = (id, actions) => {
+        dispatch(removeASocial(id))
+        actions.resetForm()
+        closeSocialModal(actions.resetForm)
+    }
+
   return (
     <div className='radius5px padd1 bgF mb1'>
         <div className="topFles spaceBet ">
@@ -199,7 +206,14 @@ const socialDelMultiple = () => {
                         className='radius5px'
                     /> 
                     <ErrorMessage name='socialLink' component={'div'} className='error' />
-                    <button type='submit' className="skillModalBtn blueBg radius5px btn addSkillBtn">Add</button>
+                    {(editValues) ?
+                                <div className='skillFlex'>
+                                     <button type='submit' className="addSkillBtn btn blueBg radius5px">Edit skill</button>
+                                     <button type='button' className="addSkillBtn btn blueBg radius5px" onClick={() => removeSocial(editValues.id, formik)}>Remove skill</button>
+                                </div>
+                                :   <button type='submit' className="skillModalBtn blueBg radius5px btn addSkillBtn">Add</button>
+                            }
+                   
                 </Form>)
                 }}
             </Formik>

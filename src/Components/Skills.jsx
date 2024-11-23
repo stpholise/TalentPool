@@ -49,7 +49,7 @@ const Skills = () => {
           .trim()
           .min(3, 'Skill title must be at least 3 characters long')
           .max(50, 'Skill title cannot exceed 50 characters')
-          .matches(/^[A-Za-z\s]+$/, 'Skill title must contain only letters and spaces')
+        //   .matches(/^[A-Za-z\s]+$/, 'Skill title must contain only letters and spaces')
           .required('Skill title is required'),
         skillProficiency: Yup.number()
           .min(1, 'Proficiency must be at least 1%')
