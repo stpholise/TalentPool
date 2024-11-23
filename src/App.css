@@ -39,6 +39,10 @@ a{
   color:inherit;
 }
 
+.pad1{
+  padding:0.8rem 1rem;
+}
+
 .transBtn{
   background:transparent;
   border:none;
@@ -495,6 +499,9 @@ li{
   border-radius: 50%;
 }
 
+.signinFlex{
+  display:flex;
+}
 
 
 /* MODAL  */
@@ -506,16 +513,11 @@ li{
 .skillModal {
   position: fixed;
   z-index: 100;
-  top: calc(100vh - 70%);
-  left: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
  
-  /* left: 50%; This is needed to position the modal correctly */
-  /* transform: translate(-50%, -50%); */
-  /* transform-origin: 10%; */
-  /* animation: bounce; /* referring directly to the animation's @keyframe declaration */
-  /* animation-duration: 2s; don't forget to set a duration! */ 
-
-}
+ }
 
 
 .editProfileBtn{
@@ -967,13 +969,7 @@ li{
   gap: 1rem;
   justify-content: space-between;
 }
-.skillModal{
-  left: 5%;
-}
-.skillModal.positionBtm{
-  bottom: 5%;
-  
-}
+
 .cards p{
   color:#fff;
   font-size:14px;
@@ -1020,9 +1016,7 @@ li{
 
 
 @media(max-width:480px) {
-  .skillModal{
-    left: 0;
-  }
+
   
   .headerContent{
     width:50%;
