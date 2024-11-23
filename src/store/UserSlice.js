@@ -52,6 +52,9 @@ const userSlice = createSlice({
         addSkill: (state, action) => {   
             state.skills = [...state.skills, action.payload]
         },
+        editedSkills: (state, action) => {
+            state.skills = state.skills.map((skill) => skill.id === action.payload.id ? action.payload : skill)
+        },
         updateSkills: (state, action) => {
             state.skills = action.payload
         },
@@ -75,6 +78,7 @@ export const {
     handleUserchange,
     updateSkills,
     removeMultipleSkills,
+    editedSkills,
     setSkill,
     addSkill,
     removeSkill,

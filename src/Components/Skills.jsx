@@ -2,7 +2,7 @@
 import Add from '../assets/carbon_add.svg'
 import Trash from '../assets/carbon_trash-can.svg'
 import { useSelector, useDispatch } from 'react-redux'
-import { addSkill, removeSkill, removeMultipleSkills } from '../store/UserSlice'
+import { addSkill, removeSkill, removeMultipleSkills, editedSkills } from '../store/UserSlice'
 import { modalIsOpen, modalIsClose } from '../store/AppSlice'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
@@ -58,12 +58,25 @@ const Skills = () => {
 
     const handleForm = (values, actions) => {
         console.log(values)
-        dispatch(
-            addSkill({
-                skillTitle:values.skillTitle, 
-                skillProficiency:values.skillProficiency, 
-                skillChecked:false,
-                id: uniqueId}));
+        if(editId){
+           
+
+            dispatch(
+                editedSkills({
+                    skillTitle:values.skillTitle, 
+                    skillProficiency:values.skillProficiency, 
+                    skillChecked:false,
+                    id: editId}));
+            setEditId(null)
+            closeSkillModal(actions.resetForm)
+        }else{          
+            dispatch(
+                addSkill({
+                    skillTitle:values.skillTitle, 
+                    skillProficiency:values.skillProficiency, 
+                    skillChecked:false,
+                    id: uniqueId}));
+        }
         actions.resetForm()
         closeSkillModal(actions.resetForm)     
     }
@@ -92,8 +105,10 @@ const Skills = () => {
 
     const editSkill = (skill) => {
         toggleSkillModal()
+        setEditId(skill.id)
         const selectedSkill = skills.find((item) => item.id === skill.id)
        console.log(selectedSkill)
+       console.log(editId)
     }
 
   return (
