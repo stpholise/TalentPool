@@ -23,6 +23,7 @@ const Skills = () => {
     const skills = [...skillSlice]
     const [selected, setSelected] = useState([]);
     const[ editId, setEditId ] = useState(null)
+    const [ isEditing, setIsEditing ] = useState(null)
 
     const toggleSkillModal = () => {
         setSkillModal(!skillModal)
@@ -31,14 +32,16 @@ const Skills = () => {
     }
     const closeSkillModal = (resetForm) => {
         setSkillModal(false)
+        setEditId(null)
+        setIsEditing(null)
         resetForm();
         dispatch(modalIsClose(false))    
     }
 
    
     const skillValue = {
-        skillTitle: '',
-        skillProficiency: 0,
+        skillTitle: isEditing?.skillTitle || '',
+        skillProficiency: isEditing?.skillProficiency || 0,
     }    
 
     const skillValidationSchema = Yup.object({
@@ -80,13 +83,14 @@ const Skills = () => {
         actions.resetForm()
         closeSkillModal(actions.resetForm)     
     }
-    const skillRemove = (id) => {
+    const skillRemove = (id, formik) => {
         dispatch(removeSkill(id))
+        closeSkillModal(formik.resetForm) 
     }
 
     const handleChecking = (skill) => {
-        const isSelected =  Boolean(selected.find(item => item.id === skill.id ))
-        if(isSelected) return;
+        // const isSelected =  Boolean(selected.find(item => item.id === skill.id ))
+        // if(isSelected) return;
         setSelected(prev => {
             if(prev.includes(skill.id)){
                return prev.filter((selectedId) => selectedId !== skill.id)
@@ -107,8 +111,9 @@ const Skills = () => {
         toggleSkillModal()
         setEditId(skill.id)
         const selectedSkill = skills.find((item) => item.id === skill.id)
-       console.log(selectedSkill)
-       console.log(editId)
+        setIsEditing(selectedSkill)
+        console.log('is Editing', isEditing)
+        console.log(Boolean(isEditing))
     }
 
   return (
@@ -180,7 +185,14 @@ const Skills = () => {
                                 setSkill={(value) => formik.setFieldValue('skillProficiency', value)} 
                                 skillProficiency={formik.values.skillProficiency} />    
                             <ErrorMessage  name='skillProficiency' component={'div'} className='error'/>
-                            <button type='submit' className="addSkillBtn btn blueBg radius5px">Add skill</button>
+                            {(isEditing) ?
+                                <div className='skillFlex'>
+                                     <button type='submit' className="addSkillBtn btn blueBg radius5px">Edit skill</button>
+                                     <button type='button' className="addSkillBtn btn blueBg radius5px" onClick={() => skillRemove(isEditing.id, formik)}>Remove skill</button>
+                                </div>
+                                :  <button type='submit' className="addSkillBtn btn blueBg radius5px">Add skill</button>
+                            }
+                           
                         </Form>  
                         )
                         }
