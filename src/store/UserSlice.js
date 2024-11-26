@@ -35,8 +35,9 @@ const userSlice = createSlice({
             state.social = action.payload
         },
         removeASocial: (state, action) => {
-            const { index } = action.payload;
-            state.social = state.social.filter((_, i) => i !== index)
+          
+            state.social = state.social.filter((social) =>  social.id !== action.payload)
+            console.log(action.payload)
         },
         delMultipleSocial:(state, action) => {
             state.social= state.social.filter(
@@ -75,6 +76,7 @@ const userSlice = createSlice({
 export const {
     addNewSocial,
     delMultipleSocial,
+    removeASocial,
     handleUserchange,
     updateSkills,
     removeMultipleSkills,

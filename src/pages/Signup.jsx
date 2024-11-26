@@ -76,7 +76,7 @@ const Signup = ({scrollToTop}) => {
                 onSubmit={handleSignUp}
             >
                 {
-                    () => (
+                    (formik) => (
 
                   
             <Form className='signUpForm' >
@@ -144,7 +144,11 @@ const Signup = ({scrollToTop}) => {
                 </div>
 
                 <div className="inputCont">
-                    <button type='submit' className='signupInput radius5px blueBg' >Sign Up</button>
+                    <button type='submit' 
+                           className={`signupInput radius5px blueBg ${(!formik.isValid || formik.isSubmitting)? 'grayBg':'blueBg'}`} 
+                           disabled={!(formik.isValid && !formik.isSubmitting )}
+                           aria-disabled={!(formik.isValid && !formik.isSubmitting)}
+                    >Sign Up</button>
                 </div>
 
                 <div className="inputCont orSect">

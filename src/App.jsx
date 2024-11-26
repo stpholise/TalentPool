@@ -6,6 +6,7 @@ import Profile from './pages/Profile'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import EmployerDashboard from './pages/EmployerDashboard'
+import Jobs from './pages/Jobs'
 
 import { useSelector, useDispatch }  from 'react-redux'
 import { closeAll } from './store/AppSlice'
@@ -13,7 +14,7 @@ import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
 
 import './App.css'
 import GuardRoute from './Components/GuardRoute'
-
+ 
 function App() {
 
  const isModalOpen = useSelector((state) => state.app.isModalOpen)
@@ -59,7 +60,7 @@ function App() {
 
 
       {/* Conditionally render Header and Navigation component */}
-      {(path !== '/signup' && path !== '/signin' )&& (
+      {(path !== '/signup' && path !== '/signin'  )&& (
         <>
       <Header  />
       <Navigation />
@@ -68,7 +69,8 @@ function App() {
       <>
       {/* SMALL SCREEN NAVIGATION */}
       
-        {menuToggle && <div className="menuOverlay" onClick={() => dispatch(closeAll())}></div>}
+        {menuToggle && 
+          <div className="menuOverlay" onClick={() => dispatch(closeAll())}></div>}
        {(path !== '/signup' && path !== '/signin') && <Navigation /> }
       
       </>
@@ -79,6 +81,8 @@ function App() {
           <Route path='/EmployerDashboard' element={<GuardRoute element={EmployerDashboard} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />
           <Route exact path='/signup' element={<Signup scrollToTop={useScrollToTop} />} />
           <Route exact path='/signin' element={<Signin scrollToTop={useScrollToTop} />} />
+          <Route exact path='/jobs' element={<GuardRoute element={Jobs} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />          
+
          
         </Routes>
      

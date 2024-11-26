@@ -3,12 +3,12 @@ import Skills from '../Components/Skills'
 import Socials from '../Components/Social'
 import Person from '../Components/Person'
 import { useDropzone } from 'react-dropzone'
-import { useState, useRef  } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Minus from '../assets/Minus.svg'
 import Add from '../assets/carbon_add.svg'
 import { modalIsClose } from '../store/AppSlice'
 import { useSelector, useDispatch} from 'react-redux'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 
 const Profile = ({ scrollToTop}) => {
@@ -125,12 +125,12 @@ scrollToTop()
 
 
   return (
-    <section className={`marginTL profilePage ${isModalOpen ? 'modalIsOpen': ''}`} {...getCvRootProps()}>
+    <section className={`marginTL profilePage ${isModalOpen ? 'modalIsOpen': ''}`}>
           <Person />  
       <section className='flexColumn w80'>
         <div className="fileSection spaceBet mb1">
         <aside className="cvSec radius5px padd1 bgF lightShad w50">
-          <div className="cvTop topFles spaceBet ">
+          <div className="cvTop topFles spaceBet "  {...getCvRootProps()}>
             <h4>CV</h4>
             {
               isCvFile ? 
@@ -179,7 +179,6 @@ scrollToTop()
                 </button>
               }
             </div>  
-            {/* <p>Portfolio</p> */}
             <div className="portfolioBtnCont ">
               {
                 isPortfolioFile ? 

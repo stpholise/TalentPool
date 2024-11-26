@@ -13,9 +13,10 @@ import { modalIsOpen, modalIsClose } from '../store/AppSlice'
 import {  handleUserchange } from '../store/UserSlice'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
+import {  PropTypes } from 'prop-types'
 
 
-const Person = () => {
+const Person = ({employer }) => {
   const dispatch = useDispatch() 
   const user = useSelector((state) => state.users.user)
   const {name, email, occupation, phone, location } = user
@@ -86,12 +87,19 @@ const Person = () => {
                   <img src={LocationIcon} alt="profile Location" /> <span>{location}</span>
                 </p>
         </div>
-        <div className="btnCont">
-          <button className="editProfileBtn btn blueBg padd12 radius5px" 
-            onClick={() => profileModalToggle()} >Edit Profile
-          </button>
+       
+          {
+            employer ?  ''
+            :
+            <div className="btnCont">
+              <button className="editProfileBtn btn blueBg padd12 radius5px" 
+                onClick={() => profileModalToggle()} >Edit Profile
+              </button>
+            </div>
+          }
+       
          
-        </div>
+       
 
      </aside>
         {editProfileModal && (
@@ -157,5 +165,9 @@ const Person = () => {
     </>
   )
 }
+
+ Person.propTypes = {
+  employer : PropTypes.bool
+ }
 
 export default Person
