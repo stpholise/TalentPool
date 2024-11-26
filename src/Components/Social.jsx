@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Add from '../assets/carbon_add.svg'
+import Trash from '../assets/carbon_trash-can.svg'
 import Edit from '../assets/bytesize_edit.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNewSocial, delMultipleSocial, removeASocial } from '../store/UserSlice'
@@ -99,8 +100,10 @@ const Social = () => {
         if (selectedSocial) {
             setEditId(id);
             setEditValues(selectedSocial);
+            console.log(editValues)
             handleSocialModal();
         }
+        console.log(editValues)
     }
 
     const handleChecking = (social) => {
@@ -195,7 +198,14 @@ const socialDelMultiple = () => {
                         isDisabled={isLoading}
                         isLoading={isLoading}
                         placeholder={'Select or add a platform'}
-                        
+                        styles = {{
+                            control: (baseStyles, state ) => (
+                                {
+                                    ...baseStyles,
+                                    border: state.isFocused ? '':'1px solid #084482',
+                                }
+                            ),
+                        }}
                      />
                     
                     <ErrorMessage name='socialTitle' component={'div'} className='error' />
@@ -208,8 +218,10 @@ const socialDelMultiple = () => {
                     <ErrorMessage name='socialLink' component={'div'} className='error' />
                     {(editValues) ?
                                 <div className='skillFlex'>
-                                     <button type='submit' className="addSkillBtn btn blueBg radius5px">Edit skill</button>
-                                     <button type='button' className="addSkillBtn btn blueBg radius5px" onClick={() => removeSocial(editValues.id, formik)}>Remove skill</button>
+                                     <button type='submit' className="addSkillBtn btn blueBg radius5px">Edit link</button>
+                                     <button type='button' className="addSkillBtn btn redbg radius5px dltBtn" onClick={() => removeSocial(editValues.id, formik)}>
+                                        <img src={Trash} alt="delete buttton" style={{width:'18px', color:'#ffffff'}} /> Delete
+                                    </button>
                                 </div>
                                 :   <button type='submit' className="skillModalBtn blueBg radius5px btn addSkillBtn">Add</button>
                             }

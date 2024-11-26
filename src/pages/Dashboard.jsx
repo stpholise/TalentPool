@@ -71,26 +71,28 @@ const Dashboard = ({scrollToTop}) => {
                     skills.map((skill, index) => (
                         <div key={index} className="assessment">
                             <h5 className="assessmentTitle">{skill.skillTitle}</h5>
+                            <div className="slider-container">
                             <Slider 
                                 min={0}
                                 max={100}
                                 value={skill.skillProficiency} // Controlled value
                                 styles={{
-                                rail: {height: '5px', backgroundColor: '#C4C4C4', zIndex: 20},
-                                track: {height: '5px', backgroundColor: '#084482', zIndex: 20},
+                                rail: {height: '5px', backgroundColor: '#C4C4C4', display:'none',  cursor: 'not-allowed' },
+                                track: {height: '5px', backgroundColor: '#084482',  cursor: 'not-allowed'},
                                 handle: {
                                     borderColor: '#084482',
                                     backgroundColor: '#084482',
                                     width:'12px',
                                     height:'12px',
                                     marginTop: '-4px',
-                                    zIndex:50,
+                                    zIndex:50, 
+                                    boxShadow: 'none',
+                                    cursor: 'not-allowed'
                                 }                                 
                                 }}
-                                disabled={true}
-                                
-
+                               
                             />
+                            </div>
                         </div>
                     ) )
                 }        

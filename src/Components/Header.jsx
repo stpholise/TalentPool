@@ -96,7 +96,7 @@ const Header = () => {
                     <img src={RectangleImg} alt="profile image" className='pimage' />
                     <div className="profileDetail">
                         <h5 className="profileName">Genesis Anosike</h5>
-                        <p className="profileRole">Employee</p>
+                        {/* <p className="profileRole">Employee</p> */}
                     </div>
                     {
                    show &&(

@@ -36,7 +36,7 @@ const ProgressBar = ({ setSkill, skillProficiency }) => {
           }
           
         }}
-
+      
       />
       <p>{skillProficiency}%</p>
       

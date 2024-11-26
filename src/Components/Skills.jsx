@@ -50,6 +50,11 @@ const Skills = () => {
           .min(3, 'Skill title must be at least 3 characters long')
           .max(50, 'Skill title cannot exceed 50 characters')
         //   .matches(/^[A-Za-z\s]+$/, 'Skill title must contain only letters and spaces')
+          // Custom test to check if the skill title already exists
+        //   .test('unique-skill', 'Skill title already exists', function (value) {
+        //     if (!value) return true; // Skip validation if the value is undefined or null (handled by `.required`)
+        //     return !skills.find(skill => skill.skillTitle.toLowerCase() === value.toLowerCase());
+        //   })
           .required('Skill title is required'),
         skillProficiency: Yup.number()
           .min(1, 'Proficiency must be at least 1%')
@@ -62,8 +67,6 @@ const Skills = () => {
     const handleForm = (values, actions) => {
         console.log(values)
         if(editId){
-           
-
             dispatch(
                 editedSkills({
                     skillTitle:values.skillTitle, 
@@ -188,7 +191,9 @@ const Skills = () => {
                             {(isEditing) ?
                                 <div className='skillFlex'>
                                      <button type='submit' className="addSkillBtn btn blueBg radius5px">Edit skill</button>
-                                     <button type='button' className="addSkillBtn btn blueBg radius5px" onClick={() => skillRemove(isEditing.id, formik)}>Remove skill</button>
+                                     <button type='button' className="addSkillBtn btn redbg radius5px dltBtn" onClick={() => skillRemove(isEditing.id, formik)}>
+                                        <img src={Trash} alt="delete buttton" style={{width:'18px', color:'#ffffff'}} /> Delete
+                                     </button>
                                 </div>
                                 :  <button type='submit' className="addSkillBtn btn blueBg radius5px">Add skill</button>
                             }
