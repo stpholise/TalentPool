@@ -147,7 +147,7 @@
     .filterBtn{
         width: 70%;
         position:absolute;
-        bottom:0;
+        bottom:1rem;
         right: 0;
         left:0;
     }
