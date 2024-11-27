@@ -115,22 +115,20 @@
         display:block;
         z-index: 999;
         overflow-y: scroll;
-        /* min-height:80vh; */
         height:80vh;
         border-radius: 1rem 1rem 5px 5px ;
         display:flex;
         flex-direction:column;
         justify-content:center;
         padding:1rem 0 0;
-        
     }
     .filterContainer{
        display:none;
-       position:absolute;
-        width:100%;
+         position:fixed;
+       width:100%;
+       bottom:0;
         top:60%;
         left:50%;
-        bottom:0;
         transform: translate(-50%, -50%);
     }
     .filterIcon{
