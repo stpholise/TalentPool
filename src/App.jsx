@@ -1,27 +1,30 @@
+import './App.css'
 import { useEffect } from 'react'
+// import global comoponents 
 import Header from './Components/Header'
 import Navigation from './Components/Navigation'
-import Dashboard from './pages/Dashboard'
-import Profile from './pages/Profile'
-import Signup from './pages/Signup'
+import GuardRoute from './Components/GuardRoute'
+// import each page component 
 import Signin from './pages/Signin'
-import EmployerDashboard from './pages/EmployerDashboard'
+import Signup from './pages/Signup'
 import Jobs from './pages/Jobs'
-
-import { useSelector, useDispatch }  from 'react-redux'
+import Profile from './pages/Profile'
+import Dashboard from './pages/Dashboard'
+import EmployerDashboard from './pages/EmployerDashboard'
+// import slices from my resux store 
 import { closeAll } from './store/AppSlice'
+import { modalIsClose } from './store/AppSlice'
+// import packages, react-router-dom for route management and redux for global state management
+import { useSelector, useDispatch }  from 'react-redux'
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
 
-import './App.css'
-import GuardRoute from './Components/GuardRoute'
  
 function App() {
 
  const isModalOpen = useSelector((state) => state.app.isModalOpen)
  { isModalOpen ? document.body.classList.add('modalIsOpen') : document.body.classList.remove('modalIsOpen');}
  const isLogedin = useSelector((state) => state.app.isLogedin)
-  
-  const dispatch = useDispatch()
+ const dispatch = useDispatch()
 
 
   
@@ -40,8 +43,8 @@ function App() {
   console.log({'loged in ':isLogedin})
   console.log({'modal open ':menuToggle})
   
-//Determine the current path
-   // Use useLocation to get the current path
+    //Determine the current path
+    // Use useLocation to get the current path
    const location = useLocation();
    const path = location.pathname; // Get the current path
 
@@ -49,6 +52,7 @@ function App() {
     const location = useLocation();
     useEffect(() => {
     window.scrollTo({ top: 0 });
+    dispatch(modalIsClose(false)) 
     dispatch(closeAll())
     }, [location]);
     };
@@ -62,13 +66,12 @@ function App() {
       {/* Conditionally render Header and Navigation component */}
       {(path !== '/signup' && path !== '/signin'  )&& (
         <>
-      <Header  />
-      <Navigation />
+        <Header  />
+        <Navigation />
       </>
        )}
       <>
       {/* SMALL SCREEN NAVIGATION */}
-      
         {menuToggle && 
           <div className="menuOverlay" onClick={() => dispatch(closeAll())}></div>}
        {(path !== '/signup' && path !== '/signin') && <Navigation /> }
@@ -77,13 +80,11 @@ function App() {
      
         <Routes>
           <Route exact path='/' element={<GuardRoute element={Dashboard} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />  
+          <Route exact path='/jobs' element={<GuardRoute element={Jobs} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />          
           <Route path='/profile' element={isLogedin ? <Profile user={user} scrollToTop={useScrollToTop} /> : <Navigate to='/signin' replace />} />
           <Route path='/EmployerDashboard' element={<GuardRoute element={EmployerDashboard} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />
           <Route exact path='/signup' element={<Signup scrollToTop={useScrollToTop} />} />
           <Route exact path='/signin' element={<Signin scrollToTop={useScrollToTop} />} />
-          <Route exact path='/jobs' element={<GuardRoute element={Jobs} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />          
-
-         
         </Routes>
      
   

@@ -3,7 +3,7 @@ import SearchIcon from '../assets/Search_duotone_line.svg'
 import FilterIcon from '../assets/Filter.svg'
 import Filter from './Filter'
 import { useState } from 'react'
-import { modalIsOpen, modalIsClose } from '../store/AppSlice'
+import { modalIsOpen,  } from '../store/AppSlice'
 import { useDispatch } from 'react-redux'
 
 const Search = () => {

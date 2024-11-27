@@ -10,7 +10,7 @@ import { Formik, Field, Form } from 'formik'
 
 const Filter = ({isVisible = false, setIsVisible }) => {
     const [ experience, setExperience ] = useState(0)
-    const [ toggleSkills, setToggleSkills ] = useState(false)
+    const [ toggleSkills, setToggleSkills ] = useState(true)
     const [ openYears, setOpenYears ] = useState(false)
     const [ openLocation, setOpenLocation ] = useState(false)
     const [ selected, setSelected ] = useState([])
@@ -19,13 +19,14 @@ const Filter = ({isVisible = false, setIsVisible }) => {
     const handlSkillToggle = () => {
         setToggleSkills(!toggleSkills)
     }
-    
     const yearsToggle = () => {
         setOpenYears(!openYears)
     }
     const locationToggle = () => {
         setOpenLocation(!openLocation)
     }
+
+
 
 const skillsets = [
     { skill: 'UI ', level: 'Expert' },
@@ -124,7 +125,6 @@ const skillsets = [
                 />
            }
         </div>
-      
         <button className="filterBtn">Apply </button>
         </section>
         </Form>

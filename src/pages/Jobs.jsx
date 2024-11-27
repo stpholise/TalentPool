@@ -1,10 +1,17 @@
+import '../styling/Jobs.css'
 import Filter from "../Components/Filter"
 import JobCard from "../Components/JobCard"
 import Search from "../Components/Search"
-import '../styling/Jobs.css'
 
 
-const Jobs = () => {
+
+import { PropTypes } from 'prop-types'
+
+const Jobs = ({scrollToTop}) => {
+
+
+  scrollToTop()
+
   const jobs = [
     {
         title: 'Frontend Developer',
@@ -55,6 +62,7 @@ const Jobs = () => {
         age: 23
     },
   ]
+  
   return (
     <>
       <main className='dashboard'> 
@@ -83,6 +91,10 @@ const Jobs = () => {
         </main>
     </>
   )
+}
+
+Jobs.propTypes = {
+  scrollToTop: PropTypes.func
 }
 
 export default Jobs

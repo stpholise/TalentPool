@@ -121,14 +121,14 @@
         display:flex;
         flex-direction:column;
         justify-content:center;
-        padding:2rem 0.5rem 1rem;
+        padding:1rem 0 0;
         
     }
     .filterContainer{
        display:none;
        position:absolute;
         width:100%;
-        top:60%;
+        top:62%;
         left:50%;
         bottom:-2rem;
         transform: translate(-50%, -50%);
@@ -146,6 +146,10 @@
     }
     .filterBtn{
         width: 70%;
+        position:absolute;
+        bottom:0;
+        right: 0;
+        left:0;
     }
     .closeFilter{
         position:fixed;
