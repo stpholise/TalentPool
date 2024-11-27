@@ -115,23 +115,23 @@
         display:block;
         z-index: 999;
         overflow-y: scroll;
-        min-height:80vh;
-        height:auto;
+        /* min-height:80vh; */
+        height:80vh;
         border-radius: 1rem 1rem 5px 5px ;
         display:flex;
         flex-direction:column;
         justify-content:center;
-     
+        padding:2rem 0.5rem 1rem;
         
     }
     .filterContainer{
        display:none;
        position:absolute;
         width:100%;
-        top:50%;
+        top:60%;
         left:50%;
+        bottom:-2rem;
         transform: translate(-50%, -50%);
-        bottom:-0.1rem;
     }
     .filterIcon{
         display:block;
@@ -148,7 +148,7 @@
         width: 70%;
     }
     .closeFilter{
-        position:absolute;
+        position:fixed;
         top:0;
         right:0;
         padding:0.5rem;
