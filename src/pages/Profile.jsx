@@ -1,19 +1,15 @@
-import { PropTypes } from 'prop-types'
+import Add from '../assets/carbon_add.svg'
+import Minus from '../assets/Minus.svg'
 import Skills from '../Components/Skills'
 import Socials from '../Components/Social'
 import Person from '../Components/Person'
+import { PropTypes } from 'prop-types'
 import { useDropzone } from 'react-dropzone'
-import { useState, useRef, useEffect } from 'react'
-import Minus from '../assets/Minus.svg'
-import Add from '../assets/carbon_add.svg'
-import { modalIsClose } from '../store/AppSlice'
-import { useSelector, useDispatch} from 'react-redux'
-// import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useSelector, } from 'react-redux'
+import { useState, useRef,} from 'react'
 
 const Profile = ({ scrollToTop}) => {
-  const location = useLocation()  
-  const dispatch = useDispatch()
+
   const [cvFile, setCvFile ] = useState([])
   const [isCvFile, setIsCvFile ] = useState(false)
   const [isPortfolioFile, setIsPortfolioFile] = useState(false)
@@ -22,49 +18,7 @@ const Profile = ({ scrollToTop}) => {
   const [cvUrl, setCvUrl] = useState()
   const isModalOpen = useSelector((state) => state.app.modalIsOpen)
 
-  useEffect(( ) => {
-      console.log('location', location)
-      dispatch(modalIsClose(false))
-  }, [location, dispatch])
-
-// const skillsets = [
-//     { skill: 'UI/UX Design', level: 'Expert' },
-//     { skill: 'Frontend Development', level: 'Intermediate' },
-//     { skill: 'Backend Development', level: 'Intermediate' },
-//     { skill: 'Database Management', level: 'Expert' },
-//     { skill: 'Project Management', level: 'Expert' },
-//     { skill: 'UI/UX Design', level: 'Expert' },
-//     { skill: 'Frontend Development', level: 'Intermediate' },
-//     { skill: 'Backend Development', level: 'Intermediate' },
-//     { skill: 'Database Management', level: 'Expert' },
-//     { skill: 'Project Management', level: 'Expert' },
-//     { skill: 'UI/UX Design', level: 'Expert' },
-//     { skill: 'Frontend Development', level: 'Intermediate' },
-//     { skill: 'Backend Development', level: 'Intermediate' },
-//     { skill: 'Database Management', level: 'Expert' },
-//     { skill: 'Project Management', level: 'Expert' },
-//     { skill: 'UI/UX Design', level: 'Expert' },
-//     { skill: 'Frontend Development', level: 'Intermediate' },
-//     { skill: 'Backend Development', level: 'Intermediate' },
-//     { skill: 'Database Management', level: 'Expert' },
-//     { skill: 'Project Management', level: 'Expert' },
-//     { skill: 'UI/UX Design', level: 'Expert' },
-//     { skill: 'Frontend Development', level: 'Intermediate' },
-//     { skill: 'Backend Development', level: 'Intermediate' },
-//     { skill: 'Database Management', level: 'Expert' },
-//     { skill: 'Project Management', level: 'Expert' },
-//     { skill: 'UI/UX Design', level: 'Expert' },
-//     { skill: 'Frontend Development', level: 'Intermediate' },
-//     { skill: 'Backend Development', level: 'Intermediate' },
-//     { skill: 'Database Management', level: 'Expert' },
-//     { skill: 'Project Management', level: 'Expert' },
-//     { skill: 'UI/UX Design', level: 'Expert' },
-//     { skill: 'Frontend Development', level: 'Intermediate' },
-//     { skill: 'Backend Development', level: 'Intermediate' },
-//     { skill: 'Database Management', level: 'Expert' }
-// ]
-  
-const fileInputRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const onDrop = (acceptedFiles) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
@@ -148,7 +102,7 @@ scrollToTop()
               </button>
             }
           </div>
-          {/* <p style={{marginBottom:'0.5rem'}}>{isCvFile ? 'File uploaded' : 'No file uploaded'}</p> */}
+    
           <div className="cvBtnContnn">
             {
               isCvFile ? 
