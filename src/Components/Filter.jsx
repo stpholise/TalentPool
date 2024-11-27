@@ -54,7 +54,7 @@ const skillsets = [
         {
         () => (
         <Form>
-    <section className={ isVisible ? "filterContainer show" : 'filterContainer'}>
+    <section className={ isVisible ? "filterContainer show animate__animated animate__zoomIn" : 'filterContainer'}>
         
         <h5 className="bbottom">FILTERS</h5>
         <button className="closeFilter btn"  
