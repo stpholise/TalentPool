@@ -19,10 +19,10 @@ const Search = () => {
     isVisible ? document.body.classList.add('modalIsOpen') : document.body.classList.remove('modalIsOpen');
   }
 
-  const collapseFilter = () => {
-    setIsVisible(false)
-    dispatch(modalIsClose(false))    
-  }
+  // const collapseFilter = () => {
+  //   setIsVisible(false)
+  //   dispatch(modalIsClose(false))    
+  // }
 
   return (
     <div className='jobSearchBar redius5px'>
@@ -35,7 +35,7 @@ const Search = () => {
        {
         isVisible && 
         <>
-          <div className="overlay" onClick={collapseFilter}></div>
+          <div className="overlay"></div>
           <Filter 
               isVisible={isVisible}  
               setIsVisible={setIsVisible}

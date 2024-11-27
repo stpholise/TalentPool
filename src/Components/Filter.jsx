@@ -13,6 +13,7 @@ const Filter = ({isVisible = false, setIsVisible }) => {
     const [ toggleSkills, setToggleSkills ] = useState(false)
     const [ openYears, setOpenYears ] = useState(false)
     const [ openLocation, setOpenLocation ] = useState(false)
+    const [ selected, setSelected ] = useState([])
 
 
     const handlSkillToggle = () => {
@@ -35,6 +36,14 @@ const skillsets = [
     { skill: 'FrontEnd', level: 'Expert' },
     { skill: 'Backend  ', level: 'Intermediate' },
 ]
+
+ const handleSkill = (e) => {
+    if(selected.includes(e.target.value)){
+        setSelected(selected.filter(skill => skill !== e.target.value))
+    } else {
+        setSelected([...selected, e.target.value])
+    }
+ }
 
 
 
@@ -64,8 +73,11 @@ const skillsets = [
                 <div key={index} className="skillBox">
                     <input 
                         type="checkbox" 
-                        name="" 
-                        id="" 
+                        name={skill.skill}
+                        value={skill.skill}
+                        onChange={handleSkill}
+                        checked={selected.includes(skill.skill)}
+                
                     />
                     <label htmlFor="">{skill.skill}</label>
                 </div>
