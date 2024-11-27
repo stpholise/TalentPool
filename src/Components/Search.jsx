@@ -15,6 +15,9 @@ const Search = () => {
     setIsVisible(!isVisible)
     dispatch(modalIsOpen(true))
   }
+  {
+    isVisible ? document.body.classList.add('modalIsOpen') : document.body.classList.remove('modalIsOpen');
+  }
 
   const collapseFilter = () => {
     setIsVisible(false)
@@ -24,7 +27,7 @@ const Search = () => {
   return (
     <div className='jobSearchBar redius5px'>
       <img src={SearchIcon} alt="SearchIcon" className="searchIcon"/>
-      <input type="search"/>
+      <input type="search" className='searchbox'/>
       <button onClick={toggleFilter}>
         <img src={FilterIcon} alt="FilterIcon" className="filterIcon"/>
       </button>
@@ -33,7 +36,10 @@ const Search = () => {
         isVisible && 
         <>
           <div className="overlay" onClick={collapseFilter}></div>
-          <Filter isVisible={isVisible} />
+          <Filter 
+              isVisible={isVisible}  
+              setIsVisible={setIsVisible}
+            />
         </>
        }
       

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Add from '../assets/carbon_add.svg'
-import Trash from '../assets/carbon_trash-can.svg'
+import Trash from '../assets/whiteTrash.svg'
 import Edit from '../assets/bytesize_edit.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNewSocial, delMultipleSocial, removeASocial } from '../store/UserSlice'

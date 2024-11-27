@@ -1,8 +1,30 @@
 // import '../styles/Jobs.css'
 
 import { PropTypes } from 'prop-types'
+import { useState } from 'react'
+import Close from '../assets/close.svg'
+import ProgressBar from './ProgressBar'
+import More from '../assets/moreIcon.svg'
+import Less from '../assets/lessIcon.svg'
+import { Formik, Field, Form } from 'formik'
 
-const Filter = ({isVisible}) => {
+const Filter = ({isVisible = false, setIsVisible }) => {
+    const [ experience, setExperience ] = useState(0)
+    const [ toggleSkills, setToggleSkills ] = useState(false)
+    const [ openYears, setOpenYears ] = useState(false)
+    const [ openLocation, setOpenLocation ] = useState(false)
+
+
+    const handlSkillToggle = () => {
+        setToggleSkills(!toggleSkills)
+    }
+    
+    const yearsToggle = () => {
+        setOpenYears(!openYears)
+    }
+    const locationToggle = () => {
+        setOpenLocation(!openLocation)
+    }
 
 const skillsets = [
     { skill: 'UI ', level: 'Expert' },
@@ -14,13 +36,30 @@ const skillsets = [
     { skill: 'Backend  ', level: 'Intermediate' },
 ]
 
+
+
   return (
     <>
-    <section className={ isVisible ? "filterContainer show" : 'filterContainer'}>
-        <h5 className="bbottom">FILTERS</h5>
-        <div className="">
-            <h5 className="bbottom">Skills</h5>
+    <Formik>
         {
+        () => (
+        <Form>
+    <section className={ isVisible ? "filterContainer show" : 'filterContainer'}>
+        
+        <h5 className="bbottom">FILTERS</h5>
+        <button className="closeFilter btn"  
+            onClick={() => setIsVisible(false)}><img src={Close} alt="" /></button>
+
+        <div className="bbottom">
+            <div onClick={handlSkillToggle} className="spaceBet">
+                <h5 className="" >Skills</h5>
+                {
+                    toggleSkills ? 
+                    <img src={Less} alt="" /> :
+                    <img src={More} alt="" />
+                }
+            </div>
+        { toggleSkills &&
             skillsets.map((skill, index) => (
                 <div key={index} className="skillBox">
                     <input 
@@ -33,46 +72,60 @@ const skillsets = [
             ))
         }
         </div>
-        <div  className="bbottom spaceBet"> 
-            <label htmlFor="years">Years of Experience  </label>
-            <select name="" id="years" className="grayboder1x">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
+        <div  className="bbottom "> 
+            <div htmlFor="years" className='spaceBet' onClick={yearsToggle}> 
+                <span>Years of Experience </span>  
+                {
+                    openYears ? 
+                    <img src={Less} alt=""  /> :
+                    <img src={More} alt />
+                 }  
+            </div>
+           { openYears &&
+            <div className='sliderContainer'>
+                <ProgressBar 
+                    setSkill={setExperience} 
+                    skillProficiency={experience} 
+                    test={true}
+                    exRange = {20}
+                />
+            </div>
+           }
         </div>
-        <div className="bbottom spaceBet">
-            Age 
-            <select name="" id="" className="grayboder1x">
-                <option value="1">20</option>
-                <option value="2">21</option>
-                <option value="3">22</option>
-                <option value="4">23</option>
-                <option value="5">24</option>
-
-            </select>
+      
+        <div className="bbottom  ">
+        <div onClick={locationToggle} className="spaceBet">
+                <h5 className="" >Location</h5>
+                {
+                    openLocation ? 
+                    <img src={Less} alt="" /> :
+                    <img src={More} alt="" />
+                }
+            </div>
+            {openLocation &&
+                <Field 
+                type="text"
+                name='location'
+                placeholder="abuja"
+                id="location" 
+                className="filtlocation radius5px" 
+                />
+           }
         </div>
-        <div className="bbottom spaceBet">
-            Location
-            <select name="" id="" className="grayboder1x">
-                <option value=""></option>
-            </select>
-        </div>
-        <div className="bbottom spaceBet">
-            Availability
-            <select name="" id="" className="grayboder1x">
-                <option value=""></option>
-            </select>
-        </div>
+      
+        <button className="filterBtn">Apply </button>
         </section>
+        </Form>
+        )
+    }
+        </Formik>
     </>
   )
 }
 
 Filter.propTypes = {
-    isVisible: PropTypes.bool.isReaquired,
+    isVisible: PropTypes.bool,
+    setIsVisible: PropTypes.func,
 }
 
 export default Filter

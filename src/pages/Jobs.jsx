@@ -59,7 +59,7 @@ const Jobs = () => {
     <>
       <main className='dashboard'> 
         <div className="jobs ">
-            <Filter />
+            <Filter isVisible={false}/>
             <div className="cardContainer">
               <Search />
               {
