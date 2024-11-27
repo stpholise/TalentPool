@@ -11,8 +11,8 @@ const Nav = () => {
 
   const navLinks = [
     { name: 'Dashboard ', path: '/' },
+    { name: 'Jobs ', path: '/jobs'},
     { name: 'Messages ', path: '/profile'},
-    { name: 'Employers ', path: '/EmployerDashboard'},
     { name: 'Support ', path: '/signup'},
     { name: 'Settings ', path: '/signin'}
   ]
@@ -36,7 +36,8 @@ const Nav = () => {
           ))}
           
         </div>
-  
+          
+          
     </nav>
     </>
   )

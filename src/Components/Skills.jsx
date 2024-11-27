@@ -1,6 +1,6 @@
 
 import Add from '../assets/carbon_add.svg'
-import Trash from '../assets/carbon_trash-can.svg'
+import Trash from '../assets/whiteTrash.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { addSkill, removeSkill, removeMultipleSkills, editedSkills } from '../store/UserSlice'
 import { modalIsOpen, modalIsClose } from '../store/AppSlice'
@@ -192,7 +192,7 @@ const Skills = () => {
                                 <div className='skillFlex'>
                                      <button type='submit' className="addSkillBtn btn blueBg radius5px">Edit skill</button>
                                      <button type='button' className="addSkillBtn btn redbg radius5px dltBtn" onClick={() => skillRemove(isEditing.id, formik)}>
-                                        <img src={Trash} alt="delete buttton" style={{width:'18px', color:'#ffffff'}} /> Delete
+                                        <img src={Trash} alt="delete buttton" style={{width:'18px', fill:'#ffffff', stroke: '#ffffff'}} /> Delete
                                      </button>
                                 </div>
                                 :  <button type='submit' className="addSkillBtn btn blueBg radius5px">Add skill</button>
