@@ -71,14 +71,13 @@ const skillsets = [
             </div>
         { toggleSkills &&
             skillsets.map((skill, index) => (
-                <div key={index} className="skillBox">
+                <div key={index} className="skillBlock">
                     <input 
                         type="checkbox" 
                         name={skill.skill}
                         value={skill.skill}
                         onChange={handleSkill}
                         checked={selected.includes(skill.skill)}
-                
                     />
                     <label htmlFor="">{skill.skill}</label>
                 </div>
@@ -119,7 +118,7 @@ const skillsets = [
                 <Field 
                 type="text"
                 name='location'
-                placeholder="abuja"
+                placeholder="e.g abuja"
                 id="location" 
                 className="filtlocation radius5px" 
                 />
