@@ -28,7 +28,7 @@ scrollToTop()
         </div>
         <section className="skillsets">
         <div className="softwareAssessmentContainer">
-                {
+                {skills &&
                     skills.map((skill, index) => (
                         <div key={index} className="assessment">
                             <h5 className="assessmentTitle">{skill.skillTitle}</h5>

@@ -59,7 +59,7 @@ const Header = () => {
   return (
     <header    className="pageHeader " >
         <div className="smallScreenMenu menuBtn">
-            <button className=" transBtn" onClick={() => dispatch(toggleGenMenu())}> <img src={Hamboger} alt="" style={{width:'24px', height:'24px'}}/></button>
+            <button className=" transBtn" onClick={() => dispatch(toggleGenMenu())}> <img src={Hamboger} alt="hamburger icon" style={{width:'24px', height:'24px'}}/></button>
             <div className="grouping2">
                 <button className="notification transBtn smallScreenNotification">
                     <img src={Vector} className='notifi' alt="profile image" />

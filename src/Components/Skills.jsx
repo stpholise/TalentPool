@@ -15,7 +15,7 @@ import '../styling/animated.css'
 import Edit from '../assets/bytesize_edit.svg'
 
 
-const Skills = () => {
+const Skills =  () => {
     const uniqueId = uuidv4()
     const dispatch = useDispatch()
     const [skillModal, setSkillModal ] = useState(false)
@@ -129,10 +129,10 @@ const Skills = () => {
                 className=' pad1 btn blueBg radius5px'
             > Delete {selected.length} skills</button> }
             {selected.length <= 1 &&
-            <button className="skillModalBtn btn"  onClick={() => toggleSkillModal()} aria-label="Add Skill"><img src={Add} alt="" /></button>}
+            <button className="skillModalBtn btn"  onClick={() => toggleSkillModal()} aria-label="Add Skill"><img src={Add} alt=" add sign" /></button>}
         </div>
         <ul className="skills">
-            {skills.map((skill) => {
+            {skills &&  skills.map((skill) => {
                
                 return(
                 <li key={skill.id} className='skillBox spaceBet'>
@@ -175,7 +175,7 @@ const Skills = () => {
                         <Form >
                             <div className="topFles spaceBet ">
                             <h4 className='subHead'>Skillsets</h4>
-                            <button className="skillModalBtn btn"  onClick={() => closeSkillModal(formik.resetForm)}><img src={Close} alt="" /></button>
+                            <button className="skillModalBtn btn"  onClick={() => closeSkillModal(formik.resetForm)}><img src={Close} alt="close icon" /></button>
                             </div>
                             <Field 
                                 name="skillTitle"

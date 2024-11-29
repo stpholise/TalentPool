@@ -67,7 +67,7 @@ const Dashboard = ({scrollToTop}) => {
         <section className="softwareAssessmentSection">
             <h4 className="sectionTitle"> Softwar Assessment</h4>
             <div className="softwareAssessmentContainer">
-                {
+                {skills &&
                     skills.map((skill, index) => (
                         <div key={index} className="assessment">
                             <h5 className="assessmentTitle">{skill.skillTitle}</h5>
