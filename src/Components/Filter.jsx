@@ -58,15 +58,15 @@ const skillsets = [
         
         <h5 className="bbottom">FILTERS</h5>
         <button className="closeFilter btn"  
-            onClick={() => setIsVisible(false)}><img src={Close} alt="" /></button>
+            onClick={() => setIsVisible(false)}><img src={Close} alt="close icon" /></button>
 
         <div className="bbottom">
             <div onClick={handlSkillToggle} className="spaceBet">
                 <h5 className="" >Skills</h5>
                 {
                     toggleSkills ? 
-                    <img src={Less} alt="" /> :
-                    <img src={More} alt="" />
+                    <img src={Less} alt="less icon " /> :
+                    <img src={More} alt="more icon" />
                 }
             </div>
         { toggleSkills &&
@@ -89,8 +89,8 @@ const skillsets = [
                 <span>Years of Experience </span>  
                 {
                     openYears ? 
-                    <img src={Less} alt=""  /> :
-                    <img src={More} alt />
+                    <img src={Less} alt="less icon"  /> :
+                    <img src={More} alt='more icon' />
                  }  
             </div>
            { openYears &&
@@ -110,8 +110,8 @@ const skillsets = [
                 <h5 className="" >Location</h5>
                 {
                     openLocation ? 
-                    <img src={Less} alt="" /> :
-                    <img src={More} alt="" />
+                    <img src={Less} alt="Less" /> :
+                    <img src={More} alt="More" />
                 }
             </div>
             {openLocation &&

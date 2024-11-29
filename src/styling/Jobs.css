@@ -105,6 +105,14 @@
     display:none
 }
 
+.jobTitle{
+    color:#0A84FF;
+}
+
+.companyName{
+    color:#222222;
+}
+
 @media(max-width: 760px ) {
     .jobs{
         grid-template-columns: 1fr;

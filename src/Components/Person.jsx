@@ -118,7 +118,7 @@ const Person = ({employer }) => {
                       <Form >
                         <p className="topFles spaceBet ">
                             <h4 className='subHead'>Add profile</h4>
-                            <button className="skillModalBtn btn"  onClick={() => {setEditProfileModal(false); dispatch(modalIsClose(false))} }><img src={Close} alt="" /></button>
+                            <button className="skillModalBtn btn"  onClick={() => {setEditProfileModal(false); dispatch(modalIsClose(false))} }><img src={Close} alt="close icon" /></button>
                           </p>
                           <Field 
                               name="name"

@@ -1,17 +1,19 @@
  import { PropTypes } from 'prop-types'
 
-const JobCard = ({title, company, location, skills,}) => {
+const JobCard = ({title, company, location, category,redirectUrl, postedAt, removeJob, id}) => {
   return (
     <>
         
-                <div>
+                {/* <div>
                     <img src="" alt="" />
-                </div>
+                </div> */}
                 <div>
-                    <h4>{title}</h4>
-                    <p>{company}</p>
-                    <p>{location}</p>
-                    <p>{skills.join(", ")}</p>
+                    <a href={redirectUrl}><h4 className='jobTitle'>{title}</h4></a>
+                    <h5 className='companyName'>{company}</h5>
+                    <p>{location.join(', ')}</p>
+                    <p>{category}</p>
+                    <p>{postedAt < 1 ? '' : postedAt}</p>
+                    <button type='button' onClick={()=> removeJob(id)} >hide job</button>
                 </div>
          
     </>
@@ -21,10 +23,12 @@ const JobCard = ({title, company, location, skills,}) => {
 JobCard.propTypes = {
     title: PropTypes.string.isRequired,
     company: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    skills: PropTypes.array.isRequired,
-    experience: PropTypes.number.isRequired,
-    age: PropTypes.number.isRequired
+    location: PropTypes.array.isRequired,
+    category: PropTypes.string.isRequired,
+    redirectUrl: PropTypes.string.isRequired,
+    postedAt: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    removeJob: PropTypes.func.isRequired,
 }
 
 export default JobCard
