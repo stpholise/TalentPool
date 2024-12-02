@@ -3,39 +3,70 @@
 import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import Close from '../assets/close.svg'
-import ProgressBar from './ProgressBar'
+// import ProgressBar from './ProgressBar'
+import CountryFilter from './CountryFilter'
 import More from '../assets/moreIcon.svg'
 import Less from '../assets/lessIcon.svg'
-import { Formik, Field, Form } from 'formik'
 
-const Filter = ({isVisible = false, setIsVisible }) => {
-    const [ experience, setExperience ] = useState(0)
+
+
+const Filter = ({
+    isVisible = false, 
+    setIsVisible, 
+    setCountry, 
+    country,
+    selected,
+    setSelected,
+    setIsFetchTriggered
+
+ }) => {
+        const countryList = [
+    { value: 'gb', label: 'Great Breatean '},
+    { value: 'at', label: 'Austria'},
+    { value: 'au', label: 'Australia'},
+    { value: 'be', label: 'Belgium'},
+    { value: 'br', label: 'Brazil'},
+    { value: 'ch', label: 'Switzerland'},
+    { value: 'ca', label: 'Canada'},
+    { value: 'de', label: ' Germany'},
+    { value: 'fr', label: 'France'},
+    { value: 'es', label: 'Spain'},
+    { value: 'in', label: ' India'},
+    { value: 'it', label: 'Italy'},
+    { value: 'mx', label: ' Mexico'},
+    { value: 'nl', label: 'Netherlands'},
+    { value: 'nz', label: 'New Zealand'},
+    { value: 'pl', label: 'Poland'},
+    { value: 'sg', label: 'Singapore'},
+    { value: 'za', label: 'South Africa'},
+    ]
+
+    // const [ experience, setExperience ] = useState(0)
     const [ toggleSkills, setToggleSkills ] = useState(true)
-    const [ openYears, setOpenYears ] = useState(false)
-    const [ openLocation, setOpenLocation ] = useState(false)
-    const [ selected, setSelected ] = useState([])
+    // const [ openYears, setOpenYears ] = useState(false)
+    // const [ openLocation, setOpenLocation ] = useState(false)
+    // const [ location, setLocation ] = useState('')
 
-
+    // handle dropdown toggles 
     const handlSkillToggle = () => {
         setToggleSkills(!toggleSkills)
     }
-    const yearsToggle = () => {
-        setOpenYears(!openYears)
-    }
-    const locationToggle = () => {
-        setOpenLocation(!openLocation)
-    }
+    // const yearsToggle = () => {
+    //     setOpenYears(!openYears)
+    // }
+    // const locationToggle = () => {
+    //     setOpenLocation(!openLocation)
+    // }
 
 
 
 const skillsets = [
-    { skill: 'UI ', level: 'Expert' },
-    { skill: 'UX ', level: 'Expert' },
+    { skill: 'UI/UX', level: 'Expert' },
     { skill: 'Figma', level: 'Expert' },
     { skill: 'Sketch', level: 'Expert' },
     { skill: 'JavaScript', level: 'Expert' },
     { skill: 'FrontEnd', level: 'Expert' },
-    { skill: 'Backend  ', level: 'Intermediate' },
+    { skill: 'Backend', level: 'Intermediate' },
 ]
 
  const handleSkill = (e) => {
@@ -44,21 +75,27 @@ const skillsets = [
     } else {
         setSelected([...selected, e.target.value])
     }
+ 
  }
 
+ const applyFilter = () => {
+    setIsFetchTriggered(true)
+    setIsVisible(false)
+ }
 
 
   return (
     <>
-    <Formik>
-        {
-        () => (
-        <Form>
+   
+        <form>
     <section className={ isVisible ? "filterContainer show animate__animated animate__zoomIn" : 'filterContainer'}>
         
         <h5 className="bbottom">FILTERS</h5>
-        <button className="closeFilter btn"  
-            onClick={() => setIsVisible(false)}><img src={Close} alt="close icon" /></button>
+        <button 
+            className="closeFilter btn" 
+            type='button'
+            onClick={() => setIsVisible(false)}><img src={Close} alt="close icon" />
+        </button>
 
         <div className="bbottom">
             <div onClick={handlSkillToggle} className="spaceBet">
@@ -84,7 +121,7 @@ const skillsets = [
             ))
         }
         </div>
-        <div  className="bbottom "> 
+        {/* <div  className="bbottom "> 
             <div htmlFor="years" className='spaceBet' onClick={yearsToggle}> 
                 <span>Years of Experience </span>  
                 {
@@ -103,10 +140,10 @@ const skillsets = [
                 />
             </div>
            }
-        </div>
+        </div> */}
       
-        <div className="bbottom  ">
-        <div onClick={locationToggle} className="spaceBet">
+        {/* <div className="bbottom  ">
+             <div onClick={locationToggle} className="spaceBet">
                 <h5 className="" >Location</h5>
                 {
                     openLocation ? 
@@ -115,21 +152,27 @@ const skillsets = [
                 }
             </div>
             {openLocation &&
-                <Field 
+                <input 
                 type="text"
                 name='location'
                 placeholder="e.g abuja"
                 id="location" 
                 className="filtlocation radius5px" 
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
                 />
            }
-        </div>
-        <button className="filterBtn">Apply </button>
+        </div> */}
+        <CountryFilter  
+            countryList={countryList} 
+            setCountry={setCountry} 
+            country={country} 
+        />
+
+        <button type='button' onClick={applyFilter} className="filterBtn">Apply </button>
         </section>
-        </Form>
-        )
-    }
-        </Formik>
+        </form>
+     
     </>
   )
 }
@@ -137,6 +180,11 @@ const skillsets = [
 Filter.propTypes = {
     isVisible: PropTypes.bool,
     setIsVisible: PropTypes.func,
+    setCountry: PropTypes.func.isRequired,
+    country: PropTypes.object.isRequired,
+    selected: PropTypes.array.isRequired,
+    setSelected: PropTypes.func.isRequired,
+    setIsFetchTriggered: PropTypes.func.isRequired,
 }
 
 export default Filter
