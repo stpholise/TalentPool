@@ -50,11 +50,12 @@ function App() {
 
    const useScrollToTop = () => {
     const location = useLocation();
+    const path = location.pathname;
     useEffect(() => {
     window.scrollTo({ top: 0 });
     dispatch(modalIsClose(false)) 
     dispatch(closeAll())
-    }, [location]);
+    }, [path]);
     };
  
    

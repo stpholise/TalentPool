@@ -48,6 +48,7 @@
 
 .jobSearchBar{
     width:100%;
+    max-height : 50px;
     padding:0.2rem 0.5rem;
     border:2px solid #B5B5B5;
     background:#fff;
