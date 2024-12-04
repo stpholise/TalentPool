@@ -148,6 +148,12 @@
     color:red;
     font-size:small;
   }
+  .flexCenterCenter{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+  }
 @media(max-width: 760px ) {
     .jobs{
         grid-template-columns: 1fr;

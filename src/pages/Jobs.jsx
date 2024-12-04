@@ -4,30 +4,30 @@ import JobCard from "../Components/JobCard"
 import Search from "../Components/Search"
 import Spinner from "../Components/Spinner"
 // import NextIcon from '../assets/chevron-left'
-import ChevronLeft from '../assets/chevron-left.svg'
-import ChevronRight from '../assets/chevron-right.svg'
+// import ChevronLeft from '../assets/chevron-left.svg'
+// import ChevronRight from '../assets/chevron-right.svg'
 import useFetchJobs from '../hooks/useFetchJobs'
 
 
 import {  useState,   } from 'react'
-
+import  Pagination from '../Components/Pagination'
 
   
 
 const Jobs = () => {
+  
+  
+  // const debounce = (func, delay = 300) => {
+  //   let debounceTimer
+  //   return function() {
+  //     const context = this
+  //     const args = arguments
+  //     clearTimeout(debounceTimer)
+  //     debounceTimer = setTimeout(() => func.apply(context, args), delay)
+  //   }
+  // }
+  const [ filter, setFilter ] = useState(null)
   const [ pageNumber, setPageNumber ] = useState(1)
-   // Initialize with the first country in the list
-
-   const debounce = (func, delay = 300) => {
-    let debounceTimer
-    return function() {
-      const context = this
-      const args = arguments
-      clearTimeout(debounceTimer)
-      debounceTimer = setTimeout(() => func.apply(context, args), delay)
-    }
-  }
-   const [ filter, setFilter ] = useState(null)
   const [ isVisible, setIsVisible ] = useState(false)
   const [ searchValue, setSearchValue ] = useState('')
   const [isFetchTriggered, setIsFetchTriggered] = useState(false)
@@ -35,15 +35,15 @@ const Jobs = () => {
 
 // useEffect(() => {setSearchValue('')} , [isVisible])
 const totalPages = Math.ceil(count / 20); // Total number of pages
-  const showMore = debounce(()=> { 
-    setPageNumber((previousPage) => previousPage +1)
-  },1000)
-  const showLess = debounce( () => {
-    setPageNumber((previousPage) => {
-      if (previousPage === 1) return previousPage; // Prevent going below page 1
-      return previousPage - 1; // Decrease page by 1
-    });
-  }, 1000)
+  // const showMore = debounce(()=> { 
+  //   setPageNumber((previousPage) => previousPage +1)
+  // },1000)
+  // const showLess = debounce( () => {
+  //   setPageNumber((previousPage) => {
+  //     if (previousPage === 1) return previousPage; // Prevent going below page 1
+  //     return previousPage - 1; // Decrease page by 1
+  //   });
+  // }, 1000)
   
   const handleTimeDifference = (created) => {
     const today = new Date() ;
@@ -116,7 +116,7 @@ const totalPages = Math.ceil(count / 20); // Total number of pages
        
        <section className="select">
        </section>
-{ (count > 20) &&
+{/* { (count > 20) &&
        <div className="paginationControls">
           <button type='button' disabled={pageNumber === 1} onClick={showLess} aria-label='previous'>
                   <img src={ChevronRight} alt="" />
@@ -125,18 +125,11 @@ const totalPages = Math.ceil(count / 20); // Total number of pages
           <button type='button' onClick={showMore} aria-label='next'>
                   <img src={ChevronLeft} alt="" />
           </button>
-
-          {/* {Array.from({ length: totalPages }, (_, index) => index + 1).map((i) => (
-        <button
-          key={i}
-          onClick={() => handlePageNumber(i)}
-          style={{ margin: '5px' }}
-        >
-          {i}
-        </button>
-      ))} */}
        </div>
-       }
+       } */}
+ { (count > 20) &&
+        <Pagination totalpages={totalPages}  pageNumber={pageNumber}  setPageNumber={setPageNumber} />
+ }
         </main>
     </>
   )
