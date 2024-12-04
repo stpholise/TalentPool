@@ -51,7 +51,7 @@ const Search = ({ setIsVisible, isVisible, setSearchValue, setIsFetchTriggered }
         <div className='jobSearchBar redius5px'>
           <img src={SearchIcon} alt="SearchIcon" className="searchIcon"/>
           <input 
-              type="search" 
+              type="text" 
               name='search'
               onKeyUp={debounce(handleSearch, 1500)}
               value={searchText}

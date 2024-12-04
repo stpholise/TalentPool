@@ -6,7 +6,7 @@ import Add from '../assets/carbon_add.svg'
 const Cv = () => {
     const [ isCvFile, setIsCvFile ] = useState(false)
     const [ cvFiles, setCvFiles ] = useState([])
-    const [ cvUrl, setCvUrl ] = useState()
+    const [ cvUrl, setCvUrl ] = useState('')
 
     const cvInputRef = useRef(null);
 
@@ -57,7 +57,6 @@ const Cv = () => {
               </button>
             }
           </div>
-          {/* <p style={{marginBottom:'0.5rem'}}>{isCvFile ? 'File uploaded' : 'No file uploaded'}</p> */}
           <div className="cvBtnContnn">
             {
               isCvFile ? 

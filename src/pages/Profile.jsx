@@ -3,12 +3,12 @@ import Minus from '../assets/Minus.svg'
 import Skills from '../Components/Skills'
 import Socials from '../Components/Social'
 import Person from '../Components/Person'
-import { PropTypes } from 'prop-types'
+
 import { useDropzone } from 'react-dropzone'
 import { useSelector, } from 'react-redux'
 import { useState, useRef,} from 'react'
 
-const Profile = ({ scrollToTop}) => {
+const Profile = () => {
 
   const [cvFile, setCvFile ] = useState([])
   const [isCvFile, setIsCvFile ] = useState(false)
@@ -75,7 +75,6 @@ const Profile = ({ scrollToTop}) => {
     maxFiles: 1,
   });
 
-scrollToTop()
 
 
   return (
@@ -158,10 +157,6 @@ scrollToTop()
   )
 }
 
-
-Profile.propTypes = {
-  scrollToTop: PropTypes.func.isRequired
-}
 
 
 export default Profile

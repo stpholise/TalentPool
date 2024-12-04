@@ -44,6 +44,15 @@
     background:#fff;
     box-shadow: 0 6px 20px 0 #A6A6A640;
     display:flex;
+    /* grid-template-columns:1fr 4fr; */
+}
+.jobDetails .imageDetail{
+    width:50px;
+    margin:auto;
+}
+
+.jobDetails .textDetail{
+    width:80%;
 }
 
 .jobSearchBar{
@@ -114,6 +123,21 @@
     color:#222222;
 }
 
+.priceInput{
+    border:1px solid #ccc;
+    outline:none;
+    border-bottom:none;
+}
+.clearBtn{
+    border:1px solid #0A84FF;
+    background:#fff;
+    color:#0A84FF;
+}
+
+.postDate{
+    font-size:13px;
+}
+
 @media(max-width: 760px ) {
     .jobs{
         grid-template-columns: 1fr;
@@ -122,19 +146,21 @@
     .filterContainer.show{
         z-index: 999;
         overflow-y: scroll;
-        height:80vh;
+        height:fit-content;
         border-radius: 1rem 1rem 5px 5px ;
         display:flex;
         flex-direction:column;
-        justify-content:center;
+        justify-content:flex-start;
         padding:1rem 0 0;
-        top:60%;
+        top:50%;
         left:50%;
         transform: translate(-50%, -50%);
+        max-height: 80vh;
+        max-width:90%;
+        position:fixed;
     }
     .filterContainer{
         display:none;
-        position:fixed;
         width:100%;
         bottom:0;
     }
@@ -151,7 +177,6 @@
     }
     .filterBtn{
         width: 70%;
-        position:absolute;
         bottom:1rem;
         right: 0;
         left:0;
@@ -166,6 +191,14 @@
         display:block;
     }
 
+    .jobDetails .imageDetail{
+        width:35px;
+        margin:auto;
+    }
+    .skillFlex.filter{
+        flex-direction: column;
+    }
+
 }
 
 @media(max-width:480px) {
@@ -174,6 +207,10 @@
     }
     .filterBtn{
         width: 100%;
+    }
+    .jobDetails .imageDetail{
+        width:25px;
+        margin:auto;
     }
 
 }
