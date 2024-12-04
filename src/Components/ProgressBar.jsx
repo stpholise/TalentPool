@@ -4,13 +4,13 @@ import 'rc-slider/assets/index.css';
 import { PropTypes } from 'prop-types';
 
 
-const ProgressBar = ({ setSkill, skillProficiency, test = false, exRange = 100 }) => {
+const ProgressBar = ({ setSkill, skillProficiency, test = false, hideValue = false, exRange = 100, minRange= 0, }) => {
 
 
     
   const handleSliderChange = (value)  => {
     setSkill(value)
-    console.log(value)  
+    
   }
   const containerStyles = {
     width: '100%',
@@ -20,7 +20,7 @@ const ProgressBar = ({ setSkill, skillProficiency, test = false, exRange = 100 }
   return (
     <div style={containerStyles} >
       <Slider 
-        min={0}
+        min={minRange}
         max={exRange}
         value={skillProficiency} // Controlled value
         onChange={handleSliderChange}
@@ -39,7 +39,7 @@ const ProgressBar = ({ setSkill, skillProficiency, test = false, exRange = 100 }
         }}
       
       />
-      <p>{skillProficiency} { !test && '%'} </p>
+      <p>{!hideValue && skillProficiency} { !test && '%'} </p>
       
     </div>
   );
@@ -50,7 +50,9 @@ const ProgressBar = ({ setSkill, skillProficiency, test = false, exRange = 100 }
     skillProficiency: PropTypes.number.isRequired,
     setSkill: PropTypes.func.isRequired,
     test: PropTypes.bool,
-    exRange: PropTypes.number
+    hideValue: PropTypes.bool,
+    exRange: PropTypes.number,
+    minRange: PropTypes.number
   };
   
 

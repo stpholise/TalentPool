@@ -3,7 +3,7 @@
 import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import Close from '../assets/close.svg'
-// import ProgressBar from './ProgressBar'
+import ProgressBar from './ProgressBar'
 import CountryFilter from './CountryFilter'
 import More from '../assets/moreIcon.svg'
 import Less from '../assets/lessIcon.svg'
@@ -12,54 +12,85 @@ import Less from '../assets/lessIcon.svg'
 
 const Filter = ({
     isVisible = false, 
-    setIsVisible, 
-    setCountry, 
-    country,
-    selected,
-    setSelected,
-    setIsFetchTriggered
+    setIsVisible,
+    setIsFetchTriggered,
+    setFilter,
 
  }) => {
-        const countryList = [
-    { value: 'gb', label: 'Great Breatean '},
-    { value: 'at', label: 'Austria'},
-    { value: 'au', label: 'Australia'},
-    { value: 'be', label: 'Belgium'},
-    { value: 'br', label: 'Brazil'},
-    { value: 'ch', label: 'Switzerland'},
-    { value: 'ca', label: 'Canada'},
-    { value: 'de', label: ' Germany'},
-    { value: 'fr', label: 'France'},
-    { value: 'es', label: 'Spain'},
-    { value: 'in', label: ' India'},
-    { value: 'it', label: 'Italy'},
-    { value: 'mx', label: ' Mexico'},
-    { value: 'nl', label: 'Netherlands'},
-    { value: 'nz', label: 'New Zealand'},
-    { value: 'pl', label: 'Poland'},
-    { value: 'sg', label: 'Singapore'},
-    { value: 'za', label: 'South Africa'},
+
+     const [ salaryMin, setSalaryMin ] = useState(0)
+     const [ salaryMax, setSalaryMax ] = useState(0)
+     const [ toggleSkills, setToggleSkills ] = useState(true)
+     const [ isMinSalryOpen,  setIsMinSalaryOpen] = useState(false)
+     const [ isMaxSalryOpen,  setIsMaxSalaryOpen] = useState(false)
+     const [ jobType, setJobType] = useState('')
+     const [ selected, setSelected ] = useState([])
+     const [ jobClassification, setJobClassification ] = useState('')
+     const [ country, setCountry] = useState({ value: 'gb', label: 'Great Breatean'});
+    const [ jobTypeToggle, setJobTypeToggle] = useState(false)
+    const [ jobClassificationToggle, setJobClassificationToggle] = useState(false)
+    const [ isCountryOpen, setIsCountryOpen ] = useState(false)
+
+    const clearFilter = () => {
+        setCountry({ value: 'gb', label: 'Great Breatean'})
+        setSalaryMin(0)
+        setSalaryMax(0)
+        setSelected([])
+        setJobClassification('')
+        setJobType('')
+        setJobClassificationToggle(false)
+        setIsCountryOpen(false)
+        setJobTypeToggle(false)
+        setIsMaxSalaryOpen(false)
+        setIsMinSalaryOpen(false)
+        
+    }
+    const closeFilter = () =>{
+        setIsVisible(false)
+        clearFilter()
+    }
+ 
+    const countryList = [
+        { value: 'gb', label: 'Great Breatean '},
+        { value: 'at', label: 'Austria'},
+        { value: 'au', label: 'Australia'},
+        { value: 'be', label: 'Belgium'},
+        { value: 'br', label: 'Brazil'},
+        { value: 'ch', label: 'Switzerland'},
+        { value: 'ca', label: 'Canada'},
+        { value: 'de', label: ' Germany'},
+        { value: 'fr', label: 'France'},
+        { value: 'es', label: 'Spain'},
+        { value: 'in', label: ' India'},
+        { value: 'it', label: 'Italy'},
+        { value: 'mx', label: ' Mexico'},
+        { value: 'nl', label: 'Netherlands'},
+        { value: 'nz', label: 'New Zealand'},
+        { value: 'pl', label: 'Poland'},
+        { value: 'sg', label: 'Singapore'},
+        { value: 'za', label: 'South Africa'},
     ]
-
-    // const [ experience, setExperience ] = useState(0)
-    const [ toggleSkills, setToggleSkills ] = useState(true)
-    // const [ openYears, setOpenYears ] = useState(false)
-    // const [ openLocation, setOpenLocation ] = useState(false)
-    // const [ location, setLocation ] = useState('')
-
+ 
     // handle dropdown toggles 
     const handlSkillToggle = () => {
         setToggleSkills(!toggleSkills)
     }
-    // const yearsToggle = () => {
-    //     setOpenYears(!openYears)
-    // }
-    // const locationToggle = () => {
-    //     setOpenLocation(!openLocation)
-    // }
-
-
-
+    const minSalaryToggle = () => {
+        setIsMinSalaryOpen(!isMinSalryOpen)
+    }
+    const maxSalaryToggle = () => {
+        setIsMaxSalaryOpen(!isMaxSalryOpen)
+    }
+    const handlJobTypeToggle = () => {
+        setJobTypeToggle(!jobTypeToggle)
+    }
+    const handlJobClassificationToggle = () => {
+        setJobClassificationToggle(!jobClassificationToggle)
+    }
+     const handleCountryToggle = () => {
+        setIsCountryOpen(!isCountryOpen)
+    }
+ 
 const skillsets = [
     { skill: 'UI/UX', level: 'Expert' },
     { skill: 'Figma', level: 'Expert' },
@@ -69,20 +100,46 @@ const skillsets = [
     { skill: 'Backend', level: 'Intermediate' },
 ]
 
+const jobClassificationArr = [
+    {value: 'part_time', label:'Part Time'},
+    {value: 'full_time', label:'Full Time'},
+]
+const jobTypesArr = [
+    {value: 'contract', label:'Contract'},
+    {value: 'permanent', label:'Permanent'},
+]
+
+
  const handleSkill = (e) => {
+   
     if(selected.includes(e.target.value)){
         setSelected(selected.filter(skill => skill !== e.target.value))
     } else {
         setSelected([...selected, e.target.value])
     }
- 
+ }
+
+ const hadleJobType = (e) => {
+    setJobType(e.target.value)
+ }
+
+ const hadleJobClassification = (e) => {
+    setJobClassification(e.target.value)
  }
 
  const applyFilter = () => {
     setIsFetchTriggered(true)
-    setIsVisible(false)
+    // setIsVisible(false)
+    setFilter({ 
+        selected: selected, 
+        country: country, 
+        salaryMin: salaryMin, 
+        salaryMax: salaryMax, 
+        jobClassification: jobClassification, 
+        jobType: jobType,
+    })
+    clearFilter()
  }
-
 
   return (
     <>
@@ -94,7 +151,7 @@ const skillsets = [
         <button 
             className="closeFilter btn" 
             type='button'
-            onClick={() => setIsVisible(false)}><img src={Close} alt="close icon" />
+            onClick={closeFilter}><img src={Close} alt="close icon" />
         </button>
 
         <div className="bbottom">
@@ -115,61 +172,139 @@ const skillsets = [
                         value={skill.skill}
                         onChange={handleSkill}
                         checked={selected.includes(skill.skill)}
+                        id={skill.skill}
                     />
-                    <label htmlFor="">{skill.skill}</label>
+                    <label htmlFor={skill.skill}>{skill.skill}</label>
                 </div>
             ))
         }
         </div>
-        {/* <div  className="bbottom "> 
-            <div htmlFor="years" className='spaceBet' onClick={yearsToggle}> 
-                <span>Years of Experience </span>  
+
+        <div className="bbottom">
+            <div onClick={handlJobTypeToggle} className="spaceBet">
+                <h5 className="" >Job Type</h5>
                 {
-                    openYears ? 
+                    jobTypeToggle ? 
+                    <img src={Less} alt="less icon " /> :
+                    <img src={More} alt="more icon" />
+                }
+            </div>
+        {   jobTypeToggle &&         
+            jobTypesArr.map((type, index) => (
+                    <div key={index} className="skillBlock">
+                        <input 
+                            type="radio" 
+                            name={'jobType'}
+                            value={type.value}
+                            onChange={(e) => hadleJobType(e)}
+                            checked={jobType === type.value}
+                            id={type.value}
+                        />
+                        <label htmlFor={type.value}>{type.label}</label>
+                    </div>
+            ))
+        }
+        </div>
+
+        <div className="bbottom">
+            <div onClick={handlJobClassificationToggle} className="spaceBet">
+                <h5 className="" >Job Classification</h5>
+                {
+                    jobClassificationToggle ? 
+                    <img src={Less} alt="less icon " /> :
+                    <img src={More} alt="more icon" />
+                }
+            </div>
+        {   jobClassificationToggle &&         
+            jobClassificationArr.map((type, index) => (
+                    <div key={index} className="skillBlock">
+                        <input 
+                            type="radio" 
+                            name={'jobClassification'}
+                            value={type.value}
+                            onChange={(e) => hadleJobClassification(e)}
+                            checked={jobClassification === type.value}
+                            id={type.value}
+                        />
+                        <label htmlFor={type.value}>{type.label}</label>
+                    </div>
+            ))
+        }
+        </div>
+         <div  className="bbottom "> 
+            <div htmlFor="years" className='spaceBet' onClick={minSalaryToggle}> 
+                <span>Minimum Salary </span>  
+                {
+                    isMinSalryOpen ? 
                     <img src={Less} alt="less icon"  /> :
                     <img src={More} alt='more icon' />
                  }  
             </div>
-           { openYears &&
+           { isMinSalryOpen &&
             <div className='sliderContainer'>
+                  <input className='pad1 priceInput radius5px' type="number" value={salaryMin}  onChange={(e) => setSalaryMin(e.target.value)}/>
                 <ProgressBar 
-                    setSkill={setExperience} 
-                    skillProficiency={experience} 
+                    setSkill={setSalaryMin} 
+                    skillProficiency={parseInt(salaryMin, 10)} 
                     test={true}
-                    exRange = {20}
+                    exRange = {10000}
+                    hideValue={true}
                 />
             </div>
            }
-        </div> */}
+        </div>  
       
-        {/* <div className="bbottom  ">
-             <div onClick={locationToggle} className="spaceBet">
-                <h5 className="" >Location</h5>
+         <div  className="bbottom "> 
+            <div htmlFor="years" className='spaceBet' onClick={maxSalaryToggle}> 
+                <span>Maximom Salary </span>  
                 {
-                    openLocation ? 
-                    <img src={Less} alt="Less" /> :
-                    <img src={More} alt="More" />
-                }
+                    isMaxSalryOpen ? 
+                    <img src={Less} alt="less icon"  /> :
+                    <img src={More} alt='more icon' />
+                 }  
             </div>
-            {openLocation &&
-                <input 
-                type="text"
-                name='location'
-                placeholder="e.g abuja"
-                id="location" 
-                className="filtlocation radius5px" 
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+           { isMaxSalryOpen &&
+            <div className='sliderContainer'>
+                <input className='pad1 priceInput' type="number" value={salaryMax}  onChange={(e) => setSalaryMax(e.target.value)}/>
+                <ProgressBar 
+                    setSkill={setSalaryMax} 
+                    skillProficiency={parseInt(salaryMax,10)} 
+                    test={true}
+                    hideValue={true}
+                    exRange = {100000}
+                    // minRange={0}
                 />
+            </div>
            }
-        </div> */}
-        <CountryFilter  
-            countryList={countryList} 
-            setCountry={setCountry} 
-            country={country} 
-        />
+        </div>  
 
+         <div  className="bbottom "> 
+            <div htmlFor="years" className='spaceBet' onClick={handleCountryToggle}> 
+                <span>Country </span>  
+                {
+                    isCountryOpen ? 
+                    <img src={Less} alt="less icon"  /> :
+                    <img src={More} alt='more icon' />
+                 }  
+            </div>
+           { isCountryOpen &&
+            <div className='sliderContainer'>
+              
+            <CountryFilter  
+                countryList={countryList} 
+                setCountry={setCountry} 
+                country={country} 
+            />
+
+            </div>
+           }
+        </div>  
+      
+      
+      <div className="skillFlex filter">
         <button type='button' onClick={applyFilter} className="filterBtn">Apply </button>
+        <button type='button' onClick={clearFilter} className="filterBtn clearBtn">Clear </button>
+        </div>
         </section>
         </form>
      
@@ -180,10 +315,9 @@ const skillsets = [
 Filter.propTypes = {
     isVisible: PropTypes.bool,
     setIsVisible: PropTypes.func,
-    setCountry: PropTypes.func.isRequired,
-    country: PropTypes.object.isRequired,
-    selected: PropTypes.array.isRequired,
-    setSelected: PropTypes.func.isRequired,
+    setFilter: PropTypes.func,
+    filter: PropTypes.object,
+    
     setIsFetchTriggered: PropTypes.func.isRequired,
 }
 

@@ -40,8 +40,8 @@ function App() {
   }
 
   const menuToggle  = useSelector((state) => state.app.genMenu)
-  console.log({'loged in ':isLogedin})
-  console.log({'modal open ':menuToggle})
+  // console.log({'loged in ':isLogedin})
+  // console.log({'modal open ':menuToggle})
   
     //Determine the current path
     // Use useLocation to get the current path

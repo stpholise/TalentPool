@@ -17,6 +17,24 @@ const CountryFilter = ({ countryList, setCountry, country }) => {
             options={countryList}
             onChange={handleCountryChange}
             value={country}
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                borderColor: state.isFocused ? '#fff' : '#fff',
+                border: state.isFocused ? 'none' : 'none',
+                outline: state.isFocused ?'none' : 'none',
+              }),
+              
+            }}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: '#eee',
+                primary: '#0A84FF',
+              },
+            })}
         />
     </div>
   )

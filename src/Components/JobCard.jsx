@@ -1,18 +1,20 @@
  import { PropTypes } from 'prop-types'
+import DefaultComapny from '../assets/company-svgrepo-com.svg'
+
 
 const JobCard = ({title, company, location, category, redirectUrl, postedAt, }) => {
   return (
     <>
         
-                <div>
-                    <img src="" alt="" />
+                <div className='imageDetail'>
+                    <img src={DefaultComapny} style={{width:'100%'}}  alt="" />
                 </div>
-                <div>
-                    <a href={redirectUrl}><h4 className='jobTitle'>{title}</h4></a>
+                <div className='textDetail'>
+                    <a href={redirectUrl} target='_blank'><h4 className='jobTitle'>{title}</h4></a>
                     <h5 className='companyName'>{company}</h5>
                     <p>{location.join(', ')}</p>
                     <p>{category}</p>
-                    <p>{postedAt < 1 ? '' : postedAt}</p> 
+                    <p className='postDate'>{postedAt < 1 ? '' : postedAt} day`&lsquo;`s ago </p> 
                 </div>
          
     </>
