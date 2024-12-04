@@ -15,7 +15,7 @@ const Filter = ({
     setIsVisible,
     setIsFetchTriggered,
     setFilter,
-
+    setPageNumber,
  }) => {
 
      const [ salaryMin, setSalaryMin ] = useState(0)
@@ -129,7 +129,7 @@ const jobTypesArr = [
 
  const applyFilter = () => {
     setIsFetchTriggered(true)
-    // setIsVisible(false)
+    setIsVisible(false)
     setFilter({ 
         selected: selected, 
         country: country, 
@@ -138,7 +138,8 @@ const jobTypesArr = [
         jobClassification: jobClassification, 
         jobType: jobType,
     })
-    clearFilter()
+    setPageNumber(1)
+
  }
 
   return (
@@ -317,8 +318,8 @@ Filter.propTypes = {
     setIsVisible: PropTypes.func,
     setFilter: PropTypes.func,
     filter: PropTypes.object,
-    
     setIsFetchTriggered: PropTypes.func.isRequired,
+    setPageNumber: PropTypes.func.isRequired,
 }
 
 export default Filter

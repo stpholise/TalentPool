@@ -3,7 +3,9 @@ import Filter from "../Components/Filter"
 import JobCard from "../Components/JobCard"
 import Search from "../Components/Search"
 import Spinner from "../Components/Spinner"
-
+// import NextIcon from '../assets/chevron-left'
+import ChevronLeft from '../assets/chevron-left.svg'
+import ChevronRight from '../assets/chevron-right.svg'
 import useFetchJobs from '../hooks/useFetchJobs'
 
 
@@ -35,14 +37,13 @@ const Jobs = () => {
 const totalPages = Math.ceil(count / 20); // Total number of pages
   const showMore = debounce(()=> { 
     setPageNumber((previousPage) => previousPage +1)
-  },3000)
+  },1000)
   const showLess = debounce( () => {
     setPageNumber((previousPage) => {
       if (previousPage === 1) return previousPage; // Prevent going below page 1
       return previousPage - 1; // Decrease page by 1
     });
-  }, 3000)
-  console.log(totalPages)
+  }, 1000)
   
   const handleTimeDifference = (created) => {
     const today = new Date() ;
@@ -51,6 +52,10 @@ const totalPages = Math.ceil(count / 20); // Total number of pages
     const daysDifference = Math.floor(timeDifference/(1000 * 60 * 60 * 24))
     return daysDifference
 }
+
+  // const handlePageNumber = (pageNumber) => {
+  //   setPageNumber(pageNumber)
+  // }
 
 
   return (
@@ -63,6 +68,8 @@ const totalPages = Math.ceil(count / 20); // Total number of pages
                 setFilter={setFilter} 
                 filter={filter}
                 setIsFetchTriggered={setIsFetchTriggered}
+                setPageNumber={setPageNumber}
+
             />
             <div className="cardContainer">
               <Search 
@@ -80,7 +87,7 @@ const totalPages = Math.ceil(count / 20); // Total number of pages
               }
 
               {
-               (!isLoading && count == 0) && <p>no item matches </p>
+               (!isLoading && count == 0) && <p className='error' style={{ margin:'auto'}}>no item matches </p>
               }
 
               { !isLoading &&
@@ -109,8 +116,27 @@ const totalPages = Math.ceil(count / 20); // Total number of pages
        
        <section className="select">
        </section>
-       <button type='button' disabled={pageNumber === 1} onClick={showLess}>less</button>
-       <button type='button' onClick={showMore}>more</button>
+{ (count > 20) &&
+       <div className="paginationControls">
+          <button type='button' disabled={pageNumber === 1} onClick={showLess} aria-label='previous'>
+                  <img src={ChevronRight} alt="" />
+          </button>
+          <span>Page {pageNumber} of {totalPages}</span>
+          <button type='button' onClick={showMore} aria-label='next'>
+                  <img src={ChevronLeft} alt="" />
+          </button>
+
+          {/* {Array.from({ length: totalPages }, (_, index) => index + 1).map((i) => (
+        <button
+          key={i}
+          onClick={() => handlePageNumber(i)}
+          style={{ margin: '5px' }}
+        >
+          {i}
+        </button>
+      ))} */}
+       </div>
+       }
         </main>
     </>
   )
