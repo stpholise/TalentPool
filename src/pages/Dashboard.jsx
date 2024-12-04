@@ -58,8 +58,8 @@ const Dashboard = () => {
                 <p className="profileLocation address"> <img src={LocationIcon} alt="profile Location" /> <span>Lagos, Nigeria</span></p>
                 <h5 className="profileTitle address">Portfolio</h5>
                 <p className="profileTwitter address"><img src={TwitterIcon} alt="Twitter link" /> @Anosike_UI</p>
-                <p className="profileDribble address"><img src={Dribble} alt="Dribble link" />https://dribbble.com</p>
-                <p className="profileBehance address"><img src={Behance} alt="Behance link" />https://www.behance.net</p>
+                <a href='https://dribbble.com' rel="noopener" target='_blank' className="profileDribble address"><img src={Dribble} alt="Dribble link" />https://dribbble.com</a>
+                <a href='https://www.behance.net' rel="noopener" target='_blank' className="profileBehance address"><img src={Behance} alt="Behance link" />https://www.behance.net</a>
             </div>
             </div>
         </section>

@@ -148,7 +148,7 @@ const socialDelMultiple = () => {
                         <input type="checkbox" 
                             checked={selected.includes(social.id)}
                             onChange={() => {handleChecking(social) }} /> 
-                        <p>{social.socialTitle}</p>
+                        <a href={social.socialLink} rel="noopener" target='_blank'>{social.socialTitle}</a>
                     </div>
                     <div className="edit">
                        {(selected.length <= 1) &&

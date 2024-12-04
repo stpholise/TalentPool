@@ -3,11 +3,9 @@
   display:flex;
   align-items:center;
   justify-content:center;
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
+
+  height:70vh;
+  width:100%;
 }
 .spinner {
   width: 50px;
@@ -16,7 +14,7 @@
  /* border-top: 5px solid #615fdd;  purple top border */
   border-radius: 50%; /* Make it circular */
   animation: spin 1s linear infinite; /* Apply the spin animation */
-
+  margin:auto;
 }
 
 @keyframes spin {
