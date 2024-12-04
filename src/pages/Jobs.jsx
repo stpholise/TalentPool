@@ -7,9 +7,9 @@ import Spinner from "../Components/Spinner"
 import useFetchJobs from '../hooks/useFetchJobs'
 
 
-import {  useState, useEffect } from 'react'
+import {  useState,   } from 'react'
 
-import { PropTypes } from 'prop-types'
+
   
 
 const Jobs = () => {
@@ -31,7 +31,7 @@ const Jobs = () => {
   const [isFetchTriggered, setIsFetchTriggered] = useState(false)
   const { errorMessage, isLoading, jobs, count } =  useFetchJobs({filter, setFilter, searchValue, pageNumber, isFetchTriggered, setIsFetchTriggered})
 
-useEffect(() => {setSearchValue('')} , [isVisible])
+// useEffect(() => {setSearchValue('')} , [isVisible])
 const totalPages = Math.ceil(count / 20); // Total number of pages
   const showMore = debounce(()=> { 
     setPageNumber((previousPage) => previousPage +1)
@@ -116,8 +116,6 @@ const totalPages = Math.ceil(count / 20); // Total number of pages
   )
 }
 
-Jobs.propTypes = {
-  scrollToTop: PropTypes.func
-}
+
 
 export default Jobs

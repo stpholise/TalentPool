@@ -48,16 +48,18 @@ function App() {
    const location = useLocation();
    const path = location.pathname; // Get the current path
 
-   const useScrollToTop = () => {
-    const location = useLocation();
-    const path = location.pathname;
+  
+   
     useEffect(() => {
+      const scrollToTop = () => {
     window.scrollTo({ top: 0 });
     dispatch(modalIsClose(false)) 
-    dispatch(closeAll())
-    }, [path]);
-    };
- 
+    dispatch(closeAll())}
+    scrollToTop()
+
+    }, [path, dispatch]);
+   
+   
    
   return (
     <>
@@ -80,12 +82,18 @@ function App() {
       </>
      
         <Routes>
-          <Route exact path='/' element={<GuardRoute element={Dashboard} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />  
-          <Route exact path='/jobs' element={<GuardRoute element={Jobs} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />          
-          <Route path='/profile' element={isLogedin ? <Profile user={user} scrollToTop={useScrollToTop} /> : <Navigate to='/signin' replace />} />
-          <Route path='/EmployerDashboard' element={<GuardRoute element={EmployerDashboard} auth={isLogedin} user={user} scrollToTop={useScrollToTop} />} />
-          <Route exact path='/signup' element={<Signup scrollToTop={useScrollToTop} />} />
-          <Route exact path='/signin' element={<Signin scrollToTop={useScrollToTop} />} />
+          <Route exact path='/' element={<GuardRoute element={Dashboard} auth={isLogedin} user={user} 
+          />} />  
+          <Route exact path='/jobs' element={<GuardRoute element={Jobs} auth={isLogedin} user={user} 
+          />} />          
+          <Route path='/profile' element={isLogedin ? <Profile user={user}
+           /> : <Navigate to='/signin' replace />} />
+          <Route path='/EmployerDashboard' element={<GuardRoute element={EmployerDashboard} auth={isLogedin} user={user} 
+          />} />
+          <Route exact path='/signup' element={<Signup 
+          />} />
+          <Route exact path='/signin' element={<Signin 
+          />} />
         </Routes>
      
   

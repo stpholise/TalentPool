@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { PropTypes } from 'prop-types'
+
 import SignUpImg from '../assets/Rectangle 562.png'
 import Facebook from '../assets/fb-icon.svg'
 import '../styling/Signup.css'
@@ -10,8 +10,8 @@ import * as Yup from 'yup'
 import { useEffect } from 'react'
 
 
-const Signup = ({scrollToTop}) => {
-    scrollToTop()
+const Signup = () => {
+  
     const dispatch = useDispatch()
     const isLogedin = useSelector((state) => state.app.isLogedin)
     const navigate = useNavigate()
@@ -182,8 +182,5 @@ const Signup = ({scrollToTop}) => {
   )
 }
 
-Signup.propTypes = {
-    scrollToTop: PropTypes.func.isRequired
-  }
 
 export default Signup

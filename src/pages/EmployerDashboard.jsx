@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import Slider from 'rc-slider'
 import Portfolio from '../Components/Portfolio'
 import Cv from '../Components/Cv'
-import { PropTypes } from 'prop-types'
+
 
 
 import Person from '../Components/Person'
@@ -10,11 +10,11 @@ import Person from '../Components/Person'
 // import Minus from '../assets/Minus.svg'
 
 
-const EmployerDashboard = ({ scrollToTop}) => {
+const EmployerDashboard = () => {
   const skills = useSelector((state) => state.users.skills) || [];
 
 
-scrollToTop()
+
 
 
   return (
@@ -66,10 +66,6 @@ scrollToTop()
 }
 
 
-EmployerDashboard.propTypes = {
-  // user: PropTypes.object.isRequired,
-  scrollToTop: PropTypes.func.isRequired
-}
 
 
 export default EmployerDashboard

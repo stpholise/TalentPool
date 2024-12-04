@@ -13,7 +13,7 @@ const Nav = () => {
     { name: 'Dashboard ', path: '/' },
     { name: 'Jobs ', path: '/jobs'},
     { name: 'Support ', path: '/signup'},
-    { name: 'Settings ', path: '/signin'}
+    { name: 'Settings ', path: '/profile'}
   ]
   
   return (

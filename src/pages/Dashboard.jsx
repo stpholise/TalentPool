@@ -1,5 +1,5 @@
 
-import { PropTypes } from 'prop-types'
+// import { PropTypes } from 'prop-types'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css';
 import DisplayPhoto from '../assets/OhKElOkQ3RE.png'
@@ -13,7 +13,7 @@ import Dribble from '../assets/topcoat_dribble.svg'
 import { useSelector } from 'react-redux'
 
 
-const Dashboard = ({scrollToTop}) => {
+const Dashboard = () => {
 
     const cards = [
         { title: 'JOBS', count: 3052, status:'AVAILABLE' },
@@ -25,7 +25,7 @@ const Dashboard = ({scrollToTop}) => {
 
   
 
-    scrollToTop()
+    // scrollToTop()
    
 
   return (
@@ -103,8 +103,8 @@ const Dashboard = ({scrollToTop}) => {
   )
 }
 
-Dashboard.propTypes = {
-    scrollToTop: PropTypes.func.isRequired
-}
+// Dashboard.propTypes = {
+//     scrollToTop: PropTypes.func.isRequired
+// }
 
 export default Dashboard

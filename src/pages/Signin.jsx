@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { PropTypes } from 'prop-types'
 import SignUpImg from '../assets/woman-in-blue-suit-jacket-2422293 1.png'
 import Facebook from '../assets/fb-icon.svg'
 import { logUserIn } from '../store/AppSlice'
@@ -9,10 +8,10 @@ import {  useEffect } from 'react'
 import { Formik, Form, Field, ErrorMessage} from 'formik'
 import * as Yup from 'yup'
 
-const Signup = ({scrollToTop}) => {
+const Signup = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    scrollToTop()
+  
 
     const initialValues = {
         email: '',
@@ -142,8 +141,5 @@ const Signup = ({scrollToTop}) => {
   )
 }
 
-Signup.propTypes = {
-    scrollToTop: PropTypes.func.isRequired
-  }
 
 export default Signup
