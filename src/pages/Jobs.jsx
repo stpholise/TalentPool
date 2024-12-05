@@ -9,7 +9,7 @@ import Spinner from "../Components/Spinner"
 import useFetchJobs from '../hooks/useFetchJobs'
 
 
-import {  useState,   } from 'react'
+import {  useState, useEffect   } from 'react'
 import  Pagination from '../Components/Pagination'
 
   
@@ -26,18 +26,32 @@ const Jobs = () => {
   //     debounceTimer = setTimeout(() => func.apply(context, args), delay)
   //   }
   // }
+  const [ viewMore, setViewMore ] = useState(10)
   const [ filter, setFilter ] = useState(null)
   const [ pageNumber, setPageNumber ] = useState(1)
   const [ isVisible, setIsVisible ] = useState(false)
   const [ searchValue, setSearchValue ] = useState('')
   const [isFetchTriggered, setIsFetchTriggered] = useState(false)
-  const { errorMessage, isLoading, jobs, count } =  useFetchJobs({filter, setFilter, searchValue, pageNumber, isFetchTriggered, setIsFetchTriggered})
+  const { errorMessage, isLoading, jobs, count } =  useFetchJobs({filter, setFilter, searchValue, pageNumber, isFetchTriggered, setIsFetchTriggered, viewMore})
 
-// useEffect(() => {setSearchValue('')} , [isVisible])
-const totalPages = Math.ceil(count / 20); // Total number of pages
-  // const showMore = debounce(()=> { 
+  const handleViewMore = () => {
+    setViewMore((previousViewMore) => previousViewMore + 10)
+    console.log(viewMore)
+  }
+  console.log(jobs.length)
+  console.log(pageNumber)
+
+  useEffect(() => { 
+    if(window.innerWidth > 768) {
+      window.scrollTo({ top: 0 });
+    }
+    console.log(jobs.length)
+  } , [pageNumber])
+
+const totalPages = Math.ceil(count / 10); // Total number of pages
+  // const showMore = ()=> { 
   //   setPageNumber((previousPage) => previousPage +1)
-  // },1000)
+  // } 
   // const showLess = debounce( () => {
   //   setPageNumber((previousPage) => {
   //     if (previousPage === 1) return previousPage; // Prevent going below page 1
@@ -69,6 +83,7 @@ const totalPages = Math.ceil(count / 20); // Total number of pages
                 filter={filter}
                 setIsFetchTriggered={setIsFetchTriggered}
                 setPageNumber={setPageNumber}
+                 
 
             />
             <div className="cardContainer">
@@ -97,7 +112,7 @@ const totalPages = Math.ceil(count / 20); // Total number of pages
                    const daysDifference = handleTimeDifference(created)
                    
                  return (
-                  <div  key={id} className="jobDetails">
+                  <div  key={`${id}${created}`} className="jobDetails">
                      <JobCard 
                         title={title} 
                         company={company.display_name} 
@@ -111,25 +126,18 @@ const totalPages = Math.ceil(count / 20); // Total number of pages
                   </div>
                 )})
               }
+
+              {(50 > viewMore && !isLoading) &&   <button className='viewMore' onClick={handleViewMore} aria-label='viewMore'> View More </button>}
+
+              { (count > 20 && !isLoading) &&   <Pagination totalpages={totalPages}  pageNumber={pageNumber}  setPageNumber={setPageNumber} /> }
             </div>
+ 
         </div>
-       
+
        <section className="select">
        </section>
-{/* { (count > 20) &&
-       <div className="paginationControls">
-          <button type='button' disabled={pageNumber === 1} onClick={showLess} aria-label='previous'>
-                  <img src={ChevronRight} alt="" />
-          </button>
-          <span>Page {pageNumber} of {totalPages}</span>
-          <button type='button' onClick={showMore} aria-label='next'>
-                  <img src={ChevronLeft} alt="" />
-          </button>
-       </div>
-       } */}
- { (count > 20) &&
-        <Pagination totalpages={totalPages}  pageNumber={pageNumber}  setPageNumber={setPageNumber} />
- }
+
+
         </main>
     </>
   )
