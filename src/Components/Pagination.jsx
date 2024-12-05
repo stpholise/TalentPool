@@ -71,7 +71,7 @@ const Pagination = ({ pageNumber, setPageNumber, totalpages }) => {
     return (
 
         <>
-              {/* { <button className='viewMore' onClick={() => changePage(pageNumber + 1)} aria-label='viewMore'> View More </button>} */}
+              {(pageNumber < totalpages) && <button className='viewMore' onClick={() => changePage(pageNumber + 1)} aria-label='viewMore'> View More </button>}
             <div  className="paginationControls">
                 {RenderPagination()}
             </div>

@@ -7,7 +7,7 @@ import Spinner from "../Components/Spinner"
 // import ChevronLeft from '../assets/chevron-left.svg'
 // import ChevronRight from '../assets/chevron-right.svg'
 import useFetchJobs from '../hooks/useFetchJobs'
-
+import { v4 as uuidv4 } from 'uuid'
 
 import {  useState, useEffect   } from 'react'
 import  Pagination from '../Components/Pagination'
@@ -26,18 +26,20 @@ const Jobs = () => {
   //     debounceTimer = setTimeout(() => func.apply(context, args), delay)
   //   }
   // }
-  const [ viewMore, setViewMore ] = useState(10)
+  // const [ viewMore, setViewMore ] = useState(10)
   const [ filter, setFilter ] = useState(null)
   const [ pageNumber, setPageNumber ] = useState(1)
   const [ isVisible, setIsVisible ] = useState(false)
   const [ searchValue, setSearchValue ] = useState('')
   const [isFetchTriggered, setIsFetchTriggered] = useState(false)
-  const { errorMessage, isLoading, jobs, count } =  useFetchJobs({filter, setFilter, searchValue, pageNumber, isFetchTriggered, setIsFetchTriggered, viewMore})
+  const { errorMessage, isLoading, jobs, count } =  useFetchJobs({filter, setFilter, searchValue, pageNumber, isFetchTriggered, setIsFetchTriggered, 
+    // viewMore
+  })
 
-  const handleViewMore = () => {
-    setViewMore((previousViewMore) => previousViewMore + 10)
-    console.log(viewMore)
-  }
+  // const handleViewMore = () => {
+  //   setViewMore((previousViewMore) => previousViewMore + 10)
+  //   console.log(viewMore)
+  // }
   console.log(jobs.length)
   console.log(pageNumber)
 
@@ -45,7 +47,7 @@ const Jobs = () => {
     if(window.innerWidth > 768) {
       window.scrollTo({ top: 0 });
     }
-    console.log(jobs.length)
+    
   } , [pageNumber])
 
 const totalPages = Math.ceil(count / 10); // Total number of pages
@@ -107,12 +109,13 @@ const totalPages = Math.ceil(count / 10); // Total number of pages
 
               { !isLoading &&
                 jobs.map((job) =>{ 
-                   const {id, title, company, location, category, created, redirect_url} = job
-                  
+                   const { title, company, location, category, created, redirect_url} = job
+                   const id = uuidv4()
+               
                    const daysDifference = handleTimeDifference(created)
                    
                  return (
-                  <div  key={`${id}${created}`} className="jobDetails">
+                  <div  key={id} className="jobDetails">
                      <JobCard 
                         title={title} 
                         company={company.display_name} 
@@ -127,7 +130,7 @@ const totalPages = Math.ceil(count / 10); // Total number of pages
                 )})
               }
 
-              {(50 > viewMore && !isLoading) &&   <button className='viewMore' onClick={handleViewMore} aria-label='viewMore'> View More </button>}
+              {/* {(70 > viewMore && !isLoading) &&   <button className='viewMore' onClick={handleViewMore} aria-label='viewMore'> View More </button>} */}
 
               { (count > 20 && !isLoading) &&   <Pagination totalpages={totalPages}  pageNumber={pageNumber}  setPageNumber={setPageNumber} /> }
             </div>
