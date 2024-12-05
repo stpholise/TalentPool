@@ -138,10 +138,18 @@
 .postDate{
     font-size:13px;
 }
+
 .paginationControls{
     display:flex;
     justify-content: space-between;
-    align-items:center
+    align-items:center;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 9px;
+    box-shadow: 1px 1px 2px #444;
+}
+.viewMore { 
+    display:none;
 }
 
 .error{
@@ -213,6 +221,22 @@
     }
     .skillFlex.filter{
         flex-direction: column;
+    }
+    .paginationControls{
+        display:none;
+        
+    }
+
+    .viewMore { 
+        display:flex;
+        margin:auto;
+        padding:0.5rem;
+        background:#0A84FF;
+        color:#fff;
+        border-radius:5px;
+        cursor:pointer;
+        width:50%;
+        justify-content:center;
     }
 
 }

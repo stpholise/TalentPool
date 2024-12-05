@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { PropTypes } from 'prop-types'
 
-const useFetchJobs = ({filter,  searchValue ='a',pageNumber, isFetchTriggered, setIsFetchTriggered }) => {
+const useFetchJobs = ({filter,  searchValue ='a',pageNumber, isFetchTriggered, setIsFetchTriggered, viewMore = 10 }) => {
   
   const [ jobs, setJobs ] = useState([])
   const [ isLoading, setIsLoading ] = useState(false) 
@@ -66,19 +66,25 @@ const handleMaxSalary = (salaryMax, salaryMin)  =>{
       const occupationType = handleJobType(jobType)
       const jobClass = handleJobClass(jobClassification)
    
-      const url =`https://api.adzuna.com/v1/api/jobs/${countryCode}/search/${correntPage}?app_id=22886062&app_key=eed206437ecfaae0d5146924f8038553&results_per_page=20&what_phrase=${search}&what_or=${skills}&max_days_old=50&salary_min=${salaryMin}${maxSalary}${jobClass}${occupationType}`
+      const url =`https://api.adzuna.com/v1/api/jobs/${countryCode}/search/${correntPage}?app_id=22886062&app_key=eed206437ecfaae0d5146924f8038553&results_per_page=${viewMore}&what_phrase=${search}&what_or=${skills}&max_days_old=100&salary_min=${salaryMin}${maxSalary}${jobClass}${occupationType}`
         try{
           const response = await fetch(url, settings);
-          const data = await response.json()
-          setJobs(data.results)
-          console.log(data)
-          console.log(url)
-          setIsLoading(false)
-          setCount(data.count)
           if (!response.ok) {
             throw new Error(`Failed to fetch jobs : ${response.status}`);
           }
           setIsFetchTriggered(false)
+          const data = await response.json()
+          setIsLoading(false)
+          setCount(data.count)
+          setJobs(data.results)
+          if(window.innerWidth < 768) {
+            // setJobs(prev => [...prev, ...data.results])
+            setJobs(data.results)
+          }
+          else {
+            setJobs(data.results)
+          }
+      
           
         }
         catch (error ){
@@ -89,11 +95,11 @@ const handleMaxSalary = (salaryMax, salaryMin)  =>{
           setIsLoading(false)
           setIsFetchTriggered(false)
         }
-        console.log(isFetchTriggered)
+        
       
   }
     getJobs()
-  }, [filter, pageNumber, searchValue, isFetchTriggered, setIsFetchTriggered])
+  }, [filter, pageNumber, searchValue, isFetchTriggered, setIsFetchTriggered, viewMore])
 
   return { 
     jobs,
@@ -106,6 +112,7 @@ const handleMaxSalary = (salaryMax, salaryMin)  =>{
 
 useFetchJobs.propTypes = { 
   pageNumber: PropTypes.number,
+  viewMore: PropTypes.number,
   country: PropTypes.object.isRequired,
   searchValue: PropTypes.string,
   skills: PropTypes.array,

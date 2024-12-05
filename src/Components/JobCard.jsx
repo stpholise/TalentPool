@@ -14,7 +14,7 @@ const JobCard = ({title, company, location, category, redirectUrl, postedAt, }) 
                     <h5 className='companyName'>{company}</h5>
                     <p>{location.join(', ')}</p>
                     <p>{category}</p>
-                    <p className='postDate'>{postedAt < 1 ? '' : postedAt} day`&lsquo;`s ago </p> 
+                    <p className='postDate'>{postedAt < 1 ? '' : postedAt} day&lsquo;s ago </p> 
                 </div>
          
     </>

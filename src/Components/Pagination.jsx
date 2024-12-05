@@ -1,6 +1,6 @@
  
 import { PropTypes } from 'prop-types';
-import ChevronLeft from '../assets/chevron-left.svg'
+import ChevronLeft from '../assets/GreaterThan.svg'
 import ChevronRight from '../assets/chevron-right.svg'
 
 const Pagination = ({ pageNumber, setPageNumber, totalpages }) => {
@@ -21,9 +21,9 @@ const Pagination = ({ pageNumber, setPageNumber, totalpages }) => {
         // Determine the range of page to display using the prviously defined range of 2
         if (pageNumber <= range + 1) { //if near the start of the pagination ie pageNumber is less than or equl to 3
             startPage = 1;  // sartPage should be 1
-            endPage = Math.min(7, totalpages); //and endPage should be the minimum of 7 and the total number of pages
+            endPage = Math.min(4, totalpages); //and endPage should be the minimum of 7 and the total number of pages
         } else if(pageNumber >= totalpages - range ) { // if near the end of the pagination ie pageNumber is greater than or equal to the total number of pages minus the range of 2
-            startPage = Math.max(totalpages - 6, 1); // startPage should be the maximum of the total number of pages minus 6 and 1
+            startPage = Math.max(totalpages - 3, 1); // startPage should be the maximum of the total number of pages minus 6 and 1
             endPage = totalpages; // endPage should be the total number of pages
         }else {
             startPage = pageNumber - range; // for pages in the middle, startPage should be the pageNumber minus the range of 2
@@ -62,16 +62,20 @@ const Pagination = ({ pageNumber, setPageNumber, totalpages }) => {
         }
 
         // Add Next Button
-        pagination.push(<button key="next" className='flexCenterCenter' onClick={() => changePage(pageNumber + 1)} disabled={pageNumber === totalpages}> Next <img src={ChevronLeft} alt="" /></button>)
+        pagination.push(<button key="next" className='flexCenterCenter' onClick={() => changePage(pageNumber + 1)} disabled={pageNumber === totalpages}> Next<img src={ChevronLeft} alt="" /></button>)
         
 
         return pagination
     }
 
     return (
-        <div  className="paginationControls">
-            {RenderPagination()}
-        </div>
+
+        <>
+              {/* { <button className='viewMore' onClick={() => changePage(pageNumber + 1)} aria-label='viewMore'> View More </button>} */}
+            <div  className="paginationControls">
+                {RenderPagination()}
+            </div>
+        </>
     )
 
 
