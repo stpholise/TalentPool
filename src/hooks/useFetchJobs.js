@@ -66,7 +66,7 @@ const handleMaxSalary = (salaryMax, salaryMin)  =>{
       const occupationType = handleJobType(jobType)
       const jobClass = handleJobClass(jobClassification)
    
-      const url =`https://api.adzuna.com/v1/api/jobs/${countryCode}/search/${correntPage}?app_id=22886062&app_key=eed206437ecfaae0d5146924f8038553&results_per_page=${viewMore}&what_phrase=${search}&what_or=${skills}&max_days_old=100&salary_min=${salaryMin}${maxSalary}${jobClass}${occupationType}`
+      const url =`https://api.adzuna.com/v1/api/jobs/${countryCode}/search/${correntPage}?app_id=22886062&app_key=eed206437ecfaae0d5146924f8038553&results_per_page=${10}&what_phrase=${search}&what_or=${skills}&max_days_old=100&salary_min=${salaryMin}${maxSalary}${jobClass}${occupationType}`
         try{
           const response = await fetch(url, settings);
           if (!response.ok) {
@@ -76,13 +76,17 @@ const handleMaxSalary = (salaryMax, salaryMin)  =>{
           const data = await response.json()
           setIsLoading(false)
           setCount(data.count)
-          setJobs(data.results)
+          console.log(data.results.length)
+          // setJobs(data.results)
           if(window.innerWidth < 768) {
-            // setJobs(prev => [...prev, ...data.results])
-            setJobs(data.results)
+            setJobs(prev => [...prev, ...data.results])
+            console.log(jobs.length)
+            console.log('mobile')
+            // setJobs(data.results)
           }
-          else {
+          else if(window.innerWidth > 768) {
             setJobs(data.results)
+            console.log('desktop')
           }
       
           
