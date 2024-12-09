@@ -2,13 +2,19 @@ import Select from 'react-select'
 // import { useState } from 'react'
 import { PropTypes } from 'prop-types'
 
-const CountryFilter = ({ countryList, setCountry, country }) => {
+const CountryFilter = ({ countryList, setCountry, country, isClearable, setIsClearable }) => {
    
       const handleCountryChange = (option) => {
         if(!option) return
         if(typeof option === 'object') {
           setCountry(option) 
-        }};
+        }
+        if(isClearable.includes(option)){
+          setIsClearable(isClearable.filter(skill => skill !== option))
+        } else {
+            setIsClearable([...isClearable, option])
+        }
+      };
        
 
   return (
@@ -50,6 +56,8 @@ CountryFilter.propTypes = {
     ).isRequired,
     setCountry: PropTypes.func.isRequired,
     country: PropTypes.object.isRequired,
+    isClearable: PropTypes.array, 
+    setIsClearable: PropTypes.func
 }
 
 export default CountryFilter

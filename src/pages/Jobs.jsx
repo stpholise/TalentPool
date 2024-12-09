@@ -104,7 +104,7 @@ const totalPages = Math.ceil(count / 10); // Total number of pages
               }
 
               {
-               (!isLoading && count == 0) && <p className='error' style={{ margin:'auto'}}>no item matches </p>
+               (!isLoading && count == 0) && <p className='error' style={{ margin:'auto'}}>No Job Found </p>
               }
 
               { !isLoading &&
