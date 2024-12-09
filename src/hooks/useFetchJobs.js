@@ -80,7 +80,7 @@ const handleMaxSalary = (salaryMax, salaryMin)  =>{
           // setJobs(data.results)
           if(window.innerWidth < 768) {
             setJobs(prev => [...prev, ...data.results])
-            console.log(jobs.length)
+            // console.log(jobs.length)
             console.log('mobile')
             // setJobs(data.results)
           }
@@ -89,7 +89,7 @@ const handleMaxSalary = (salaryMax, salaryMin)  =>{
             console.log('desktop')
           }
       
-          
+
         }
         catch (error ){
           const { doc, display, exception} = error

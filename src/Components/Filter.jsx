@@ -30,6 +30,7 @@ const Filter = ({
     const [ jobTypeToggle, setJobTypeToggle] = useState(false)
     const [ jobClassificationToggle, setJobClassificationToggle] = useState(false)
     const [ isCountryOpen, setIsCountryOpen ] = useState(false)
+    const [ isClearable, setIsClearable ] = useState([])
 
     const clearFilter = () => {
         setCountry({ value: 'gb', label: 'Great Breatean'})
@@ -43,8 +44,9 @@ const Filter = ({
         setJobTypeToggle(false)
         setIsMaxSalaryOpen(false)
         setIsMinSalaryOpen(false)
-        
+        setIsClearable([])
     }
+  
     const closeFilter = () =>{
         setIsVisible(false)
         clearFilter()
@@ -71,6 +73,8 @@ const Filter = ({
         { value: 'za', label: 'South Africa'},
     ]
  
+
+
     // handle dropdown toggles 
     const handlSkillToggle = () => {
         setToggleSkills(!toggleSkills)
@@ -117,14 +121,32 @@ const jobTypesArr = [
     } else {
         setSelected([...selected, e.target.value])
     }
+    if(isClearable.includes(e.target.value)){
+        setIsClearable(isClearable.filter(skill => skill !== e.target.value))
+    } else {
+        setIsClearable([...isClearable, e.target.value])
+    }
+   
  }
 
  const hadleJobType = (e) => {
     setJobType(e.target.value)
+    if(isClearable.includes(e.target.value)){
+        setIsClearable(isClearable.filter(skill => skill !== e.target.value))
+    } else {
+        setIsClearable([...isClearable, e.target.value])
+    }
+   
  }
 
  const hadleJobClassification = (e) => {
     setJobClassification(e.target.value)
+    if(isClearable.includes(e.target.value)){
+        setIsClearable(isClearable.filter(skill => skill !== e.target.value))
+    } else {
+        setIsClearable([...isClearable, e.target.value])
+    }
+   
  }
 
  const applyFilter = () => {
@@ -250,6 +272,8 @@ const jobTypesArr = [
                     test={true}
                     exRange = {10000}
                     hideValue={true}
+                    isClearable={isClearable}
+                    setIsClearable={setIsClearable}
                 />
             </div>
            }
@@ -273,6 +297,8 @@ const jobTypesArr = [
                     test={true}
                     hideValue={true}
                     exRange = {100000}
+                    isClearable={isClearable}
+                    setIsClearable={setIsClearable}
                     // minRange={0}
                 />
             </div>
@@ -295,6 +321,8 @@ const jobTypesArr = [
                 countryList={countryList} 
                 setCountry={setCountry} 
                 country={country} 
+                isClearable={isClearable}
+                setIsClearable={setIsClearable}
             />
 
             </div>
@@ -304,8 +332,12 @@ const jobTypesArr = [
       
       <div className="skillFlex filter">
         <button type='button' onClick={applyFilter} className="filterBtn">Apply </button>
-        <button type='button' onClick={clearFilter} className="filterBtn clearBtn">Clear </button>
-        </div>
+    
+{    
+    isClearable.length >= 1 ?
+    <button type='button' onClick={clearFilter} className="filterBtn clearBtn">Clear </button>
+    : ''
+}        </div>
         </section>
         </form>
      
