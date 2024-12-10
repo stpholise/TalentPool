@@ -17,31 +17,16 @@ import  Pagination from '../Components/Pagination'
 const Jobs = () => {
   
   
-  // const debounce = (func, delay = 300) => {
-  //   let debounceTimer
-  //   return function() {
-  //     const context = this
-  //     const args = arguments
-  //     clearTimeout(debounceTimer)
-  //     debounceTimer = setTimeout(() => func.apply(context, args), delay)
-  //   }
-  // }
-  // const [ viewMore, setViewMore ] = useState(10)
+ 
   const [ filter, setFilter ] = useState(null)
   const [ pageNumber, setPageNumber ] = useState(1)
   const [ isVisible, setIsVisible ] = useState(false)
   const [ searchValue, setSearchValue ] = useState('')
   const [isFetchTriggered, setIsFetchTriggered] = useState(false)
   const { errorMessage, isLoading, jobs, count } =  useFetchJobs({filter, setFilter, searchValue, pageNumber, isFetchTriggered, setIsFetchTriggered, 
-    // viewMore
+  
   })
-
-  // const handleViewMore = () => {
-  //   setViewMore((previousViewMore) => previousViewMore + 10)
-  //   console.log(viewMore)
-  // }
-  console.log(jobs.length)
-  console.log(pageNumber)
+  
 
   useEffect(() => { 
     if(window.innerWidth > 768) {
@@ -51,15 +36,7 @@ const Jobs = () => {
   } , [pageNumber])
 
 const totalPages = Math.ceil(count / 10); // Total number of pages
-  // const showMore = ()=> { 
-  //   setPageNumber((previousPage) => previousPage +1)
-  // } 
-  // const showLess = debounce( () => {
-  //   setPageNumber((previousPage) => {
-  //     if (previousPage === 1) return previousPage; // Prevent going below page 1
-  //     return previousPage - 1; // Decrease page by 1
-  //   });
-  // }, 1000)
+
   
   const handleTimeDifference = (created) => {
     const today = new Date() ;
@@ -67,12 +44,7 @@ const totalPages = Math.ceil(count / 10); // Total number of pages
     const timeDifference = today.getTime() - createdAt.getTime()
     const daysDifference = Math.floor(timeDifference/(1000 * 60 * 60 * 24))
     return daysDifference
-}
-
-  // const handlePageNumber = (pageNumber) => {
-  //   setPageNumber(pageNumber)
-  // }
-
+  }
 
   return (
     <>
@@ -109,13 +81,13 @@ const totalPages = Math.ceil(count / 10); // Total number of pages
 
               { !isLoading &&
                 jobs.map((job) =>{ 
-                   const { title, company, location, category, created, redirect_url} = job
-                   const id = uuidv4()
+                   const {  id, title, company, location, category, created, redirect_url,   } = job
+                   const uniqueId = uuidv4()
                
                    const daysDifference = handleTimeDifference(created)
                    
                  return (
-                  <div  key={id} className="jobDetails">
+                  <div  key={uniqueId} className="jobDetails">
                      <JobCard 
                         title={title} 
                         company={company.display_name} 
@@ -124,6 +96,8 @@ const totalPages = Math.ceil(count / 10); // Total number of pages
                         postedAt={daysDifference}
                         redirectUrl={redirect_url}
                         id={id}
+                        job={job}
+                        filter={filter}
                       /> 
                     
                   </div>
