@@ -39,7 +39,8 @@ const { id } = useParams()
               }
             };
             const response  = await fetch(
-              `https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=e4846793&app_key=91ff38f7efc0d6632363058526423e91&results_per_page=100&content-type=application/json`,
+              // `https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=e4846793&app_key=91ff38f7efc0d6632363058526423e91&results_per_page=150&content-type=application/json`,
+              `https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=22886062&app_key=eed206437ecfaae0d5146924f8038553&results_per_page=150&content-type=application/json`,
               settings
             )
             if(!response.ok) {
@@ -55,6 +56,7 @@ const { id } = useParams()
             }
             else {
               setErrorMessage('No job found')
+              console.log('response', response)
             }
         }
         catch(error) {

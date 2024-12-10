@@ -62,8 +62,8 @@ const useFetchJobs = ({filter,  searchValue ='a',pageNumber, isFetchTriggered, s
       const occupationType = handleJobType(jobType)
       const jobClass = handleJobClass(jobClassification)
    
-      // const url =`https://api.adzuna.com/v1/api/jobs/${countryCode}/search/${correntPage}?app_id=22886062&app_key=eed206437ecfaae0d5146924f8038553&results_per_page=${10}&what_phrase=${search}&what_or=${skills}&max_days_old=100&salary_min=${salaryMin}${maxSalary}${jobClass}${occupationType}`
-      const url =`https://api.adzuna.com/v1/api/jobs/${countryCode}/search/${correntPage}?app_id=e4846793&app_key=91ff38f7efc0d6632363058526423e91&results_per_page=${10}&what_phrase=${search}&what_or=${skills}&max_days_old=100&salary_min=${salaryMin}${maxSalary}${jobClass}${occupationType}`
+      const url =`https://api.adzuna.com/v1/api/jobs/${countryCode}/search/${correntPage}?app_id=22886062&app_key=eed206437ecfaae0d5146924f8038553&results_per_page=${10}&what_phrase=${search}&what_or=${skills}&max_days_old=100&salary_min=${salaryMin}${maxSalary}${jobClass}${occupationType}`
+      // const url =`https://api.adzuna.com/v1/api/jobs/${countryCode}/search/${correntPage}?app_id=e4846793&app_key=91ff38f7efc0d6632363058526423e91&results_per_page=${10}&what_phrase=${search}&what_or=${skills}&max_days_old=100&salary_min=${salaryMin}${maxSalary}${jobClass}${occupationType}`
         try{
           const response = await fetch(url, settings);
           if (!response.ok) {
