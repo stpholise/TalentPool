@@ -10,6 +10,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 const JobDetail = () => {
  
 
@@ -58,7 +59,6 @@ const { id } = useParams()
         }
         catch(error) {
             setErrorMessage('An error occurred while fetching the job')
-            toast.error('An error occurred while fetching the job')
             console.log('error', error)
         }finally{
             setIsLoading(false)
@@ -68,14 +68,27 @@ const { id } = useParams()
     if(id) { 
       fetchJob()
     }
+   
     
   }
   , [id])
 
-  const { created, location, description, redirect_url, title, category,company, salary_is_predicted, contract_type } = targetJob || {}
-  if(errorMessage) { 
-     toast.error(errorMessage, { 
-      autoClose: 3000,
+  useEffect(() => {
+    if(errorMessage) { 
+      toast.error(errorMessage, { 
+       autoClose: 3000,
+       hideProgressBar: true,
+       closeOnClick: true,
+       draggable: true,
+       position: "top-center",
+       onClick: () => {
+         toast.dismiss()
+       }
+     })
+    
+   } else if(targetJob) {
+    toast.success('Job fetched successfully', { 
+      autoClose: 2000,
       hideProgressBar: true,
       closeOnClick: true,
       draggable: true,
@@ -84,21 +97,13 @@ const { id } = useParams()
         toast.dismiss()
       }
     })
-   
-  }
-  // else if(targetJob) {
-  //   toast.success('Job fetched successfully', { 
-  //     autoClose: 3000,
-  //     hideProgressBar: true,
-  //     closeOnClick: true,
-  //     draggable: true,
-  //     position: "top-center",
-  //     onClick: () => {
-  //       toast.dismiss()
-  //     }
-  //   })
     
-  // }
+  }
+  }, [errorMessage,targetJob])
+
+  const { created, location, description, redirect_url, title, category,company, salary_is_predicted, contract_type } = targetJob || {}
+
+ 
   return (
     <>
       
