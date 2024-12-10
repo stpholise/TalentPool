@@ -3,7 +3,7 @@ import {  useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Spinner from '../Components/Spinner'
 import LinkExternal from '../assets/link-external.svg'
-import DarkLinkExternal from '../assets/link-external-dark.svg'
+// import DarkLinkExternal from '../assets/link-external-dark.svg'
 import Marker from '../assets/marker.svg'
 
 import { toast, ToastContainer } from 'react-toastify'
@@ -39,7 +39,7 @@ const { id } = useParams()
               }
             };
             const response  = await fetch(
-              `http://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=e4846793&app_key=91ff38f7efc0d6632363058526423e91&results_per_page=100&content-type=application/json`,
+              `https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=e4846793&app_key=91ff38f7efc0d6632363058526423e91&results_per_page=100&content-type=application/json`,
               settings
             )
             if(!response.ok) {
@@ -124,7 +124,9 @@ const { id } = useParams()
               <div className="topFlex">
                 
                   <div className="companyCont">
-                       <h4 className='companyName '> { company.display_name} <img src={DarkLinkExternal} alt=""  style={{width:'12px'}}/> </h4>
+                       <h4 className='companyName '> { company.display_name}
+                         {/* <img src={DarkLinkExternal} alt=""  style={{width:'12px'}}/> */}
+                        </h4>
                        <h5> { location.area[location.area.length - 1]} </h5>
                   </div>
                   <div  >
