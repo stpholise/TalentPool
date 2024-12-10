@@ -11,6 +11,7 @@ import Jobs from './pages/Jobs'
 import Profile from './pages/Profile'
 import Dashboard from './pages/Dashboard'
 import EmployerDashboard from './pages/EmployerDashboard'
+import JobDetail from './pages/JobDetail'
 // import slices from my resux store 
 import { closeAll } from './store/AppSlice'
 import { modalIsClose } from './store/AppSlice'
@@ -56,7 +57,6 @@ function App() {
     dispatch(modalIsClose(false)) 
     dispatch(closeAll())}
     scrollToTop()
-
     }, [path, dispatch]);
    
    
@@ -90,10 +90,13 @@ function App() {
            /> : <Navigate to='/signin' replace />} />
           <Route path='/EmployerDashboard' element={<GuardRoute element={EmployerDashboard} auth={isLogedin} user={user} 
           />} />
+           <Route path='/jobs/:id' element={<GuardRoute element={JobDetail} auth={isLogedin} user={user} 
+          />} />
           <Route exact path='/signup' element={<Signup 
           />} />
           <Route exact path='/signin' element={<Signin 
           />} />
+          
         </Routes>
      
   
