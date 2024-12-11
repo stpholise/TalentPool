@@ -1,10 +1,17 @@
  import { PropTypes } from 'prop-types'
 import DefaultComapny from '../assets/company-svgrepo-com.svg'
 import { Link } from 'react-router-dom'
-
+import { useDispatch } from 'react-redux'
+import { setJob } from '../store/JobSlice'
 
 const JobCard = ({  title,   company,   location,   category,  postedAt,   job, id,}) => {
 
+  const dispatch = useDispatch()
+  
+  const handleJobClick = () => {
+    dispatch(setJob(job))
+   
+  }
 
   return (
     <>
@@ -14,8 +21,11 @@ const JobCard = ({  title,   company,   location,   category,  postedAt,   job, 
                 <div className='textDetail'>
                     <Link 
                         to={`/jobs/${id}`}   
-                        state={{ job, postedAt }}                      
-                    ><h4 className='jobTitle'>{title}</h4></Link>
+                        state={{ job, postedAt }} 
+                        onClick={handleJobClick}                     
+                    >
+                      <h4 className='jobTitle'>{title}</h4>
+                    </Link>
                     <h5 className='companyName'>{company}</h5>
                     <p>{location.join(', ')}</p>
                     <p>{category}</p>
