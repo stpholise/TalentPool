@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './UserSlice';
 import appSlice from './AppSlice';
+import jobSlice from './JobSlice';
 import { persistStore, persistReducer } from 'redux-persist';
 import { combineReducers } from 'redux';
 import storage   from 'redux-persist/lib/storage/session';
-
-
-
 
 
 const persistConfig = {
@@ -17,6 +15,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     users: userSlice,
     app: appSlice,
+    jobs: jobSlice,
 })
 
 export const store = configureStore({
