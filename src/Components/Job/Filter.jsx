@@ -19,7 +19,7 @@ const Filter = ({
 
      const [ salaryMin, setSalaryMin ] = useState(0)
      const [ salaryMax, setSalaryMax ] = useState(0)
-     const [ toggleSkills, setToggleSkills ] = useState(true)
+     const [ toggleSkills, setToggleSkills ] = useState(false)
      const [ isMinSalryOpen,  setIsMinSalaryOpen] = useState(false)
      const [ isMaxSalryOpen,  setIsMaxSalaryOpen] = useState(false)
      const [ jobType, setJobType] = useState('')

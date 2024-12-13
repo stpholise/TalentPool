@@ -40,13 +40,12 @@ const JobDocs = ({ setDoc, doc }) => {
 
   return (
     <div className="dropZoneWrap  ">
-    <div className={ 'redus5px'} {...getDocumRootProps()}>
+    <div className={'redus5px'} {...getDocumRootProps()}>
    
         {
             isDocum  && docum ?(
             <button type='button' onClick={removeDocum}  className='fillWidth'  >
-                <img src={Minus} alt="" />
-               
+                <img src={Minus} alt="" /> 
             </button>)
             :(
             <button
