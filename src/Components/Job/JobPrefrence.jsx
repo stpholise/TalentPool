@@ -48,15 +48,15 @@ const JobPrefrence = ({ setProgress, jobPrefrence, setJobPrefrence }) => {
                 <label className='headlable' htmlFor="experience">How may years of experience have as a {title} </label>
                   <div className="expirienceWrap">
                     <Field type='radio' id={'experience1'}  name='experience' value='0-1 years' />
-                    <label htmlFor="experience1 experiencelabel">0-1 years</label>
+                    <label htmlFor="experience1">0-1 years</label>
                   </div>
                   <div className="expirienceWrap">
                     <Field type='radio' id='experience2' name='experience' value='1-3 years' />
-                    <label htmlFor="experience2 experiencelabel">1-3 years</label>
+                    <label htmlFor="experience2">1-3 years</label>
                   </div>
                   <div className="expirienceWrap">
                     <Field type='radio' id='experience3' name='experience' value='3-5 years' />
-                    <label htmlFor="experience3 experiencelabel">3-5 years</label>
+                    <label htmlFor="experience3">3-5 years</label>
                   </div>
                   <ErrorMessage name='experience' component={'div'} className='error' />
               </div>

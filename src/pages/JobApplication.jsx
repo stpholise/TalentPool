@@ -1,9 +1,7 @@
 
 import { useState,    } from 'react'
-// import Slider from 'rc-slider'
 import JobPrefrence from '../Components/Job/JobPrefrence'
 import DocUpload from '../Components/Job/DocUpload'
-// import ArrowBack from '../assets/arrow_back.svg'  
 import CompleteApplicaiton from '../Components/Job/CompleteApplicaiton'
 
 const JobApplication = () => {
@@ -18,28 +16,7 @@ const JobApplication = () => {
   return (
     <div  className="dashboard   ">
       <div className="jobApplication">
-      <div className="sliderContainer">
-                 {/* <Slider 
-                    min={0}
-                    max={2}
-                    value={progress} // Controlled value
-                    styles={{
-                    rail: {height: '5px', backgroundColor: 'transparent',   cursor: 'not-allowed' , border:'1px solid #084482' },
-                    track: {height: '5px', backgroundColor: '#084482',  cursor: 'not-allowed',  },
-                    handle: {
-                        display:'none'
-                    }                                 
-                    }}
-                /> */}
-                <div className="progressBar">
-
-                </div>
-                {/* {
-                   progress > 0 && <button onClick={() => setProgress((prog) => prog - 1)} aria-label='back'> 
-                       <img src={ArrowBack} alt="back"  />
-                   </button>
-                } */}
-      </div> 
+     
       {progress < 1 &&
         <div className="form-wrapper">
               <JobPrefrence 
