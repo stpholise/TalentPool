@@ -1,22 +1,17 @@
 import '../styling/Jobs.css'
-import Filter from "../Components/Filter"
-import JobCard from "../Components/JobCard"
+import Filter from "../Components/Job/Filter"
+import JobCard from "../Components/Job/JobCard"
 import Search from "../Components/Search"
 import Spinner from "../Components/Spinner"
-// import NextIcon from '../assets/chevron-left'
-// import ChevronLeft from '../assets/chevron-left.svg'
-// import ChevronRight from '../assets/chevron-right.svg'
 import useFetchJobs from '../hooks/useFetchJobs'
 import { v4 as uuidv4 } from 'uuid'
 
 import {  useState, useEffect   } from 'react'
-import  Pagination from '../Components/Pagination'
+import  Pagination from '../Components/Job/Pagination'
 
   
 
-const Jobs = () => {
-  
-  
+const JobSearch = () => {
  
   const [ filter, setFilter ] = useState(null)
   const [ pageNumber, setPageNumber ] = useState(1)
@@ -32,20 +27,11 @@ const Jobs = () => {
     if(window.innerWidth > 768) {
       window.scrollTo({ top: 0 });
     }
-    
   } , [pageNumber])
 
-const totalPages = Math.ceil(count / 10); // Total number of pages
-
+  const totalPages = Math.ceil(count / 10); // Total number of pages
   
-  const handleTimeDifference = (created) => {
-    const today = new Date() ;
-    const createdAt = new Date(created) 
-    const timeDifference = today.getTime() - createdAt.getTime()
-    const daysDifference = Math.floor(timeDifference/(1000 * 60 * 60 * 24))
-    return daysDifference
-  }
-
+  
   return (
     <>
       <main className='dashboard'> 
@@ -81,30 +67,18 @@ const totalPages = Math.ceil(count / 10); // Total number of pages
 
               { !isLoading &&
                 jobs.map((job) =>{ 
-                   const {  id, title, company, location, category, created, redirect_url,   } = job
                    const uniqueId = uuidv4()
                
-                   const daysDifference = handleTimeDifference(created)
                    
                  return (
                   <div  key={uniqueId} className="jobDetails">
                      <JobCard 
-                        title={title} 
-                        company={company.display_name} 
-                        location={location?.area || 'Unknown Location'}
-                        category={category?.label || 'No Category'}
-                        postedAt={daysDifference}
-                        redirectUrl={redirect_url}
-                        id={id}
                         job={job}
-                        filter={filter}
                       /> 
                     
                   </div>
                 )})
               }
-
-              {/* {(70 > viewMore && !isLoading) &&   <button className='viewMore' onClick={handleViewMore} aria-label='viewMore'> View More </button>} */}
 
               { (count > 20 && !isLoading) &&   <Pagination totalpages={totalPages}  pageNumber={pageNumber}  setPageNumber={setPageNumber} /> }
             </div>
@@ -122,4 +96,4 @@ const totalPages = Math.ceil(count / 10); // Total number of pages
 
 
 
-export default Jobs
+export default JobSearch

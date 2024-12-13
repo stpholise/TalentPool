@@ -1,8 +1,8 @@
 import Add from '../assets/carbon_add.svg'
 import Minus from '../assets/Minus.svg'
-import Skills from '../Components/Skills'
-import Socials from '../Components/Social'
-import Person from '../Components/Person'
+import Skills from '../Components/Profile/Skills'
+import Socials from '../Components/Profile/Social'
+import Person from '../Components/Profile/Person'
 
 import { useDropzone } from 'react-dropzone'
 import { useSelector, } from 'react-redux'

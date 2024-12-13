@@ -5,7 +5,7 @@ const initialState = {
         name: 'Genesis',
         occupation: 'UI/UX Designer',
         email: 'genesis@gmail.com',
-        phone: '0801 - 234 - 5678',
+        phone: '08012345678',
         location: 'Lagos, Nigeria',
         twitter: '@Anosike_UI',
     },

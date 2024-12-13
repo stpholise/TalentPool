@@ -1,7 +1,7 @@
  
 import { PropTypes } from 'prop-types';
-import ChevronLeft from '../assets/GreaterThan.svg'
-import ChevronRight from '../assets/chevron-right.svg'
+import ChevronLeft from '../../assets/GreaterThan.svg'
+import ChevronRight from '../../assets/chevron-right.svg'
 
 const Pagination = ({ pageNumber, setPageNumber, totalpages }) => {
 

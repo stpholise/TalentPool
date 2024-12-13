@@ -1,7 +1,7 @@
 import { useDropzone } from 'react-dropzone'
 import { useState, useRef } from 'react'
-import Minus from '../assets/Minus.svg'
-import Add from '../assets/carbon_add.svg'
+import Minus from '../../assets/Minus.svg'
+import Add from '../../assets/carbon_add.svg'
 
 const Cv = () => {
     const [ isCvFile, setIsCvFile ] = useState(false)
@@ -25,7 +25,7 @@ const Cv = () => {
     }
 
     const {  getRootProps: getCvRootProps, getInputProps: getCvInputProps } = useDropzone({
-        onDropCv,
+        onDrop: onDropCv,
         accept: {
           'application/pdf': ['.pdf'],
           'application/msword': ['.doc'],

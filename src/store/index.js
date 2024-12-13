@@ -15,7 +15,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     users: userSlice,
     app: appSlice,
-    jobs: jobSlice,
+    jobSlice: jobSlice,
 })
 
 export const store = configureStore({
