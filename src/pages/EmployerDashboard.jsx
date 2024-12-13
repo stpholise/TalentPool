@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import Slider from 'rc-slider'
 import Portfolio from '../Components/Portfolio'
-import Cv from '../Components/Cv'
+import Cv from '../Components/Profile/Cv'
 
 
 

@@ -1,24 +1,20 @@
-// import {  useParams } from 'react-router-dom'
-// import useFetchJobs  from '../hooks/useFetchJobs'
+
 import { useEffect, useState } from 'react'
-// import Spinner from '../Components/Spinner'
 import LinkExternal from '../assets/link-external.svg'
-// import DarkLinkExternal from '../assets/link-external-dark.svg'
 import Marker from '../assets/marker.svg'
 
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector, }  from 'react-redux'
  
+import { Link } from 'react-router-dom';
 
 
 
 const JobDetail = () => {
 
   
-  const job = useSelector((state) => state.jobs.job)
-
-  // console.log('job', job)
+  const job = useSelector((state) => state.jobSlice.job)
 
  
   const handleTimeDifference = (created) => {
@@ -29,10 +25,8 @@ const JobDetail = () => {
     return daysDifference
   }
 
-  // const { id } = useParams()
 
   const [ targetJob, setTargetJob ] = useState(null)
-  // const [ isLoading, setIsLoading ] = useState(false)
   const [ errorMessage, setErrorMessage ] = useState('')
   
   useEffect(() => {
@@ -41,50 +35,9 @@ const JobDetail = () => {
     }
     setTargetJob(job)
   }, [job])
-  // useEffect(() => {
-  //   const fetchJob = async () => {
-  //     setIsLoading(true)
-  //       try{
-  //           const settings = {
-  //             method: 'GET',
-  //             headers:{
-  //               Accept: 'application/json',
-  //             }
-  //           };
-  //           const response  = await fetch(
-  //             // `https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=e4846793&app_key=91ff38f7efc0d6632363058526423e91&results_per_page=150&content-type=application/json`,
-  //             `https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=22886062&app_key=eed206437ecfaae0d5146924f8038553&results_per_page=150&content-type=application/json`,
-  //             settings
-  //           )
-  //           if(!response.ok) {
-  //               setErrorMessage('An error occurred while fetching the job')
-  //               toast.error('An error occurred while fetching the job')
-  //           }
-  //           const data = await response.json();
-  //           const job =  data.results.find((job) => job.id === id) || null
-  //           console.log('job found', job )
-  //           if(job) {
-  //             setTargetJob(job)
-              
-  //           }
-  //           else {
-  //             setErrorMessage('No job found')
-  //             console.log('response', response)
-  //           }
-  //       }
-  //       catch(error) {
-  //           setErrorMessage('An error occurred while fetching the job')
-  //           console.log('error', error)
-  //       }finally{
-  //           setIsLoading(false)
-  //           toast.dismiss()
-  //       }
-  //   }
-  //   if(id) { 
-  //     fetchJob()
-  //   }
-  // }
-  // , [id])
+
+
+
 
   useEffect(() => {
     if(errorMessage) { 
@@ -100,19 +53,6 @@ const JobDetail = () => {
      })
     
    }
-  //   else if(targetJob) {
-  //   toast.success('Job fetched successfully', { 
-  //     autoClose: 2000,
-  //     hideProgressBar: true,
-  //     closeOnClick: true,
-  //     draggable: true,
-  //     position: "top-center",
-  //     onClick: () => {
-  //       toast.dismiss()
-  //     }
-  //   })
-    
-  // }
   }, [errorMessage,targetJob])
 
   const { 
@@ -123,23 +63,18 @@ const JobDetail = () => {
     title,
     category,
     company, 
-    // salary_is_predicted, 
     contract_type ,
     salary_min,
     salary_max,
-    // full_time,
-
   } = targetJob || {}
 
-  // console.log('full time',full_time)
+   
  
   return (
     <>
       
       <main className='dashboard'> 
-      {/* {
-       isLoading && <Spinner />
-      } */}
+     
       {
         !targetJob && <p className='error'>{errorMessage}</p>
       }
@@ -154,12 +89,14 @@ const JobDetail = () => {
                 
                   <div className="companyCont">
                        <h4 className='companyName '> { company.display_name}
-                         {/* <img src={DarkLinkExternal} alt=""  style={{width:'12px'}}/> */}
                         </h4>
                        <h5> { location.area[location.area.length - 1]} </h5>
                   </div>
-                  <div  >
-                    <a href={redirect_url} target='_blank' className="applyLink">
+                  <div className='applyBtns' >
+                    <Link to={'/jobForm'}   className='applyLink applyHere'>
+                       <button>Apply Now</button>
+                    </Link> 
+                    <a href={redirect_url} target='_blank' className="applyLink blueBg">
                        <button>Apply</button>
                        <img src={LinkExternal} alt="" style={{width:'12px'}} />
                     </a> 
@@ -182,10 +119,7 @@ const JobDetail = () => {
             <section className="jobDetailfooter bbottom">
               <h5 className="category"> Category: {category?.label} </h5>
                
-              {/* {
-                salary_is_predicted > 0 &&
-                <h5 className="category"> Salary: {salary_is_predicted} </h5>
-              }   */}
+            
               {
                 (salary_min && salary_max)  &&
                 <h5 className="category"> pay: £{salary_min} - £{salary_max} </h5>
@@ -194,10 +128,6 @@ const JobDetail = () => {
                 contract_type &&
                 <h5 className="category"> Job Type: {contract_type} </h5>
               }
-                {/* {
-                contract_type &&
-                <h5 className="category"> Job Type: {contract_type} </h5>
-              } */}
               <h5> posted  {handleTimeDifference(created)}  days ago</h5>
             </section>
         </div>}

@@ -1,12 +1,11 @@
-// import '../styles/Jobs.css'
 
 import { PropTypes } from 'prop-types'
 import { useState } from 'react'
-import Close from '../assets/close.svg'
-import ProgressBar from './ProgressBar'
+import Close from '../../assets/close.svg'
+import ProgressBar from '../ProgressBar'
 import CountryFilter from './CountryFilter'
-import More from '../assets/moreIcon.svg'
-import Less from '../assets/lessIcon.svg'
+import More from '../../assets/moreIcon.svg'
+import Less from '../../assets/lessIcon.svg'
 
 
 
@@ -161,7 +160,6 @@ const jobTypesArr = [
         jobType: jobType,
     })
     setPageNumber(1)
-
  }
 
   return (

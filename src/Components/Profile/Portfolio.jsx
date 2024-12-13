@@ -1,7 +1,7 @@
 import { useDropzone } from 'react-dropzone'
 import { useState, useRef  } from 'react'
-import Minus from '../assets/Minus.svg'
-import Add from '../assets/carbon_add.svg'
+import Minus from '../../assets/Minus.svg'
+import Add from '../../assets/carbon_add.svg'
 
 
 

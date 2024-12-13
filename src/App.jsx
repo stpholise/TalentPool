@@ -7,11 +7,12 @@ import GuardRoute from './Components/GuardRoute'
 // import each page component 
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
-import Jobs from './pages/Jobs'
+import JobSearch from './pages/JobSearch'
 import Profile from './pages/Profile'
 import Dashboard from './pages/Dashboard'
-import EmployerDashboard from './pages/EmployerDashboard'
+// import EmployerDashboard from './pages/EmployerDashboard'
 import JobDetail from './pages/JobDetail'
+import JobApplication from './pages/JobApplication'
 // import slices from my resux store 
 import { closeAll } from './store/AppSlice'
 import { modalIsClose } from './store/AppSlice'
@@ -41,11 +42,7 @@ function App() {
   }
 
   const menuToggle  = useSelector((state) => state.app.genMenu)
-  // console.log({'loged in ':isLogedin})
-  // console.log({'modal open ':menuToggle})
-  
-    //Determine the current path
-    // Use useLocation to get the current path
+    //Determine the current path, Use useLocation to get the current path
    const location = useLocation();
    const path = location.pathname; // Get the current path
 
@@ -84,13 +81,14 @@ function App() {
         <Routes>
           <Route exact path='/' element={<GuardRoute element={Dashboard} auth={isLogedin} user={user} 
           />} />  
-          <Route exact path='/jobs' element={<GuardRoute element={Jobs} auth={isLogedin} user={user} 
+          <Route exact path='/jobsearch' element={<GuardRoute element={JobSearch} auth={isLogedin} user={user} 
           />} />          
           <Route path='/profile' element={isLogedin ? <Profile user={user}
            /> : <Navigate to='/signin' replace />} />
-          <Route path='/EmployerDashboard' element={<GuardRoute element={EmployerDashboard} auth={isLogedin} user={user} 
+          {/* <Route path='/EmployerDashboard' element={<GuardRoute element={EmployerDashboard} auth={isLogedin} user={user}  />} /> */}
+           <Route path='/jobsearch/:id' element={<GuardRoute element={JobDetail} auth={isLogedin} user={user} 
           />} />
-           <Route path='/jobs/:id' element={<GuardRoute element={JobDetail} auth={isLogedin} user={user} 
+           <Route path='/jobForm' element={<GuardRoute element={JobApplication} auth={isLogedin} user={user} 
           />} />
           <Route exact path='/signup' element={<Signup 
           />} />
@@ -100,7 +98,6 @@ function App() {
         </Routes>
      
   
-      {/* <Dashboard />         */}
 
 
     </>

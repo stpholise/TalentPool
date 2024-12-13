@@ -4,12 +4,13 @@ import 'rc-slider/assets/index.css';
 import { PropTypes } from 'prop-types';
 
 
-const ProgressBar = ({ setSkill, skillProficiency, test = false, hideValue = false, exRange = 100, minRange= 0, isClearable, setIsClearable }) => {
+const ProgressBar = ({ setSkill, skillProficiency, test = false, hideValue = false, exRange = 100, minRange= 0, isClearable , setIsClearable }) => {
 
 
     
   const handleSliderChange = (value)  => {
     setSkill(value)
+    if(!isClearable) return;
     if(isClearable.includes(value)){
       setIsClearable(isClearable.filter(skill => skill !== value))
   } else {
@@ -61,8 +62,6 @@ const ProgressBar = ({ setSkill, skillProficiency, test = false, hideValue = fal
     minRange: PropTypes.number,
     isClearable: PropTypes.arrary,
     setIsClearable: PropTypes.func
-
-
   };
   
 

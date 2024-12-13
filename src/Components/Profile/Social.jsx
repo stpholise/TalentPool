@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import Add from '../assets/carbon_add.svg'
-import Trash from '../assets/whiteTrash.svg'
-import Edit from '../assets/bytesize_edit.svg'
+import Add from '../../assets/carbon_add.svg'
+import Trash from '../../assets/whiteTrash.svg'
+import Edit from '../../assets/bytesize_edit.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { addNewSocial, delMultipleSocial, removeASocial } from '../store/UserSlice'
+import { addNewSocial, delMultipleSocial, removeASocial } from '../../store/UserSlice'
 import { v4 as uuidv4 } from 'uuid'
-import { modalIsOpen, modalIsClose } from '../store/AppSlice'
-import Close from '../assets/close.svg' 
+import { modalIsOpen, modalIsClose } from '../../store/AppSlice'
+import Close from '../../assets/close.svg' 
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import 'animate.css'
@@ -39,7 +39,6 @@ const Social = () => {
 
     // handleOption selection with the imported CreatableSelect from react select
     const handleOptions = (option, formik) => {
-
         if (!option) return // return if there is no option
         if(typeof option === 'string') {
             setIsLoading(true)
@@ -53,7 +52,6 @@ const Social = () => {
         else{
             setCurrentOption(option)
             formik.setFieldValue('socialTitle', option.label) // sets the value of the socialTitle field to the selected option value
-            console.log(option)
         }
     }
     
@@ -100,10 +98,8 @@ const Social = () => {
         if (selectedSocial) {
             setEditId(id);
             setEditValues(selectedSocial);
-            console.log(editValues)
             handleSocialModal();
         }
-        console.log(editValues)
     }
 
     const handleChecking = (social) => {
@@ -112,8 +108,6 @@ const Social = () => {
                 return prev.filter((selectedId) => selectedId !== social.id)
             }else { return [...prev, social.id]}
         })
-        // console.log(social)
-        console.log(selected)
     }
 const socialDelMultiple = () => {
     dispatch(delMultipleSocial(selected))
@@ -156,7 +150,6 @@ const socialDelMultiple = () => {
                                 <img src={Edit} alt="Edit buttton" style={{width:'18px'}} />
                                 </button>
                            }
-                      
                     </div>
                     
                 </li>
@@ -199,12 +192,30 @@ const socialDelMultiple = () => {
                         isLoading={isLoading}
                         placeholder={'Select or add a platform'}
                         styles = {{
-                            control: (baseStyles, state ) => (
-                                {
-                                    ...baseStyles,
-                                    border: state.isFocused ? '':'1px solid #084482',
-                                }
-                            ),
+                             control: (baseStyles,  ) => ({
+                          ...baseStyles,
+                          borderColor:  '#ccc',
+                          border:  '1px solid #ccc' ,
+                          outline: 'none',
+                          boxShadow: 'none',
+                          ':focus': {
+                            borderColor: '#ccc', // Keep the red border even on focus
+                            boxShadow: 'none', // Remove box-shadow on focus
+                          },
+                          ':hover': {
+                            borderColor: '#ccc', // Keep the gray border even on hover
+                          }
+                        }),
+                        option: (baseStyles, state) => ({
+                          ...baseStyles,
+                          backgroundColor: state.isFocused 
+                            ? '#88bef4f6' 
+                            : state.isSelected
+                            ? '#0A84FF'
+                            : '#fff',
+                          color: state.isFocused ? '#fff' : '#000',
+                          cursor: 'pointer',
+                        }),
                         }}
                      />
                     

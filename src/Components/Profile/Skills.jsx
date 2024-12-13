@@ -1,18 +1,18 @@
 
-import Add from '../assets/carbon_add.svg'
-import Trash from '../assets/whiteTrash.svg'
+import Add from '../../assets/carbon_add.svg'
+import Trash from '../../assets/whiteTrash.svg'
 import { useSelector, useDispatch } from 'react-redux'
-import { addSkill, removeSkill, removeMultipleSkills, editedSkills } from '../store/UserSlice'
-import { modalIsOpen, modalIsClose } from '../store/AppSlice'
+import { addSkill, removeSkill, removeMultipleSkills, editedSkills } from '../../store/UserSlice'
+import { modalIsOpen, modalIsClose } from '../../store/AppSlice'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import ProgressBar from './ProgressBar'
-import Close from '../assets/close.svg'
+import ProgressBar from '../ProgressBar'
+import Close from '../../assets/close.svg'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import 'animate.css'
-import '../styling/animated.css'
-import Edit from '../assets/bytesize_edit.svg'
+import '../../styling/animated.css'
+import Edit from '../../assets/bytesize_edit.svg'
 
 
 const Skills =  () => {
@@ -28,7 +28,6 @@ const Skills =  () => {
     const toggleSkillModal = () => {
         setSkillModal(!skillModal)
         skillModal ? dispatch(modalIsClose(false)) : dispatch(modalIsOpen(true));
-        console.log({'modal is open': skillModal})
     }
     const closeSkillModal = (resetForm) => {
         setSkillModal(false)
@@ -49,12 +48,6 @@ const Skills =  () => {
           .trim()
           .min(3, 'Skill title must be at least 3 characters long')
           .max(50, 'Skill title cannot exceed 50 characters')
-        //   .matches(/^[A-Za-z\s]+$/, 'Skill title must contain only letters and spaces')
-          // Custom test to check if the skill title already exists
-        //   .test('unique-skill', 'Skill title already exists', function (value) {
-        //     if (!value) return true; // Skip validation if the value is undefined or null (handled by `.required`)
-        //     return !skills.find(skill => skill.skillTitle.toLowerCase() === value.toLowerCase());
-        //   })
           .required('Skill title is required'),
         skillProficiency: Yup.number()
           .min(1, 'Proficiency must be at least 1%')
@@ -62,10 +55,7 @@ const Skills =  () => {
           .required('Proficiency is required'),
       });
 
-    //   console.log('momom')
-
     const handleForm = (values, actions) => {
-        console.log(values)
         if(editId){
             dispatch(
                 editedSkills({
@@ -92,8 +82,6 @@ const Skills =  () => {
     }
 
     const handleChecking = (skill) => {
-        // const isSelected =  Boolean(selected.find(item => item.id === skill.id ))
-        // if(isSelected) return;
         setSelected(prev => {
             if(prev.includes(skill.id)){
                return prev.filter((selectedId) => selectedId !== skill.id)
@@ -102,7 +90,6 @@ const Skills =  () => {
         })
        
      
-        console.log(selected)
     }
    
     const handleMultiDelete = () => {
@@ -115,8 +102,6 @@ const Skills =  () => {
         setEditId(skill.id)
         const selectedSkill = skills.find((item) => item.id === skill.id)
         setIsEditing(selectedSkill)
-        console.log('is Editing', isEditing)
-        console.log(Boolean(isEditing))
     }
 
   return (
