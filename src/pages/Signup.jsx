@@ -140,7 +140,7 @@ const Signup = () => {
 
                 <div className="inputCont checkFlex">
                     <Field name="acceptTerms" id='acceptTerms' type="checkbox" />
-                    <label htmlFor='agree'>i agree to the <Link deepblueTxt to={'/'}>Terms Policy Conditions </Link> </label>
+                    <label htmlFor='agree'>i agree to the <Link className=' deepblueTxt' to={'/'}>Terms Policy Conditions </Link> </label>
                 </div>
 
                 <div className="inputCont">

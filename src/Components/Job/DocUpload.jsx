@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { Formik, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { PropTypes } from 'prop-types'
+import ArrowBack from '../../assets/arrow_back.svg'  
+
 
 const DocUpload = ({setProgress, uploadedDoc, setUploadedDoc }) => {
     const [ resume, setResume ] = useState(uploadedDoc?.resume || null)
@@ -50,7 +52,12 @@ const DocUpload = ({setProgress, uploadedDoc, setUploadedDoc }) => {
          {({ setFieldValue,}  ) => (
             <div >
                  <Form>
-                    <div className="formControl lightShad ">
+                  <div className="">
+                      <button type="button" onClick={() => {setProgress((progress) => progress-1)}} className="applyLink backTextBtn "> <img src={ArrowBack} alt="back"  /> Back</button>
+                      <h2 className='employerQuest'>Upload your documents </h2>
+                   </div>
+                 
+                    <div className="formControl border ">
                         <h3>Resume</h3>
                         <JobDocs  
                             doc={resume} 
@@ -61,7 +68,7 @@ const DocUpload = ({setProgress, uploadedDoc, setUploadedDoc }) => {
                           {(resume )  && <p className='smallTxt'>{resume.name}</p>}
                         </div>
                     </div>
-                    <div className="formControl lightShad">
+                    <div className="formControl border">
                         <h3>Cover letter <span className="smallTxt">(optional)</span></h3>
                         <JobDocs  
                             doc={coverLetter} 
@@ -74,7 +81,10 @@ const DocUpload = ({setProgress, uploadedDoc, setUploadedDoc }) => {
                         </div>
                     </div>
                    
-                    <button type="submit" className="applyLink blueBg jobApplicationBtn">continue</button>
+                   <div className="btncont">
+                    <button type="submit" className="applyLink blueBg jobApplicationBtn">continue</button>  
+                   
+                    </div>
                 </Form>
             </div>
                )}

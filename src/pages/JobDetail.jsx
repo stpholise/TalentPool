@@ -1,9 +1,7 @@
 
-import { useEffect, useState } from 'react'
 import LinkExternal from '../assets/link-external.svg'
 import Marker from '../assets/marker.svg'
 
-import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector, }  from 'react-redux'
  
@@ -14,7 +12,17 @@ import { Link } from 'react-router-dom';
 const JobDetail = () => {
 
   
-  const job = useSelector((state) => state.jobSlice.job)
+  // const job = useSelector((state) => state.jobSlice.job)
+  const created = useSelector((state) => state.jobSlice.created)
+  const location = useSelector((state) => state.jobSlice.location)
+  const description = useSelector((state) => state.jobSlice.description)
+  const redirect_url = useSelector((state) => state.jobSlice.redirect_url)
+  const title = useSelector((state) => state.jobSlice.title)
+  const category = useSelector((state) => state.jobSlice.category)
+  const company = useSelector((state) => state.jobSlice.company)
+  const contract_type = useSelector((state) => state.jobSlice.contract_type)
+  const salary_min = useSelector((state) => state.jobSlice.salary_min)
+  const salary_max = useSelector((state) => state.jobSlice.salary_max)
 
  
   const handleTimeDifference = (created) => {
@@ -26,62 +34,17 @@ const JobDetail = () => {
   }
 
 
-  const [ targetJob, setTargetJob ] = useState(null)
-  const [ errorMessage, setErrorMessage ] = useState('')
-  
-  useEffect(() => {
-    if(!job) {
-      setErrorMessage('No job found')
-    }
-    setTargetJob(job)
-  }, [job])
 
 
 
 
-  useEffect(() => {
-    if(errorMessage) { 
-      toast.error(errorMessage, { 
-       autoClose: 3000,
-       hideProgressBar: true,
-       closeOnClick: true,
-       draggable: true,
-       position: "top-center",
-       onClick: () => {
-         toast.dismiss()
-       }
-     })
-    
-   }
-  }, [errorMessage,targetJob])
-
-  const { 
-    created, 
-    location, 
-    description, 
-    redirect_url,
-    title,
-    category,
-    company, 
-    contract_type ,
-    salary_min,
-    salary_max,
-  } = targetJob || {}
-
-   
  
   return (
     <>
       
       <main className='dashboard'> 
-     
-      {
-        !targetJob && <p className='error'>{errorMessage}</p>
-      }
-             <ToastContainer />
 
       {
-        targetJob &&
         <div className="jobDetail">
             <section className="jobDetailTop bbottom">
                <h2> {title}</h2>

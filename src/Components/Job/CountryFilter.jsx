@@ -41,7 +41,7 @@ const CountryFilter = ({ countryList, setCountry, country, isClearable, setIsCle
               option: (baseStyles, state) => ({
                 ...baseStyles,
                 backgroundColor: state.isFocused 
-                  ? '#88bef4f6' 
+                  ? '#E1F0FF' 
                   : state.isSelected
                   ? '#0A84FF'
                   : '#fff',

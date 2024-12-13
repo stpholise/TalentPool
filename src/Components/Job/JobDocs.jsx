@@ -39,7 +39,7 @@ const JobDocs = ({ setDoc, doc }) => {
     })
 
   return (
-    <div className="dropZoneWrap cvSec">
+    <div className="dropZoneWrap  ">
     <div className={ 'redus5px'} {...getDocumRootProps()}>
    
         {
@@ -52,8 +52,7 @@ const JobDocs = ({ setDoc, doc }) => {
             <button
                 type='button' 
                 onClick={() => (documInputRef.current.click())}
-                aria-label='updoading a document'
-                className='fillWidth'
+                aria-label='updoading a document' 
             >
                 <img src={Add} alt="add icon" />
                 <input 

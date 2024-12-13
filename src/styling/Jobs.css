@@ -245,11 +245,14 @@
     gap:1rem;
     max-width: 800px;
     width:92%;
+    height:100%;
     padding:1rem 5rem;
     background:#fff;
     border-radius: 10px;
     box-shadow: 0 6px 20px 0 #A6A6A640;
     margin:auto;
+    position:relative;
+    flex-grow:2;
   }
 
 
@@ -269,13 +272,20 @@
 
 .jobApplicationBtn{
     width:100%;
+    max-width:400px;
+    margin:40px auto 1rem;
+    padding:0.5rem 60px;
+    height:48px;
+    
 }
-.formControl.lightShad{
+.formControl.border{
     display:grid;
     grid-template-columns:10fr 1fr;
     padding:0.5rem;
     width:100%;
-    margin:0.8rem 0;
+    margin:40px 0;
+    border:1px solid rgba(204, 204, 204, 0.4);
+
 }
 
 .smallTxt{
@@ -287,6 +297,36 @@
     box-shadow: 0 6px 20px 0 #A6A6A640;
     margin:1rem 0;
     padding:1rem;
+}
+.valueBox .formControl.border{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items:center;
+    font-size:13px;
+}
+
+.employerQuest{
+    margin:1rem 0;
+    font-size:20px;
+}
+
+.summaryTitle{
+    font-size:17px;
+}
+.headlable{
+    font-size:13px;
+    margin-top:1rem;
+    margin-bottom:4px;
+    display:inline-block;
+}
+.experiencelabel{
+    font-size:12px;
+}
+
+.backTextBtn{
+    color:black;
+    padding-left:0;
 }
 
 
@@ -379,6 +419,9 @@
     .jobDetails .imageDetail{
         width:25px;
         margin:auto;
+    }
+    .jobApplication {
+        width:100%;
     }
 
 }
