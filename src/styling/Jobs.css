@@ -291,19 +291,38 @@
 .smallTxt{
     font-size:12px;
 }
-
+.valueBoxWrap{ 
+    padding-top:1rem;
+}
 .valueBox{
     width:100%;
-    /* box-shadow: 0 6px 20px 0 #A6A6A640; */
+    box-shadow: 0 6px 20px 0 #A6A6A640;
     margin:1rem 0;
-    padding:1rem;
+     
 }
-.valueBox .formControl.border{
+.valueBox .valueWrap{
     display:flex;
-    align-items: center;
-    justify-content: space-between;
-    align-items:center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-items:flex-start;
     font-size:13px;
+    flex-direction:column;
+    border-bottom:1px solid #ccc;
+    padding:1rem;
+    
+}
+.valueBox .valueWrap:last-of-type{
+    border-bottom:none;
+}
+.valueBox .valueWrap .label{
+    font-size:13px;
+}
+.valueBox .valueWrap .value{
+    font-size:15px;
+    font-weight:700;
+}
+.valueBoxTitle.top{
+    margin:0.7rem 0;
 }
 
 .employerQuest{
@@ -410,7 +429,9 @@
         padding:0.5rem;
         margin:0;
         width:100%;
+       
     }
+    
 
 }
 
