@@ -347,6 +347,14 @@
     color:black;
     padding-left:0;
 }
+.valueWrap.fileWrap{
+    display:flex;
+    flex-direction:row;
+    gap:1rem;
+}
+.fileName{
+    color:#0A84FF;
+}
 
 
 @media(max-width: 760px ) {

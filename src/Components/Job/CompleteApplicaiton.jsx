@@ -6,6 +6,12 @@ import { useState, useEffect  } from 'react'
 import {useSelector, useDispatch } from 'react-redux'
 import { modalIsOpen, modalIsClose } from '../../store/AppSlice'
 
+import PDF from '../../assets/PDF.svg'
+import DOC from '../../assets/DOC.svg'
+import DOCX from '../../assets/DOCX.svg'
+import TXT from '../../assets/TXT.svg'
+
+
 const CompleteApplicaiton = ({jobPrefrence, uploadedDoc, setProgress}) => {
     const   user = useSelector(state => state.users.user)
     const { name, email, phone, location,    } = user
@@ -18,15 +24,52 @@ const CompleteApplicaiton = ({jobPrefrence, uploadedDoc, setProgress}) => {
 
     const [userInfo, setUserInfo] = useState(initialContact)
     const [ contactModal, setContactModal ] = useState(false)
+    const [resumeType, setResumeType] = useState(null)
+    const [coverLetterType, setCoverLetterType] = useState(null)
     const dispatch = useDispatch()
     useEffect(() => {
-        if(contactModal){
-            dispatch(modalIsOpen(true))
-        } else {
-            dispatch(modalIsClose(false))
+        dispatch(contactModal ? modalIsOpen(true) : modalIsClose(false));
+      }, [contactModal, dispatch]);
+
+    useEffect(() => {
+        if(uploadedDoc.resume) {
+           const fileType = uploadedDoc.resume.type
+           switch(fileType) {
+                case 'application/pdf':
+                    setResumeType(PDF) 
+                    break;
+                case 'application/msword':
+                    setResumeType(DOC) 
+                    break;
+                case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                    setResumeType(DOCX) 
+                    break;
+                case 'text/plain':
+                    setResumeType(TXT) 
+                    break;
+                default: break
+           }
+        }
+        if(uploadedDoc.coverLetter) {
+           const fileType = uploadedDoc.coverLetter.type
+           switch(fileType) {
+                case 'application/pdf':
+                    setCoverLetterType(PDF) 
+                    break;
+                case 'application/msword':
+                    setCoverLetterType(DOC) 
+                    break;
+                case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                    setCoverLetterType(DOCX) 
+                    break;
+                case 'text/plain':
+                    setCoverLetterType(TXT) 
+                    break;
+                default: break
+           }
         }
 
-    }, [contactModal])
+    }, [uploadedDoc])
 
     const handleSubmit = () => {
         toast.success('Application Submitted', {
@@ -91,35 +134,49 @@ const CompleteApplicaiton = ({jobPrefrence, uploadedDoc, setProgress}) => {
         </div>
         </div>
         <div className="valueBoxWrap"> 
+        {
+                        uploadedDoc.resume && <>
                 <div className="spaceBet">
-                    <h2 className='summaryTitle'> documents</h2>
+                    <h2 className='summaryTitle'> Resume</h2>
                     <button onClick={() => setProgress(1)}> <img src={Edit} alt=""  /> </button>
                 </div>
                 <div className="docUploadValues valueBox">
             
-                    {
-                        uploadedDoc.resume && 
-                        <div className="valueWrap   bbottom">
-                            <p className='label'>Resume:</p>
-                            <p className='value'>  {uploadedDoc?.resume.name}</p>
+                   
+                        <div className="valueWrap fileWrap   bbottom">
+                            <img src={resumeType} alt="" style={{width: '30px'}}
+                            />  
+                            <p className='value fileName'>  {uploadedDoc?.resume.name}</p>
                         </div>
-                    }
-                    {
-                        uploadedDoc.coverLetter && 
-                        <div className="valueWrap  ">
-                            <p>Cover Letter </p>
-                        <p className='value'>{uploadedDoc?.coverLetter.name}</p>
+                  
+                </div>
+                </> }
+                
+        </div>
+        <div className="valueBoxWrap"> 
+        {
+                        uploadedDoc.coverLetter && <>
+                <div className="spaceBet">
+                    <h2 className='summaryTitle'> Cover Letter</h2>
+                    <button onClick={() => setProgress(1)}> <img src={Edit} alt=""  /> </button>
+                </div>
+                <div className="docUploadValues valueBox">
+                  
+                        <div className="valueWrap fileWrap  ">
+                           <img src={coverLetterType} alt="" style={{width: '30px'}} />
+                        <p className='value fileName'>{uploadedDoc?.coverLetter.name}</p>
                         </div>
-                    }
+                  
 
                 </div>
+           </> }
         </div>
         {
             contactModal && 
             <ContactInfo userInfo={userInfo} setUserInfo={setUserInfo} initialContact={initialContact} setContactModal={setContactModal}/>
         }
             {/* <ContactInfo userInfo={userInfo} setUserInfo={setUserInfo} initialContact={initialContact} /> */}
-        <button type="button" onClick={handleSubmit} className="applyLink blueBg jobApplicationBtn">Submit</button>
+        <button type="button" onClick={handleSubmit} className="applyLink blueBg jobApplicationBtn">Submit your application</button>
 
     </div>
   )

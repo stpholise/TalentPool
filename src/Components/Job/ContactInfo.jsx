@@ -13,7 +13,7 @@ const ContactInfo = ( {  setUserInfo, initialContact, setContactModal} ) => {
     const contactSchema = Yup.object({
         name: Yup.string().required('Name is required'),
         email: Yup.string().email('Invalid email address').required('Email is required'),
-        phone: Yup.string().matches(/^\d{11}$/, 'Phone number must be 10 digits').required('Phone number is required'),
+        phone: Yup.string().matches(/^\d{11}$/, 'Phone number must be 11 digits').required('Phone number is required'),
         location: Yup.string().required('Location is required'),
     })
     const onSubmit = (values) => {
