@@ -1,22 +1,24 @@
 
-import LinkExternal from '../assets/link-external.svg'
+// import LinkExternal from '../assets/link-external.svg'
 import Marker from '../assets/marker.svg'
 
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector, }  from 'react-redux'
  
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 
 const JobDetail = () => {
 
+  // const pageLocation = useLocation()
+  const { id } = useParams()
   
   // const job = useSelector((state) => state.jobSlice.job)
   const created = useSelector((state) => state.jobSlice.created)
   const location = useSelector((state) => state.jobSlice.location)
   const description = useSelector((state) => state.jobSlice.description)
-  const redirect_url = useSelector((state) => state.jobSlice.redirect_url)
+  // const redirect_url = useSelector((state) => state.jobSlice.redirect_url)
   const title = useSelector((state) => state.jobSlice.title)
   const category = useSelector((state) => state.jobSlice.category)
   const company = useSelector((state) => state.jobSlice.company)
@@ -24,7 +26,9 @@ const JobDetail = () => {
   const salary_min = useSelector((state) => state.jobSlice.salary_min)
   const salary_max = useSelector((state) => state.jobSlice.salary_max)
 
- 
+  // console.log(id)
+//  console.log(pageLocation)
+
   const handleTimeDifference = (created) => {
     const today = new Date() ;
     const createdAt = new Date(created) 
@@ -45,7 +49,7 @@ const JobDetail = () => {
       <main className='dashboard'> 
 
       {
-        <div className="jobDetail">
+        <div className="successWrapper jobDetail">
             <section className="jobDetailTop bbottom">
                <h2> {title}</h2>
               <div className="topFlex">
@@ -56,13 +60,13 @@ const JobDetail = () => {
                        <h5> { location.area[location.area.length - 1]} </h5>
                   </div>
                   <div className='applyBtns' >
-                    <Link to={'/jobForm'}   className='applyLink applyHere'>
-                       <button>Apply Now</button>
+                    <Link to={`/jobs/${id}/apply`}   className='applyLink blueBg'>
+                       <button>Apply with TalentPool</button>
                     </Link> 
-                    <a href={redirect_url} target='_blank' className="applyLink blueBg">
+                    {/* <a href={redirect_url} target='_blank' className="applyLink blueBg">
                        <button>Apply</button>
                        <img src={LinkExternal} alt="" style={{width:'12px'}} />
-                    </a> 
+                    </a>  */}
                   </div> 
                   <div className="locationCont companyCont">
                       <h3>Location</h3>

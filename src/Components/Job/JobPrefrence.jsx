@@ -34,7 +34,7 @@ const JobPrefrence = ({ setProgress, jobPrefrence, setJobPrefrence }) => {
        
           const { title } = job
   return (
-    <div>
+    <div className='successWrapper'>
             <Formik
         initialValues = {initialValues}
         validationSchema = {jobApplicationSchema}
@@ -83,7 +83,7 @@ const JobPrefrence = ({ setProgress, jobPrefrence, setJobPrefrence }) => {
                 <ErrorMessage name='salary_expectation' component={'div'} className='error' />
               </div>
                
-              <button type='submit' className="applyLink blueBg jobApplicationBtn">
+              <button type='submit' className="applyLink   jobApplicationBtn">
                 Continue 
               </button>
             </Form>
