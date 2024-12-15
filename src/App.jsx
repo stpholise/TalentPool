@@ -9,10 +9,10 @@ import Signin from './pages/Signin'
 import Signup from './pages/Signup'
 import JobSearch from './pages/JobSearch'
 import Profile from './pages/Profile'
-import Dashboard from './pages/Dashboard'
-// import EmployerDashboard from './pages/EmployerDashboard'
+import Dashboard from './pages/Dashboard' 
 import JobDetail from './pages/JobDetail'
 import JobApplication from './pages/JobApplication'
+// import AppSuccess from './pages/AppSuccess'
 // import slices from my resux store 
 import { closeAll } from './store/AppSlice'
 import { modalIsClose } from './store/AppSlice'
@@ -81,14 +81,16 @@ function App() {
         <Routes>
           <Route exact path='/' element={<GuardRoute element={Dashboard} auth={isLogedin} user={user} 
           />} />  
-          <Route exact path='/jobsearch' element={<GuardRoute element={JobSearch} auth={isLogedin} user={user} 
+          <Route exact path='/jobs' element={<GuardRoute element={JobSearch} auth={isLogedin} user={user} 
           />} />          
           <Route path='/profile' element={isLogedin ? <Profile user={user}
            /> : <Navigate to='/signin' replace />} />
           {/* <Route path='/EmployerDashboard' element={<GuardRoute element={EmployerDashboard} auth={isLogedin} user={user}  />} /> */}
-           <Route path='/jobsearch/:id' element={<GuardRoute element={JobDetail} auth={isLogedin} user={user} 
+           <Route path='/jobs/:id' element={<GuardRoute element={JobDetail} auth={isLogedin} user={user} 
           />} />
-           <Route path='/jobForm' element={<GuardRoute element={JobApplication} auth={isLogedin} user={user} 
+           {/* <Route path='/appSuccess' element={<GuardRoute element={AppSuccess} auth={isLogedin} user={user} 
+          />} /> */}
+           <Route path='/jobs/:id/apply' element={<GuardRoute element={JobApplication} auth={isLogedin} user={user} 
           />} />
           <Route exact path='/signup' element={<Signup 
           />} />

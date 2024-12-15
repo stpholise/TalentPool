@@ -171,7 +171,7 @@
   /* =============================== */
   /* =============================== */
 
-  .jobDetail{
+  /* .jobDetail{
     max-width: 700px;
     display:flex;
     flex-direction:column;
@@ -179,7 +179,10 @@
     align-items: flex-start;
     gap:0.5rem;
     margin:auto;
-  }
+  } */
+   .successWrapper.jobDetail{
+        align-items:start;
+   }
 
   .companyCont{
     padding:0.5rem 0;
@@ -239,7 +242,7 @@
   /* ==================== */
   /* ==================== */
   /* ==================== */
-  .jobApplication {
+  /* .fullSize {
     display:flex;
     flex-direction:column;
     gap:1rem;
@@ -253,16 +256,16 @@
     margin:auto;
     position:relative;
     flex-grow:2;
-  }
+  } */
 
 
-.jobApplication Form .expirienceWrap{
+.fullSize Form .expirienceWrap{
     display:flex;
     gap:0.5rem;
   
 }
 
-.jobApplication Form .field{
+.fullSize Form .field{
     width:100%;
     outline:none;
     border:1px solid #ccc;
@@ -270,14 +273,14 @@
     margin:0.3rem 0;
 }
 
-.jobApplicationBtn{
+ .jobApplicationBtn{
     width:100%;
     max-width:400px;
     margin:40px auto 1rem;
     padding:0.5rem 60px;
-    height:48px;
-    
-}
+    height:48px; 
+    background:#0A84FF;
+} 
 .formControl.border{
     display:grid;
     grid-template-columns:10fr 1fr;
@@ -292,12 +295,13 @@
     font-size:12px;
 }
 .valueBoxWrap{ 
-    padding-top:1rem;
+    padding-top:1rem 0;
 }
 .valueBox{
     width:100%;
-    box-shadow: 0 6px 20px 0 #A6A6A640;
+    /* box-shadow: 0 6px 20px 0 #A6A6A640; */
     margin:1rem 0;
+    padding:0.5rem;
      
 }
 .valueBox .valueWrap{
@@ -327,6 +331,7 @@
 
 .employerQuest{
     margin:1rem 0;
+
     font-size:20px;
 }
 
@@ -355,7 +360,109 @@
 .fileName{
     color:#0A84FF;
 }
+.modalOverlay.overlay{
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 950;
+}
 
+
+/* =======app success ======== */
+/* ============================= */
+/* ============================= */
+/* ============================= */
+/* ============================= */
+/* ============================= */
+.fullSize{
+    width:calc(100% - 255px);
+    margin-left: 243px;
+    margin-top: 104px  ; 
+    padding: 0 40px;
+    height:calc(100vh - 104px)
+}
+.successWrapper{ 
+    padding:1rem; 
+    border:1px solid #ccc;
+    border-radius:10px;  
+    background:#fff; 
+    width:100%;
+    height:100%; 
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.centerHeading {
+    text-align: center;
+    margin: 8px 0 ;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center; 
+    font-size:26px;
+    line-height:32px;
+}
+.centerHeading h2{
+    font-size:20px;
+}
+
+.successStatus{
+    margin:1rem 0;
+    display:flex;
+    justify-content: start;
+    align-items: center;
+    gap:1rem; 
+}
+
+.successImg{
+    width:300px;
+    margin-bottom:20px;
+}
+.checkIcon{
+    font-size:30px
+}
+.stausText{
+    color:#0A84FF;
+    font-size:14px;
+}
+.justifyText{
+    text-align:justify; 
+}
+
+.successBtn {
+    color:#0A84FF;
+    background:#fff;
+    border:1px solid #ccc;  
+    margin:40px auto 1rem;
+    padding:0.5rem 60px;
+    height:48px; 
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:5px;
+    width:100%;
+    font-weight:700;
+    font-size:14px; 
+    max-width:300px;
+}
+
+
+@media(max-width:1024px){
+    .fullSize{ 
+        width:calc(100% -0);
+        margin-left: 0;
+        margin: 60px auto 0 ; 
+        padding: 0 10px;
+        height:calc(100vh - 104);
+        justify-content:center;
+        align-items:baseline;
+    }
+}
 
 @media(max-width: 760px ) {
     .jobs{
@@ -439,7 +546,38 @@
         width:100%;
        
     }
-    
+    .contactInfo.modal.skillModal{
+        margin-top:auto;
+        top:55%;
+        height:90%;
+        overflow-y:scroll;
+       
+    }
+    .fullSize{ 
+        width:100% ;
+        margin-left: 0;
+        margin: 60px auto 0 ; 
+        padding: 0 10px;
+        height:calc(100vh - 60px);
+        justify-content:center;
+        align-items:baseline;
+    }
+    .successWrapper{ 
+        padding:1rem; 
+        border:none;
+        background:#fff; 
+        width:100%;
+        
+        height:100%;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+    }
+
+.stausText{
+    display:inline-block;
+}
 
 }
 
@@ -456,6 +594,26 @@
     }
     .jobApplication {
         width:100%;
+    }
+
+    .fullSize{
+        width: 100%  ;
+        margin-left: 0;
+        margin-top: 60px  ; 
+        padding: 0  ;
+        height:calc(100vh - 60px);
+    }
+    .successWrapper{ 
+        padding:1rem; 
+        border:1px solid #ccc;
+        border-radius:10px;  
+        background:#fff; 
+        width:100%;
+        height:calc(100vh - 60px); 
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
     }
 
 }

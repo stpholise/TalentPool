@@ -43,6 +43,7 @@ const DocUpload = ({setProgress, uploadedDoc, setUploadedDoc }) => {
     }
 
   return (
+    <div className='successWrapper'>
     <Formik
       initialValues={initialValues}
       validationSchema={jobSchema}
@@ -82,13 +83,14 @@ const DocUpload = ({setProgress, uploadedDoc, setUploadedDoc }) => {
                     </div>
                    
                    <div className="btncont">
-                    <button type="submit" className="applyLink blueBg jobApplicationBtn">continue</button>  
+                    <button type="submit" className="applyLink   jobApplicationBtn">continue</button>  
                    
                     </div>
                 </Form>
             </div>
                )}
     </Formik>
+    </div>
   )
 }
 

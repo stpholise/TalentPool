@@ -5,6 +5,7 @@ import ContactInfo from './ContactInfo'
 import { useState, useEffect  } from 'react'
 import {useSelector, useDispatch } from 'react-redux'
 import { modalIsOpen, modalIsClose } from '../../store/AppSlice'
+// import { useNavigate } from 'react-router-dom'
 
 import PDF from '../../assets/PDF.svg'
 import DOC from '../../assets/DOC.svg'
@@ -12,7 +13,8 @@ import DOCX from '../../assets/DOCX.svg'
 import TXT from '../../assets/TXT.svg'
 
 
-const CompleteApplicaiton = ({jobPrefrence, uploadedDoc, setProgress}) => {
+const CompleteApplicaiton = ({jobPrefrence, uploadedDoc, setProgress, setUserData}) => {
+    // const navigate = useNavigate()
     const   user = useSelector(state => state.users.user)
     const { name, email, phone, location,    } = user
      const initialContact = {
@@ -77,40 +79,46 @@ const CompleteApplicaiton = ({jobPrefrence, uploadedDoc, setProgress}) => {
             hideProgressBar: true,
             autoClose: 2000,
         })
+        setTimeout(() => {
+            // navigate('/appSuccess', {state: { userInfo: userInfo}})
+            setProgress(3)
+            setUserData(userInfo)
+        }, 1000)
     }
     const toggleContactModal = () => {
         setContactModal(!contactModal)
     }
 
   return (
-    <div>
-        <ToastContainer />
-        <h2 className='employerQuest'>Summary </h2>
-        <div className="valueBoxWrap"> 
-            <div className="valueBoxTitle spaceBet">
-                <h2 className='summaryTitle'>Contact information </h2>
-                <button onClick={toggleContactModal}> <img src={Edit} alt="" /> </button>
-         </div>
-        <div className="jobPrefrenceValues valueBox">
-           
-            <div className="valueWrap  ">
-                <p  >name:</p>
-                <p className='value'> {userInfo.name}</p>
-            </div>
-            <div className="valueWrap">   
-                <p >email:</p>
-                <p className='value'>  {userInfo.email}</p>
-            </div>
-            <div className="valueWrap  ">
-                <p >Location:</p>
-                <p className='value'> {userInfo.location}</p>
-            </div>
-            <div className="valueWrap  ">
-                <p >phone:</p>
-                <p className='value'> {userInfo.phone}</p>
-            </div>
-            
-        </div>
+    <div className='successWrapper'>
+        <div>
+             <ToastContainer />
+            <h2 className='employerQuest'>Pleasse review your application </h2>
+            <div className="valueBoxWrap"> 
+                <div className="valueBoxTitle spaceBet">
+                        <h2 className='summaryTitle'>Contact information </h2>
+                        <button onClick={toggleContactModal}> <img src={Edit} alt="" /> </button>
+                </div>
+                <div className="jobPrefrenceValues valueBox">
+                
+                    <div className="valueWrap  ">
+                        <p  >Name:</p>
+                        <p className='value'> {userInfo.name}</p>
+                    </div>
+                    <div className="valueWrap">   
+                        <p >Email:</p>
+                        <p className='value'>  {userInfo.email}</p>
+                    </div>
+                    <div className="valueWrap  ">
+                        <p >Location:</p>
+                        <p className='value'> {userInfo.location}</p>
+                    </div>
+                    <div className="valueWrap  ">
+                        <p >Phone Number:</p>
+                        <p className='value'> {userInfo.phone}</p>
+                    </div>
+                    
+                </div>
         </div> 
         <div className="valueBoxWrap"> 
             <div className="valueBoxTitle spaceBet">
@@ -165,19 +173,21 @@ const CompleteApplicaiton = ({jobPrefrence, uploadedDoc, setProgress}) => {
                         <div className="valueWrap fileWrap  ">
                            <img src={coverLetterType} alt="" style={{width: '30px'}} />
                         <p className='value fileName'>{uploadedDoc?.coverLetter.name}</p>
-                        </div>
-                  
-
+                        </div> 
                 </div>
            </> }
         </div>
         {
             contactModal && 
+            <>
+                <div className="modalOverlay overlay"></div>
             <ContactInfo userInfo={userInfo} setUserInfo={setUserInfo} initialContact={initialContact} setContactModal={setContactModal}/>
+            </>
         }
-            {/* <ContactInfo userInfo={userInfo} setUserInfo={setUserInfo} initialContact={initialContact} /> */}
+            
         <button type="button" onClick={handleSubmit} className="applyLink blueBg jobApplicationBtn">Submit your application</button>
 
+    </div>
     </div>
   )
 }
@@ -186,7 +196,8 @@ CompleteApplicaiton.propTypes = {
     jobPrefrence: PropTypes.object.isRequired,
     uploadedDoc: PropTypes.object.isRequired,
     setProgress: PropTypes.func.isRequired,
-
+    setUserData: PropTypes.func.isRequired,
+    
 }
 
 export default CompleteApplicaiton

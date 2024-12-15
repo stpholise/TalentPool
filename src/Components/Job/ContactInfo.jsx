@@ -17,8 +17,7 @@ const ContactInfo = ( {  setUserInfo, initialContact, setContactModal} ) => {
         location: Yup.string().required('Location is required'),
     })
     const onSubmit = (values) => {
-        setUserInfo(values)
-        console.log('values', values)
+        setUserInfo(values) 
         setContactModal(false)
     }
     const closeModal = () => {

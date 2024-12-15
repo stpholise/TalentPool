@@ -52,7 +52,7 @@ const JobCard = ({job,}) => {
                 </div>
                 <div className='textDetail'>
                     <Link 
-                        to={`/jobsearch/${id}`}   
+                        to={`/jobs/${id}`}   
                         state={{ job }} 
                         onClick={handleJobClick}                     
                     >
