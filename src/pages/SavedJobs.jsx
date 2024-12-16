@@ -1,7 +1,6 @@
  import SavedJobNav from '../Components/Job/SavedJobNav'
  import { useState, useEffect } from 'react'
- import JobCard from '../Components/Job/JobCard'
-//  import Jobs from '../Components/data/jobs.js'
+ import JobCard from '../Components/Job/JobCard' 
 
 const SavedJobs = () => {
     const [jobs, setJobs] = useState([])
@@ -497,17 +496,13 @@ const SavedJobs = () => {
                 break;
         }
 
-    }, [option])
- 
- 
- 
-    
+    }, [option  ])
+  
   return (
-    <div className="fullSize">
+    <div className="fullSize flexLeft">
         <SavedJobNav
             setOption ={setOption}
-        />
-
+        /> 
         {   
                 jobs.map((job, index) =>{ 
                
@@ -515,13 +510,10 @@ const SavedJobs = () => {
                   <div  key={index} className="jobDetails">
                      <JobCard 
                         job={job}
-                      /> 
-                    
+                      />  
                   </div>
                 )})
-              }
-
-
+              } 
     </div>
   )
 }
