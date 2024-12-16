@@ -461,6 +461,9 @@
     .jobs{
         grid-template-columns: 1fr;
     }
+    .jobDetails{
+        flex-direction:column;
+    }
 
     .filterContainer.show{
         z-index: 999;
@@ -607,4 +610,8 @@
         align-items:center;
     }
 
+    .jobDetails .imageDetail {
+        width: 30px;
+        margin: 0.5rem 0;
+    }
 }
