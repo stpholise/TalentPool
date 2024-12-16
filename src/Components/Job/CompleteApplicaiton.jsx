@@ -1,16 +1,15 @@
 import { PropTypes } from 'prop-types'
-import Edit from '../../assets/bytesize_edit.svg'
-import { toast, ToastContainer } from 'react-toastify'
 import ContactInfo from './ContactInfo'
+
 import { useState, useEffect  } from 'react'
 import {useSelector, useDispatch } from 'react-redux'
-import { modalIsOpen, modalIsClose } from '../../store/AppSlice'
-// import { useNavigate } from 'react-router-dom'
+import { modalIsOpen, modalIsClose } from '../../store/AppSlice' 
 
 import PDF from '../../assets/PDF.svg'
 import DOC from '../../assets/DOC.svg'
 import DOCX from '../../assets/DOCX.svg'
 import TXT from '../../assets/TXT.svg'
+import Edit from '../../assets/bytesize_edit.svg' 
 
 
 const CompleteApplicaiton = ({jobPrefrence, uploadedDoc, setProgress, setUserData}) => {
@@ -74,13 +73,8 @@ const CompleteApplicaiton = ({jobPrefrence, uploadedDoc, setProgress, setUserDat
     }, [uploadedDoc])
 
     const handleSubmit = () => {
-        toast.success('Application Submitted', {
-            position: "top-center",
-            hideProgressBar: true,
-            autoClose: 2000,
-        })
+       
         setTimeout(() => {
-            // navigate('/appSuccess', {state: { userInfo: userInfo}})
             setProgress(3)
             setUserData(userInfo)
         }, 1000)
@@ -90,9 +84,9 @@ const CompleteApplicaiton = ({jobPrefrence, uploadedDoc, setProgress, setUserDat
     }
 
   return (
-    <div className='successWrapper'>
+    <div className='successWrapper reviewWrapper'>
         <div>
-             <ToastContainer />
+              
             <h2 className='employerQuest'>Pleasse review your application </h2>
             <div className="valueBoxWrap"> 
                 <div className="valueBoxTitle spaceBet">

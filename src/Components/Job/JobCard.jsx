@@ -41,6 +41,7 @@ const JobCard = ({job,}) => {
       salary_min,
       salary_max,
       contract_type,
+      created,
     } ))
   }
 

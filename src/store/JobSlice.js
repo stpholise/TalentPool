@@ -33,7 +33,7 @@
             state.company = action.payload.company
             state.contract_type = action.payload.contract_type
             state.salary_min = action.payload.salary_min
-            state.salary_max = action.payload.salary_max
+            state.salary_max = action.payload.salary_max 
         },
         clearJobState: () => initialState
     }
