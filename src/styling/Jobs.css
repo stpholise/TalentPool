@@ -443,8 +443,41 @@
     font-size:14px; 
     max-width:300px;
 }
+/*  SAVED JOBS MENU */
+/* ===================== */
+/* ===================== */
+/* ===================== */
+/* ===================== */
+.saved-jobs-menu{
+    display:flex;
+    padding: 0.5rem;
+    gap:1rem;
+    justify-content: center;
+    align-items: center;
+    background:#fff;
+    width:100%;
+    border-radius:5px;
+    
+}
+ .saved-jobs-menu button{
+    padding-bottom:0.5rem; 
+    border-bottom: 2px solid transparent;
+ }
+
+.saved-jobs-menu button.active{
+    border-bottom:2px solid #0A84FF;
+    color:#0A84FF;
+}
 
  
+.saved-jobs-menu button:hover{
+    border-bottom:2px solid #0A84FF;
+    color:#0A84FF;
+    transition:ease-in-out 0.3s;
+}
+.fullSize.flexLeft {
+    margin-left: 212px;
+}
 
 @media(max-width:1024px){
     .fullSize{ 
@@ -454,6 +487,9 @@
         height:calc(100vh - 104);
         justify-content:center;
         align-items:baseline;
+    }
+    .fullSize.flexLeft {
+        margin: 50px auto 0 ;
     }
 }
 
