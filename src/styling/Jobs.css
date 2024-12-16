@@ -443,8 +443,32 @@
     font-size:14px; 
     max-width:300px;
 }
+/*  SAVED JOBS MENU */
+/* ===================== */
+/* ===================== */
+/* ===================== */
+/* ===================== */
+.saved-jobs-menu{
+    display:flex;
+    padding: 0.5rem;
+    gap:1rem;
+    justify-content: center;
+    align-items: center;
 
- 
+}
+ .saved-jobs-menu button{
+    padding-bottom:0.5rem;
+ }
+
+.saved-jobs-menu button.active{
+    border-bottom:2px solid #0A84FF;
+    color:#0A84FF;
+}
+
+.saved-jobs-menu button:hover{
+    border-bottom:2px solid #0A84FF;
+    color:#0A84FF;
+}
 
 @media(max-width:1024px){
     .fullSize{ 

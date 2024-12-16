@@ -12,13 +12,13 @@ import Profile from './pages/Profile'
 import Dashboard from './pages/Dashboard' 
 import JobDetail from './pages/JobDetail'
 import JobApplication from './pages/JobApplication'
-// import AppSuccess from './pages/AppSuccess'
-// import slices from my resux store 
+import SavedJobs from './pages/SavedJobs'
 import { closeAll } from './store/AppSlice'
 import { modalIsClose } from './store/AppSlice'
 // import packages, react-router-dom for route management and redux for global state management
 import { useSelector, useDispatch }  from 'react-redux'
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
+
 
  
 function App() {
@@ -85,12 +85,11 @@ function App() {
           />} />          
           <Route path='/profile' element={isLogedin ? <Profile user={user}
            /> : <Navigate to='/signin' replace />} />
-          {/* <Route path='/EmployerDashboard' element={<GuardRoute element={EmployerDashboard} auth={isLogedin} user={user}  />} /> */}
            <Route path='/jobs/:id' element={<GuardRoute element={JobDetail} auth={isLogedin} user={user} 
           />} />
-           {/* <Route path='/appSuccess' element={<GuardRoute element={AppSuccess} auth={isLogedin} user={user} 
-          />} /> */}
            <Route path='/jobs/:id/apply' element={<GuardRoute element={JobApplication} auth={isLogedin} user={user} 
+          />} />
+           <Route path='/saved-jobs/' element={<GuardRoute element={SavedJobs} auth={isLogedin} user={user} 
           />} />
           <Route exact path='/signup' element={<Signup 
           />} />
