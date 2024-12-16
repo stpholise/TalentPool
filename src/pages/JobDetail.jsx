@@ -1,20 +1,15 @@
-
-// import LinkExternal from '../assets/link-external.svg'
+ 
 import Marker from '../assets/marker.svg'
-
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector, }  from 'react-redux'
- 
 import { Link, useParams } from 'react-router-dom';
 
 
 
 const JobDetail = () => {
-
-  // const pageLocation = useLocation()
+ 
   const { id } = useParams()
-  
-  // const job = useSelector((state) => state.jobSlice.job)
+   
   const created = useSelector((state) => state.jobSlice.created)
   const location = useSelector((state) => state.jobSlice.location)
   const description = useSelector((state) => state.jobSlice.description)
@@ -25,9 +20,7 @@ const JobDetail = () => {
   const contract_type = useSelector((state) => state.jobSlice.contract_type)
   const salary_min = useSelector((state) => state.jobSlice.salary_min)
   const salary_max = useSelector((state) => state.jobSlice.salary_max)
-
-  // console.log(id)
-//  console.log(pageLocation)
+  
 
   const handleTimeDifference = (created) => {
     const today = new Date() ;
@@ -58,6 +51,10 @@ const JobDetail = () => {
                        <h4 className='companyName '> { company.display_name}
                         </h4>
                        <h5> { location.area[location.area.length - 1]} </h5>
+                       {
+                          (salary_min && salary_max)  &&
+                          <h5 className="category"> Salary: £{salary_min} - £{salary_max} </h5>
+                        }
                   </div>
                   <div className='applyBtns' >
                     <Link to={`/jobs/${id}/apply`}   className='applyLink blueBg'>
@@ -83,14 +80,11 @@ const JobDetail = () => {
               <p>{ description}</p>
             </section> 
 
-            <section className="jobDetailfooter bbottom">
+            <section className="jobDetailfooter  bbottom">
               <h5 className="category"> Category: {category?.label} </h5>
                
             
-              {
-                (salary_min && salary_max)  &&
-                <h5 className="category"> pay: £{salary_min} - £{salary_max} </h5>
-              }
+             
               {
                 contract_type &&
                 <h5 className="category"> Job Type: {contract_type} </h5>

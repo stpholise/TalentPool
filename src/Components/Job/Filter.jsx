@@ -296,8 +296,7 @@ const jobTypesArr = [
                     hideValue={true}
                     exRange = {100000}
                     isClearable={isClearable}
-                    setIsClearable={setIsClearable}
-                    // minRange={0}
+                    setIsClearable={setIsClearable} 
                 />
             </div>
            }
