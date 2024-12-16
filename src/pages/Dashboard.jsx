@@ -1,5 +1,5 @@
 
-// import { PropTypes } from 'prop-types'
+ 
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css';
 import DisplayPhoto from '../assets/OhKElOkQ3RE.png'
@@ -23,6 +23,8 @@ const Dashboard = () => {
 
     const skills = useSelector((state) => state.users.skills) || [];
 
+    const user = useSelector((state) => state.users.user)
+    const { name, email, occupation, phone, location } = user
   
 
     // scrollToTop()
@@ -49,13 +51,13 @@ const Dashboard = () => {
             <div className="contactInfoContainer">
             <div className="contactProfile">
                 <img src={DisplayPhoto} className='displayPhoto' alt="display photo" />
-                <h3 className="profileName">Genesis Anosike</h3>
-                <h5 className="profileOcupation">UI/UX Designer</h5>
+                <h3 className="profileName">{name}</h3>
+                <h5 className="profileOcupation">{occupation}</h5>
             </div>
             <div className="contactAddress">
-                <p className="profileEmail address"> <img src={EmailIcon} alt="profile Email" /> <span>anosikegenesis@gmail.com</span> </p>
-                <p className="profilePhone address"> <img src={PhoneIcon} alt="profile Phone" /> <span>0801 - 234 - 5678</span></p>
-                <p className="profileLocation address"> <img src={LocationIcon} alt="profile Location" /> <span>Lagos, Nigeria</span></p>
+                <p className="profileEmail address"> <img src={EmailIcon} alt="profile Email" /> <span>{email}</span> </p>
+                <p className="profilePhone address"> <img src={PhoneIcon} alt="profile Phone" /> <span>{phone}</span></p>
+                <p className="profileLocation address"> <img src={LocationIcon} alt="profile Location" /> <span>{location}</span></p>
                 <h5 className="profileTitle address">Portfolio</h5>
                 <p className="profileTwitter address"><img src={TwitterIcon} alt="Twitter link" /> @Anosike_UI</p>
                 <a href='https://dribbble.com' rel="noopener" target='_blank' className="profileDribble address"><img src={Dribble} alt="Dribble link" />https://dribbble.com</a>

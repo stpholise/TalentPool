@@ -67,9 +67,7 @@ const JobSearch = () => {
 
               { !isLoading &&
                 jobs.map((job) =>{ 
-                   const uniqueId = uuidv4()
-               
-                   
+                   const uniqueId = uuidv4() 
                  return (
                   <div  key={uniqueId} className="jobDetails">
                      <JobCard 
