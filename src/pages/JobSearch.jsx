@@ -17,9 +17,8 @@ const JobSearch = () => {
   const [ pageNumber, setPageNumber ] = useState(1)
   const [ isVisible, setIsVisible ] = useState(false)
   const [ searchValue, setSearchValue ] = useState('')
-  const [isFetchTriggered, setIsFetchTriggered] = useState(false)
-  const { errorMessage, isLoading, jobs, count } =  useFetchJobs({filter, setFilter, searchValue, pageNumber, isFetchTriggered, setIsFetchTriggered, 
-  
+  const [ isFetchTriggered, setIsFetchTriggered] = useState(false)
+  const { errorMessage, isLoading, jobs, count } =  useFetchJobs({filter, setFilter, searchValue, pageNumber, isFetchTriggered, setIsFetchTriggered,  
   })
   
 
