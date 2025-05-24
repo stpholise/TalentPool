@@ -1125,3 +1125,42 @@ li{
 
 
 }
+
+.w-30{
+  width:30px;
+}
+
+.w-full{
+  width: 100%;
+}
+
+.always-hidden{
+  display: none;
+}
+
+.w-18p{
+  width:18px
+}
+
+.m-auto{ 
+  margin: auto;
+}
+
+.wh-24p{
+  width:24px;
+  height:24px;
+}
+
+.profile-link-btn {
+  color:#C23826;
+  text-align:center}
+
+.trash-icon-btn {
+  width: 18px;
+  fill: #ffffff;
+  stroke: #ffffff;
+                            
+}
+.text-white{
+  color:#ffffff
+}
