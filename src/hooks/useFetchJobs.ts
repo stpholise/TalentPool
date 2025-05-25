@@ -22,7 +22,7 @@ interface UseFetchJobsProps {
   searchValue?: string;
   pageNumber?: number;
   isFetchTriggered?: boolean;
-  setFilter?: ( value: Filter ) => void;
+  setFilter?: (value: Filter) => void;
   setIsFetchTriggered?: (value: boolean) => void;
   viewMore?: number;
 }
@@ -87,14 +87,14 @@ const useFetchJobs = ({
 
       // Construct the query string for jobClassification
       const handleJobClass = (jobClassification?: string): string => {
-        if (!jobClassification) return "&full_time=1";
+        if (!jobClassification) return "";
         switch (jobClassification) {
           case "full_time":
             return "&full_time=1";
           case "part_time":
             return "&part_time=1";
           default:
-            return "";
+            return "&full_time=1";
         }
       };
 
@@ -102,7 +102,7 @@ const useFetchJobs = ({
         salaryMax: number,
         salaryMin: number
       ): string => {
-        if (salaryMax == 0) return ""; 
+        if (salaryMax == 0) return "";
         if (salaryMax <= salaryMin) return "";
         return `&salary_max=${salaryMax}`;
       };

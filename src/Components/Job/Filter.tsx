@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Close from "../../assets/close.svg";
 import ProgressBar from "../ProgressBar";
 import CountryFilter from "./CountryFilter";
@@ -22,7 +22,7 @@ interface Filter {
 }
 
 interface FilterProps {
-  filter: Filter
+  filter: Filter;
   isVisible: boolean;
   setIsVisible: (value: boolean) => void;
   setIsFetchTriggered: (value: boolean) => void;
@@ -145,8 +145,8 @@ const Filter: React.FC<FilterProps> = ({
     { value: "permanent", label: "Permanent" },
   ];
 
-  const handleSkill = ( e: React.ChangeEvent<HTMLInputElement> ) => {
-    const value = e.target.value
+  const handleSkill = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
     if (selected.includes(value)) {
       setSelected(selected.filter((skill) => skill !== value));
     } else {
@@ -159,15 +159,16 @@ const Filter: React.FC<FilterProps> = ({
     }
   };
 
-  const hadleJobType = ( e: React.ChangeEvent<HTMLInputElement> ) => {
-    const value = e.target.value 
-    if(value === "permanent" || value === "contract"){
-    setJobType(value);
-    if (isClearable.includes(value)) {
-      setIsClearable(isClearable.filter((skill) => skill !== value));
-    } else {
-      setIsClearable([...isClearable, value]);
-    }}
+  const hadleJobType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === "permanent" || value === "contract") {
+      setJobType(value);
+      if (isClearable.includes(value)) {
+        setIsClearable(isClearable.filter((skill) => skill !== value));
+      } else {
+        setIsClearable([...isClearable, value]);
+      }
+    }
   };
 
   const hadleJobClassification = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -195,6 +196,9 @@ const Filter: React.FC<FilterProps> = ({
     });
     setPageNumber(1);
   };
+  useEffect(() => {
+    applyFilter();
+  }, []);
 
   return (
     <>

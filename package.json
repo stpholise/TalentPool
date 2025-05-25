@@ -15,6 +15,7 @@
     "@types/node": "^22.15.18",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
+    "clsx": "^2.1.1",
     "formik": "^2.4.6",
     "prop-types": "^15.8.1",
     "rc-slider": "^11.1.7",

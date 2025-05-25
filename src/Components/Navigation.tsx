@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import Logo from '../assets/logo.svg' 
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
+import { useLocation } from "react-router-dom"
+import clsx from 'clsx'
 
 interface  NavLink{ 
   name: string;
@@ -10,6 +12,7 @@ interface  NavLink{
 
 const Nav = () => {
 
+  const location = useLocation()
   // Dispatch the action
   const  state = useSelector((state: RootState) => state.app.genMenu) // Get the state from the store
 
@@ -35,7 +38,10 @@ const Nav = () => {
       
         <div className="navCont">
         { navLinks.map((link, index) => (
-            <Link key={index} className='navItem' to={link.path}>{link.name}</Link>
+          <Link key={index} className={clsx( 'navItem' , {
+            'current-page': location.pathname === link.path
+          })} to={link.path}
+          >{link.name}</Link>
           ))}
           
         </div>
